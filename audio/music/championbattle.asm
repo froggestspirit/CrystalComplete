@@ -6,7 +6,7 @@ Music_ChampionBattle: ; ea9c1
 
 
 Music_ChampionBattle_Ch1: ; ea9ca
-	tempo 98
+	ftempo 98
 	volume $77
 	dutycycle $3
 	tone $0002

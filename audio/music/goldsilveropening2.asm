@@ -7,7 +7,7 @@ Music_GoldSilverOpening2: ; f7308
 
 
 Music_GoldSilverOpening2_Ch1: ; f7314
-	tempo 92
+	ftempo 92
 	volume $77
 	dutycycle $3
 	tone $0002

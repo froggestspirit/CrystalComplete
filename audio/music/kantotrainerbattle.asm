@@ -7,7 +7,7 @@ Music_KantoTrainerBattle: ; ec9fa
 INCBIN "baserom.gbc", $eca03, $eca04 - $eca03
 
 Music_KantoTrainerBattle_Ch1: ; eca04
-	tempo 114
+	ftempo 114
 	volume $77
 	forceoctave $1b
 	notetype $c, $b3

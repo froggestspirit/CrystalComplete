@@ -7,7 +7,7 @@ Music_CrystalOpening: ; 1786e8
 
 
 Music_CrystalOpening_Ch1: ; 1786f4
-	tempo 136
+	ftempo 136
 	volume $77
 	tone $0002
 	vibrato $10, $34

@@ -7,7 +7,7 @@ Music_KantoWildBattle: ; ed06d
 INCBIN "baserom.gbc", $ed076, $ed077 - $ed076
 
 Music_KantoWildBattle_Ch1: ; ed077
-	tempo 112
+	ftempo 112
 	volume $77
 	vibrato $12, $23
 	dutycycle $2

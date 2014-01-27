@@ -22679,7 +22679,7 @@ Function14f1c: ; 14f1c
 	ret
 
 .asm_14f6c
-	ld hl, $4f7c
+	ld hl, .DefaultOptions
 	ld de, Options
 	ld bc, $0008
 	call CopyBytes
@@ -22687,8 +22687,15 @@ Function14f1c: ; 14f1c
 	ret
 ; 14f7c
 
-INCBIN "baserom.gbc",$14f7c,$14f84 - $14f7c
-
+.DefaultOptions
+	db $41
+	db $00
+	db $00
+	db $01
+	db $00
+	db $01
+	db $00
+	db $00
 
 Function14f84: ; 14f84
 	ld a, $1
@@ -77171,7 +77178,8 @@ _OptionsMenu: ; e41d0
 	call PlaceString
 	xor a
 	ld [$cf63], a
-	ld c, $6
+	ld [hJoyPressed], a
+	ld c, 10 ;number of options -1
 .asm_e41f3
 	push bc
 	xor a
@@ -77217,26 +77225,26 @@ _OptionsMenu: ; e41d0
 ; e4241
 
 StringOptions: ; e4241
-	db "TEXT SPEED", $22
-	db "        :", $22
-	db "BATTLE SCENE", $22
-	db "        :", $22
-	db "BATTLE STYLE", $22
-	db "        :", $22
-	db "SOUND", $22
-	db "        :", $22
-	db "PRINT", $22
-	db "        :", $22
-	db "MENU ACCOUNT", $22
-	db "        :", $22
-	db "FRAME", $22
-	db "        :TYPE", $22
+	db "TEXT SPEED:", $22
+	db "BATTLE SCENE:", $22
+	db "BATTLE TYPE:", $22
+	db "SOUND:", $22
+	db "MUSIC:", $22
+	db "NITE MUSIC:", $22
+	db "MENU ACCOUNT:", $22
+	db "FRAME TYPE:", $22
+	db "MUSIC TEST:", $22
+	db "SOUND TEST:", $22
+	db " ", $22
+	db " ", $22
+	db " ", $22
+	db " ", $22
 	db "CANCEL@"
 ; e42d6
 
 
 GetOptionPointer: ; e42d6
-	ld a, [$cf63] ;load the cusror position to a
+	ld a, [$cf63] ;load the cursor position to a
 	ld e, a ;copy it to de
 	ld d, 0
 	ld hl, .Pointers
@@ -77253,9 +77261,12 @@ GetOptionPointer: ; e42d6
 	dw Options_BattleScene
 	dw Options_BattleStyle
 	dw Options_Sound
-	dw Options_Print
+	dw Options_SoundTrack
+	dw Options_NiteMusic
 	dw Options_MenuAccount
 	dw Options_Frame
+	dw Options_MusicTest
+	dw Options_SoundTest
 	dw Options_Cancel
 ; e42f5
 
@@ -77302,7 +77313,7 @@ Options_TextSpeed: ; e42f5
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	hlcoord 11, 3
+	hlcoord 13, 2
 	call PlaceString
 	and a
 	ret
@@ -77376,7 +77387,7 @@ Options_BattleScene: ; e4365
 	ld de, .Off
 
 .Display
-	hlcoord 11, 5
+	hlcoord 15, 3
 	call PlaceString
 	and a
 	ret
@@ -77419,7 +77430,7 @@ Options_BattleStyle: ; e43a0
 	ld de, .Set
 
 .Display
-	hlcoord 11, 7
+	hlcoord 14, 4
 	call PlaceString
 	and a
 	ret
@@ -77469,7 +77480,7 @@ Options_Sound: ; e43dd
 	ld de, .Stereo
 
 .Display
-	hlcoord 11, 9
+	hlcoord 8, 5
 	call PlaceString
 	and a
 	ret
@@ -77482,105 +77493,103 @@ Options_Sound: ; e43dd
 ; e4424
 
 
-Options_Print: ; e4424
-	call GetPrinterSetting
+Options_SoundTrack: ; e43dd
+	ld hl, GBPrinter
 	ld a, [hJoyPressed]
 	bit 5, a
 	jr nz, .LeftPressed
 	bit 4, a
 	jr z, .NonePressed
-	ld a, c
-	cp $4
-	jr c, .Increase
-	ld c, $ff
-
-.Increase
-	inc c
-	ld a, e
-	jr .Save
+	bit 0, [hl]
+	jr nz, .SetOriginal
+	jr .SetMixed
 
 .LeftPressed
-	ld a, c
-	and a
-	jr nz, .Decrease
-	ld c, $5
-
-.Decrease
-	dec c
-	ld a, d
-
-.Save
-	ld b, a
-	ld [GBPrinter], a
+	bit 0, [hl]
+	jr z, .SetMixed
+	jr .SetOriginal
 
 .NonePressed
-	ld b, $0
-	ld hl, .Strings
-	add hl, bc
-	add hl, bc
-	ld e, [hl]
-	inc hl
-	ld d, [hl]
-	hlcoord 11, 11
+	bit 0, [hl]
+	jr nz, .ToggleMixed
+	jr .ToggleOriginal
+
+.SetOriginal
+	res 0, [hl]
+	call Function3d47 ;reload the music
+
+.ToggleOriginal
+	ld de, .Original
+	jr .Display
+
+.SetMixed
+	set 0, [hl]
+	call Function3d47 ;reload the music
+
+.ToggleMixed
+	ld de, .Mixed
+
+.Display
+	hlcoord 8, 6
 	call PlaceString
 	and a
 	ret
-; e445a
+; e4416
 
-.Strings
-	dw .Lightest
-	dw .Lighter
-	dw .Normal
-	dw .Darker
-	dw .Darkest
+.Original
+	db "ORIGINAL@"
+.Mixed
+	db "MIXED   @"
+; e4424
 
-.Lightest
-	db "LIGHTEST@"
-.Lighter
-	db "LIGHTER @"
-.Normal
-	db "NORMAL  @"
-.Darker
-	db "DARKER  @"
-.Darkest
-	db "DARKEST @"
-; e4491
+Options_NiteMusic: ; e43dd
+	ld hl, GBPrinter
+	ld a, [hJoyPressed]
+	bit 5, a
+	jr nz, .LeftPressed
+	bit 4, a
+	jr z, .NonePressed
+	bit 3, [hl]
+	jr nz, .SetOn
+	jr .SetOff
 
+.LeftPressed
+	bit 3, [hl]
+	jr z, .SetOff
+	jr .SetOn
 
-GetPrinterSetting: ; e4491
-	ld a, [GBPrinter] ;converts from the stored printer setting to 0,1,2,3,4
+.NonePressed
+	bit 3, [hl]
+	jr nz, .ToggleOff
+	jr .ToggleOn
+
+.SetOn
+	res 3, [hl]
+	call Function3d47 ;reload the music
+
+.ToggleOn
+	ld de, .On
+	jr .Display
+
+.SetOff
+	set 3, [hl]
+	call Function3d47 ;reload the music
+
+.ToggleOff
+	ld de, .Off
+
+.Display
+	hlcoord 13, 7
+	call PlaceString
 	and a
-	jr z, .IsLightest
-	cp $20
-	jr z, .IsLight
-	cp $60
-	jr z, .IsDark
-	cp $7f
-	jr z, .IsDarkest
-	ld c, $2 ;normal if none of the above
-	ld de, $2060 ;the 2 values next to this setting
 	ret
+; e4416
 
-.IsLightest
-	ld c, $0
-	ld de, $7f20 ;the 2 values next to this setting
-	ret
-
-.IsLight
-	ld c, $1
-	ld de, $0040 ;the 2 values next to this setting
-	ret
-
-.IsDark
-	ld c, $3
-	ld de, $407f ;the 2 values next to this setting
-	ret
-
-.IsDarkest
-	ld c, $4
-	ld de, $6000 ;the 2 values next to this setting
-	ret
-; e44c1
+.On
+	db "ON @"
+.Off
+	db "OFF@"
+; e4424
 
 Options_MenuAccount: ; e44c1
 	ld hl, Options2
@@ -77612,7 +77621,7 @@ Options_MenuAccount: ; e44c1
 	ld de, .On
 
 .Display
-	hlcoord 11, 13
+	hlcoord 15, 8
 	call PlaceString
 	and a
 	ret
@@ -77652,13 +77661,113 @@ Options_Frame: ; e44fa
 
 Functione4512: ; e4512
 	ld a, [TextBoxFrame]
-	ld hl, $c5dc ;where on the screen the number is drawn
+	ld hl, $c561 ;where on the screen the number is drawn
 	add "1"
 	ld [hl], a
 	call Functione5f
 	and a
 	ret
 ; e4520
+
+Options_MusicTest: ; e44fa
+	ld hl, CurMusic
+	ld a, [hJoyPressed]
+	bit 5, a
+	jr nz, .LeftPressed
+	bit 4, a
+	jr nz, .RightPressed
+	and A_BUTTON
+	jr nz, .APressed
+	ld a, [hl]
+	jr .Display
+
+.APressed
+	ld a, [hl]
+	push de
+	ld e, a
+	ld d, 0
+	call PlayMusic2
+	pop de
+	ret
+	
+.RightPressed
+	ld a, [hl]
+	inc a
+	cp a, 108 ;max number of songs +1
+	jr nz, .Display
+	ld a, 0
+	jr .Display
+	
+.LeftPressed
+	ld a, [hl]
+	dec a
+	cp a, $ff
+	jr nz, .Display
+	ld a, 107 ;max number or songs
+	
+.Display
+	ld [hl], a
+	hlcoord 13, 10
+	ld de, .blank
+	call PlaceString
+	ld de, CurMusic
+	ld bc, $0103
+	call PrintNum
+	and a
+	ret
+
+.blank
+	db "000@"
+
+Options_SoundTest: ; e4520
+	ld hl, $c000
+	ld a, [hJoyPressed]
+	bit 5, a
+	jr nz, .LeftPressed
+	bit 4, a
+	jr nz, .RightPressed
+	and A_BUTTON
+	jr nz, .APressed
+	ld a, [hl]
+	jr .Display
+
+.APressed
+	ld a, [hl]
+	push de
+	ld e, a
+	ld d, 0
+	call PlaySFX
+	pop de
+	ret
+	
+.RightPressed
+	ld a, [hl]
+	inc a
+	cp a, 207 ;max number of sfx +1
+	jr nz, .Display
+	ld a, 0
+	jr .Display
+	
+.LeftPressed
+	ld a, [hl]
+	dec a
+	cp a, $ff
+	jr nz, .Display
+	ld a, 206 ;max number or sfx
+	
+.Display
+	ld [hl], a
+	hlcoord 13, 11
+	ld de, .blank
+	call PlaceString
+	ld de, $c000
+	ld bc, $0103
+	call PrintNum
+	and a
+	ret
+
+.blank
+	db "000@"
 
 Options_Cancel: ; e4520
 	ld a, [hJoyPressed]
@@ -77684,13 +77793,13 @@ OptionsControl: ; e452a
 
 .DownPressed
 	ld a, [hl] ;load the cursor position to a
-	cp $7 ;maximum number of items in option menu
+	cp 10 ;maximum number of items in option menu
 	jr nz, .CheckFive
 	ld [hl], $0
 	scf
 	ret
 
-.CheckFive ;I have no idea why this exists..
+.CheckFive ;I have no idea why this exists...
 	cp $5
 	jr nz, .Increase
 	ld [hl], $5
@@ -77711,7 +77820,7 @@ OptionsControl: ; e452a
 .NotSix
 	and a
 	jr nz, .Decrease
-	ld [hl], $8 ;number of option items +1
+	ld [hl], 11 ;number of option items +1
 
 .Decrease
 	dec [hl]
@@ -77729,13 +77838,18 @@ Functione455c: ; e455c
 	dec c
 	jr nz, .asm_e4564
 	hlcoord 1, 2
-	ld bc, $0028
 	ld a, [$cf63]
+	cp a, 10 ;is the pointer on cancel?
+	jr z, .PointerCancel
+	ld bc, $0014
 	call AddNTimes
+.PointerLocation
 	ld [hl], $ed
 	ret
 ; e4579
-
+.PointerCancel
+	ld hl, $c5e1
+	jr .PointerLocation
 
 Functione4579: ; e4579
 	ld de, MUSIC_NONE
@@ -79805,7 +79919,6 @@ INCBIN "baserom.gbc", $e799d, $e7a5d - $e799d
 
 UnknownDatae7a5d: ; e7a5d
 INCBIN "baserom.gbc", $e7a5d, $e7a70 - $e7a5d
-
 
 
 SECTION "bank3E", ROMX, BANK[$3E]

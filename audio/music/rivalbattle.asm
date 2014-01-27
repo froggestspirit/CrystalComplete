@@ -6,7 +6,7 @@ Music_RivalBattle: ; e974f
 
 
 Music_RivalBattle_Ch1: ; e9758
-	tempo 102
+	ftempo 102
 	volume $77
 	dutycycle $3
 	tone $0002

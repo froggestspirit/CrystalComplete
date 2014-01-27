@@ -7,7 +7,7 @@ Music_Credits: ; 1f31c
 
 
 Music_Credits_Ch1: ; 1f328
-	tempo 139
+	ftempo 139
 	volume $77
 	stereopanning $f
 	dutycycle $3
@@ -167,7 +167,7 @@ Music_Credits_Ch1: ; 1f328
 	octave 4
 	note C#, 6
 	callchannel Music_Credits_branch_1f582
-	tempo 143
+	ftempo 143
 	octave 4
 	note D_, 6
 	octave 3
@@ -175,7 +175,7 @@ Music_Credits_Ch1: ; 1f328
 	note G_, 6
 	octave 4
 	note D_, 6
-	tempo 146
+	ftempo 146
 	note E_, 6
 	note F#, 6
 	note A_, 6
@@ -196,7 +196,7 @@ Music_Credits_branch_1f407: ; 1f407
 	note __, 1
 	note G#, 1
 	note __, 1
-	tempo 153
+	ftempo 153
 	notetype $c, $a7
 	octave 3
 	note C_, 1
@@ -247,7 +247,7 @@ Music_Credits_branch_1f407: ; 1f407
 	note __, 1
 	note A_, 1
 	note __, 1
-	tempo 160
+	ftempo 160
 	notetype $c, $a7
 	octave 2
 	note G_, 1

@@ -6,7 +6,7 @@ Music_TrainerVictory: ; ebeab
 
 
 Music_TrainerVictory_Ch1: ; ebeb4
-	tempo 120
+	ftempo 120
 	volume $77
 	dutycycle $2
 	tone $0001

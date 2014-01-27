@@ -6,7 +6,7 @@ Music_PostCredits: ; cfd9e
 INCBIN "baserom.gbc", $cfda4, $cfda5 - $cfda4
 
 Music_PostCredits_Ch1: ; cfda5
-	tempo 271
+	ftempo 271
 	volume $77
 	forceoctave $3
 	dutycycle $2

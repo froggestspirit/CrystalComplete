@@ -6,7 +6,7 @@ Music_JohtoTrainerBattle: ; f6096
 
 
 Music_JohtoTrainerBattle_Ch1: ; f609f
-	tempo 102
+	ftempo 102
 	volume $77
 	dutycycle $3
 	tone $0002

@@ -115,4 +115,11 @@
 	dbw BANK(Music_SuicuneBattle), Music_SuicuneBattle ; 0x178b81
 	dbw BANK(Music_BattleTowerLobby), Music_BattleTowerLobby ; 0x17948b
 	dbw BANK(Music_MobileCenter), Music_MobileCenter ; 0x17961d
-; e91a3
+
+;Remixes and custom songs:
+
+	dbw BANK(Music_JohtoGSC), Music_JohtoGSC 
+	dbw BANK(Music_CeruleanGSC), Music_CeruleanGSC
+	dbw BANK(Music_CinnabarGSC), Music_CinnabarGSC
+	dbw BANK(Music_NuggetBridge), Music_NuggetBridge
+	dbw BANK(Music_Shop), Music_Shop

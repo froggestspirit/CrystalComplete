@@ -6,7 +6,7 @@ Music_JohtoWildBattleNight: ; f605c
 
 
 Music_JohtoWildBattleNight_Ch1: ; f6065
-	tempo 107
+	ftempo 107
 	volume $77
 	dutycycle $3
 	tone $0002

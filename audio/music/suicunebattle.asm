@@ -6,7 +6,7 @@ Music_SuicuneBattle: ; 178b81
 
 
 Music_SuicuneBattle_Ch1: ; 178b8a
-	tempo 101
+	ftempo 101
 	volume $77
 	dutycycle $3
 	tone $0002

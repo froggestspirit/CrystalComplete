@@ -6,9 +6,9 @@ Music_SuccessfulCapture: ; f4602
 
 
 Music_SuccessfulCapture_Ch1: ; f460b
-	tempo 126
+	ftempo 126
 	volume $77
-	dutycycle $3
+	fdutycycle $3
 	tone $0001
 	notetype $c, $a1
 	jumpchannel Music_SuccessfulCapture_branch_f4536
@@ -16,7 +16,7 @@ Music_SuccessfulCapture_Ch1: ; f460b
 Music_SuccessfulCapture_Ch2: ; f461b
 	vibrato $12, $24
 	notetype $c, $c1
-	dutycycle $2
+	fdutycycle $2
 	jumpchannel Music_SuccessfulCapture_branch_f4585
 
 Music_SuccessfulCapture_Ch3: ; f4626

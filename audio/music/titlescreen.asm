@@ -7,7 +7,7 @@ Music_TitleScreen: ; eb808
 
 
 Music_TitleScreen_Ch1: ; eb814
-	tempo 134
+	ftempo 134
 	volume $77
 	dutycycle $3
 	tone $0002
@@ -160,7 +160,7 @@ Music_TitleScreen_Ch1: ; eb814
 	octave 3
 	note D_, 3
 	note G_, 3
-	tempo 136
+	ftempo 136
 	notetype $8, $b4
 	note F_, 3
 	note A_, 3
@@ -168,7 +168,7 @@ Music_TitleScreen_Ch1: ; eb814
 	octave 4
 	note C_, 3
 	note F_, 3
-	tempo 138
+	ftempo 138
 	notetype $8, $b4
 	note D_, 9
 	note C_, 9
@@ -193,9 +193,9 @@ Music_TitleScreen_Ch1: ; eb814
 	note G_, 12
 	octave 4
 	note C_, 6
-	tempo 136
+	ftempo 136
 	note C#, 6
-	tempo 134
+	ftempo 134
 	callchannel Music_TitleScreen_branch_eb96d
 	octave 4
 	note C_, 4

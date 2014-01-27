@@ -1393,7 +1393,28 @@ MusicCommands: ; e8720
 ; e8780
 
 MusicF1: ; e8780
+; global tempo
+; params: 2
+;	de: tempo
+	call GetMusicByte
+	ld d, a
+	call GetMusicByte
+	ld e, a
+	call SetGlobalTempo
+	ret
+
 MusicF2: ; e8780
+; duty cycle
+; params: 1
+	call GetMusicByte
+	rrca
+	rrca
+	and a, $c0
+	ld hl, Channel1DutyCycle - Channel1
+	add hl, bc
+	ld [hl], a
+	ret
+
 MusicF3: ; e8780
 MusicF4: ; e8780
 MusicF5: ; e8780
@@ -1904,14 +1925,29 @@ MusicDD: ; e8977
 ; e8984
 
 MusicDB: ; e8984
-; duty cycle
+; duty cycle, includes nite check
 ; params: 1
+	ld a, [GBPrinter]
+	bit 3, a
+	jp nz, MusicF2 ;skip nite check
+	ld a, [CurChannel]
+	cp a, $04
+	jp nc, MusicF2 ;skip nite check
 	call GetMusicByte
 	rrca
 	rrca
 	and a, $c0
 	ld hl, Channel1DutyCycle - Channel1
 	add hl, bc
+	ld d, a
+	ld a, [TimeOfDay]
+	cp NITE
+	ld a, d
+	jr z, .NiteDuty
+	ld [hl], a
+	ret
+.NiteDuty
+	xor a, $40
 	ld [hl], a
 	ret
 ; e8991
@@ -1929,13 +1965,36 @@ MusicDC: ; e8991
 ; e899a
 
 MusicDA: ; e899a
-; global tempo
+; global tempo includes nite check
 ; params: 2
 ;	de: tempo
+	ld a, [GBPrinter]
+	bit 3, a
+	jp nz, MusicF1 ;skip nite check
+	ld a, [CurChannel]
+	cp a, $04
+	jp nc, MusicF1 ;skip nite check
 	call GetMusicByte
 	ld d, a
 	call GetMusicByte
 	ld e, a
+	ld a, [TimeOfDay]
+	cp NITE
+	jr z, .NiteTempo
+	call SetGlobalTempo
+	ret
+.NiteTempo
+	push de
+	srl d
+	rr e
+	srl d
+	rr e
+	push de
+	pop hl
+	pop de
+	add hl, de
+	push hl
+	pop de
 	call SetGlobalTempo
 	ret
 ; e89a6
@@ -2329,7 +2388,11 @@ _PlayMusic: ; e8b30
 	ld [hl], e ; song number
 	inc hl
 	ld [hl], d ; MusicIDHi (always $00)
+	ld a, [GBPrinter]
+	bit 0, a
+	jr nz, .AltMusic
 	ld hl, Music
+.ContinueMusic
 	add hl, de ; three
 	add hl, de ; byte
 	add hl, de ; pointer
@@ -2365,6 +2428,9 @@ _PlayMusic: ; e8b30
 	ret
 ; e8b79
 
+.AltMusic
+	ld hl, Music2
+	jr .ContinueMusic
 PlayCry: ; e8b79
 ; Play cry de using parameters:
 ;	CryPitch

@@ -6,7 +6,7 @@ Music_GoldSilverOpening: ; f7055
 
 
 Music_GoldSilverOpening_Ch1: ; f705e
-	tempo 256
+	ftempo 256
 	volume $77
 	tone $0001
 	dutycycle $2
@@ -15,7 +15,7 @@ Music_GoldSilverOpening_Ch1: ; f705e
 	octave 1
 	note G#, 16
 	note G#, 16
-	tempo 168
+	ftempo 168
 	dutycycle $3
 	notetype $6, $c7
 	octave 3

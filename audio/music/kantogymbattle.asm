@@ -6,7 +6,7 @@ Music_KantoGymBattle: ; ec720
 
 
 Music_KantoGymBattle_Ch1: ; ec729
-	tempo 101
+	ftempo 101
 	volume $77
 	dutycycle $3
 	tone $0002

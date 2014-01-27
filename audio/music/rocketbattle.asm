@@ -6,7 +6,7 @@ Music_RocketBattle: ; e9b6f
 
 
 Music_RocketBattle_Ch1: ; e9b78
-	tempo 101
+	ftempo 101
 	volume $77
 	dutycycle $3
 	tone $0002

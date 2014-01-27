@@ -6,7 +6,7 @@ Music_WildPokemonVictory: ; f4518
 
 
 Music_WildPokemonVictory_Ch1: ; f4521
-	tempo 126
+	ftempo 126
 	volume $77
 	dutycycle $3
 	tone $0001

@@ -7,7 +7,7 @@ Music_MagnetTrain: ; ef5f0
 
 
 Music_MagnetTrain_Ch1: ; ef5fc
-	tempo 110
+	ftempo 110
 	volume $77
 	stereopanning $f
 	vibrato $14, $23

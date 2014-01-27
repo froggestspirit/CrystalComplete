@@ -7,7 +7,7 @@ Music_Evolution: ; f06e1
 
 
 Music_Evolution_Ch1: ; f06ed
-	tempo 132
+	ftempo 132
 	volume $77
 	vibrato $6, $34
 	tone $0001

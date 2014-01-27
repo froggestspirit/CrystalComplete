@@ -6,7 +6,7 @@ Music_JohtoGymBattle: ; ea50d
 
 
 Music_JohtoGymBattle_Ch1: ; ea516
-	tempo 101
+	ftempo 101
 	volume $77
 	dutycycle $3
 	tone $0002

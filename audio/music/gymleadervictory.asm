@@ -7,7 +7,7 @@ Music_GymLeaderVictory: ; f462c
 
 
 Music_GymLeaderVictory_Ch1: ; f4638
-	tempo 116
+	ftempo 116
 	volume $77
 	vibrato $12, $34
 	dutycycle $3
