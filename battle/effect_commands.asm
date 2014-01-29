@@ -3440,9 +3440,10 @@ PlayerAttackDamage: ; 352e2
 	ld d, a
 	ret z
 
+	ld hl, CurPlayerMove
 	ld a, [hl]
-	cp FIRE
-	jr nc, .special
+	call GetPhysicalSpecial
+	jr nz, .special
 
 
 ; Physical
@@ -3582,13 +3583,13 @@ GetDamageStats: ; 3537e
 	ld a, [hBattleTurn]
 	and a
 	jr nz, .enemy
-	ld a, [PlayerMoveType]
-	cp FIRE
+	ld a, [CurPlayerMove]
+	call GetPhysicalSpecial
 ; special
 	ld a, [PlayerSAtkLevel]
 	ld b, a
 	ld a, [EnemySDefLevel]
-	jr nc, .end
+	jr nz, .end
 ; physical
 	ld a, [PlayerAtkLevel]
 	ld b, a
@@ -3596,13 +3597,13 @@ GetDamageStats: ; 3537e
 	jr .end
 
 .enemy
-	ld a, [EnemyMoveType]
-	cp FIRE
+	ld a, [CurEnemyMove]
+	call GetPhysicalSpecial
 ; special
 	ld a, [EnemySAtkLevel]
 	ld b, a
 	ld a, [PlayerSDefLevel]
-	jr nc, .end
+	jr nz, .end
 ; physical
 	ld a, [EnemyAtkLevel]
 	ld b, a
@@ -3701,9 +3702,10 @@ EnemyAttackDamage: ; 353f6
 	and a
 	ret z
 
+	ld hl, CurEnemyMove
 	ld a, [hl]
-	cp FIRE
-	jr nc, .Special
+	call GetPhysicalSpecial
+	jr nz, .Special
 
 
 ; Physical
@@ -4468,9 +4470,7 @@ BattleCommand40: ; 35813
 	and a
 	ret z
 	ld b, a
-
 	callab GetMoveEffect
-
 	ld a, b
 	cp $59
 	ret z
@@ -4488,9 +4488,9 @@ BattleCommand40: ; 35813
 	ld a, [$d075]
 	and a
 	ret z
-	ld a, [$d076]
-	cp $14
-	ret nc
+	ld a, [$d073]
+	call GetPhysicalSpecial
+	ret nz
 	ld hl, CurDamage
 	ld a, [hli]
 	or [hl]
@@ -10199,9 +10199,9 @@ BattleCommand9a: ; 37c95
 	ld a, [$d075]
 	and a
 	ret z
-	ld a, [$d076]
-	cp $14
-	ret c
+	ld a, [$d073]
+	call GetPhysicalSpecial
+	ret z
 	ld hl, CurDamage
 	ld a, [hli]
 	or [hl]
