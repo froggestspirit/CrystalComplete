@@ -124,3 +124,5 @@
 	dbw BANK(Music_NuggetBridge), Music_NuggetBridge
 	dbw BANK(Music_Shop), Music_Shop
 	dbw BANK(Music_PokeathelonFinal), Music_PokeathelonFinal
+	dbw BANK(Music_PokeRadar), Music_PokeRadar
+	
