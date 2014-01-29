@@ -77693,7 +77693,7 @@ Options_MusicTest: ; e44fa
 .RightPressed
 	ld a, [hl]
 	inc a
-	cp a, 108 ;max number of songs +1
+	cp a, 109 ;max number of songs +1
 	jr nz, .Display
 	ld a, 0
 	jr .Display
@@ -77703,7 +77703,7 @@ Options_MusicTest: ; e44fa
 	dec a
 	cp a, $ff
 	jr nz, .Display
-	ld a, 107 ;max number or songs
+	ld a, 108 ;max number or songs
 	
 .Display
 	ld [hl], a
