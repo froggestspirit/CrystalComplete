@@ -241,7 +241,6 @@ Music_PokeathelonFinal_Loop1:
 	intensity $C3
 	octave 3
 	note A_, 6
-	octave 4
 	note C#, 1
 	intensity $81
 	octave 2
