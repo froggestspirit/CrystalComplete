@@ -19,6 +19,8 @@ from extras.pokemontools.crystal import (
     effect_classes,
     ChannelCommand,
     OctaveCommand,
+	DecimalBigEndianParam,
+	SingleByteParam,
 )
 
 from extras.pokemontools.audio import (
@@ -29,6 +31,33 @@ from extras.pokemontools.battle_animations import (
     BattleAnimWait,
     battle_animation_classes,
 )
+
+def get_music_class(name):
+    for class_ in music_classes:
+        if class_.macro_name == name:
+            return class_
+    return None
+
+get_music_class('music0xf1').__dict__.update({
+    'macro_name': 'ftempo',
+    'param_types': {
+        0: {
+            'name': 'tempo',
+            'class': DecimalBigEndianParam
+        }
+    },
+    'size': 3
+})
+get_music_class('music0xf2').__dict__.update({
+    'macro_name': 'fdutycycle',
+    'param_types': {
+        0: {
+            'name': 'dutycycle',
+            'class': SingleByteParam
+        }
+    },
+    'size': 2
+})
 
 def load_pokecrystal_macros():
     """
@@ -71,3 +100,4 @@ def main():
 # only run against stdin when not included as a module
 if __name__ == "__main__":
     main()
+
