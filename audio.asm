@@ -217,7 +217,7 @@ INCLUDE "audio/music/custom/cinnabarGSC.asm"
 INCLUDE "audio/music/custom/nuggetbridge.asm"
 INCLUDE "audio/music/custom/shop.asm"
 INCLUDE "audio/music/custom/pokeathelonfinal.asm"
-
+INCLUDE "audio/music/custom/pokeradar.asm"
 
 
 

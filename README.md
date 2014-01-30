@@ -1,6 +1,6 @@
-# Pokémon Crystal Complete
+# Pokémon Crystal
 
-This is a disassembly of Pokémon Crystal Complete.
+This is a disassembly of Pokémon Crystal.
 
 The source code in this project successfully converts back into a ROM image.
 

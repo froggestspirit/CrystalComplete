@@ -107,7 +107,7 @@ MAP_SCRIPTS_25            EQU $6C
 
 ; audio.o
 
-AUDIO                     EQU $3A
+AUDIO                     EQU $7C
 
 SONGS_1                   EQU $3A
 SONGS_2                   EQU $3B
@@ -117,6 +117,9 @@ SONGS_5                   EQU $5E
 
 EXTRA_SONGS_1             EQU $7
 EXTRA_SONGS_2             EQU $33
+RBY_SONGS_1             EQU $79
+RBY_SONGS_2             EQU $7A
+CUSTOM_SONGS_1             EQU $7B
 
 SOUND_EFFECTS             EQU $3C
 CRYSTAL_SOUND_EFFECTS     EQU $5E
