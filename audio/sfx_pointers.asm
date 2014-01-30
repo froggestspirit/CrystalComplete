@@ -1,5 +1,5 @@
 ; e927c
-	dbw $3c, $4b3f ; Dex Fanfare 50-79
+	dbw $3c, $4c2f ;dbw $3c, $4b3f ; Dex Fanfare 50-79
 	dbw $3c, $4c2f ; Item
 	dbw $3c, $4c89 ; Caught Mon
 	dbw $3c, $4941 ; Pokeballs Placed On Table
