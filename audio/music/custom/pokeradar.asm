@@ -6,7 +6,8 @@ Music_PokeRadar:
 Music_PokeRadar_Ch1:
 	tempo $68
 	volume $77
-	notetype $6, $B1
+	tone $0001
+	notetype $6, $91
 	dutycycle 2
 	octave 5
 	note F_, 1
@@ -15,7 +16,7 @@ Music_PokeRadar_Ch1:
 	note G_, 1
 	note F_, 9
 Music_PokeRadar_Loop1:
-	notetype $C, $A2
+	notetype $C, $82
 	octave 2
 	note A#, 6
 	octave 3
@@ -25,13 +26,13 @@ Music_PokeRadar_Loop1:
 	octave 3
 	note G#, 4
 	note F_, 2
-	intensity $A6
+	intensity $86
 	note C#, 12
 	note D_, 6
 	note D#, 6
 	octave 2
 	note A#, 6
-	intensity $A2
+	intensity $82
 	octave 3
 	note G#, 10
 	octave 2
@@ -39,7 +40,7 @@ Music_PokeRadar_Loop1:
 	octave 3
 	note G#, 4
 	note F_, 2
-	intensity $A6
+	intensity $86
 	note D_, 12
 	note C#, 6
 	note E_, 6
@@ -55,16 +56,16 @@ Music_PokeRadar_Loop1:
 	note D_, 4
 	note C#, 4
 	note C_, 12
-	intensity $A2
-	octave 2
-	note B_, 4
-	intensity $92
-	note B_, 4
 	intensity $82
+	octave 2
 	note B_, 4
 	intensity $72
 	note B_, 4
+	intensity $62
+	note B_, 4
 	intensity $52
+	note B_, 4
+	intensity $42
 	note B_, 4
 	intensity $32
 	note B_, 14

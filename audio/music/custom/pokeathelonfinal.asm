@@ -7,6 +7,7 @@ Music_PokeathelonFinal:
 Music_PokeathelonFinal_Ch1:
 	tempo $84
 	volume $77
+	tone $0002
 	notetype $2, $C3
 	vibrato 8, $24
 	dutycycle 2
@@ -62,19 +63,13 @@ Music_PokeathelonFinal_Ch1:
 	octave 2
 	note B_, 1
 	
-	notetype $C, $C2
-	dutycycle 2
-	octave 4
-	note F_, 1
-	note F#, 1
-	note G#, 1
-	octave 5
-	note C_, 1
-	note F_, 1
-	note D#, 1
+	octave 1
+	note D_, 1
 	note C#, 1
-	note C_, 1
-	intensity $C3
+	note C_, 4
+
+	notetype $C, $C3
+	note __, 7
 	dutycycle 0
 	octave 3
 	note F_, 2
@@ -243,10 +238,9 @@ Music_PokeathelonFinal_Loop1:
 	note A#, 1
 	note A#, 1
 	note A#, 1
-	intensity $C4
+	intensity $C3
 	octave 3
 	note A_, 6
-	intensity $C3
 	octave 4
 	note C#, 1
 	intensity $81
@@ -980,7 +974,8 @@ Music_PokeathelonFinal_Loop1:
 	note A#, 1
 	loopchannel 0, Music_PokeathelonFinal_Loop1
 Music_PokeathelonFinal_Ch2:
-	notetype $C, $C2
+	notetype $C, $E2
+	tone $0001
 	vibrato 8, $24
 	dutycycle 1
 	octave 3
@@ -994,6 +989,7 @@ Music_PokeathelonFinal_Ch2:
 	note D#, 1
 	note C#, 1
 	note C_, 1
+	intensity $C2
 	note C#, 8
 Music_PokeathelonFinal_Loop2:
 	notetype $4, $C2
