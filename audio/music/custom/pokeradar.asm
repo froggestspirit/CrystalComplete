@@ -17,27 +17,27 @@ Music_PokeRadar_Ch1:
 	note F_, 9
 Music_PokeRadar_Loop1:
 	notetype $C, $82
-	octave 2
+	octave 3
 	note A#, 6
-	octave 3
+	octave 4
 	note G#, 10
-	octave 2
-	note A#, 2
 	octave 3
+	note A#, 2
+	octave 4
 	note G#, 4
 	note F_, 2
 	intensity $86
 	note C#, 12
 	note D_, 6
 	note D#, 6
-	octave 2
+	octave 3
 	note A#, 6
 	intensity $82
-	octave 3
+	octave 4
 	note G#, 10
-	octave 2
-	note A#, 2
 	octave 3
+	note A#, 2
+	octave 4
 	note G#, 4
 	note F_, 2
 	intensity $86
@@ -57,7 +57,7 @@ Music_PokeRadar_Loop1:
 	note C#, 4
 	note C_, 12
 	intensity $82
-	octave 2
+	octave 3
 	note B_, 4
 	intensity $72
 	note B_, 4
@@ -84,27 +84,27 @@ Music_PokeRadar_Ch2:
 Music_PokeRadar_Loop2:
 	intensity $C2
 	dutycycle 1
-	octave 2
+	octave 3
 	note A#, 6
-	octave 3
+	octave 4
 	note G#, 10
-	octave 2
-	note A#, 2
 	octave 3
+	note A#, 2
+	octave 4
 	note G#, 4
 	note F_, 2
 	intensity $C7
 	note C#, 12
 	note D_, 6
 	note D#, 6
-	octave 2
+	octave 3
 	note A#, 6
 	intensity $C2
-	octave 3
+	octave 4
 	note G#, 10
-	octave 2
-	note A#, 2
 	octave 3
+	note A#, 2
+	octave 4
 	note G#, 4
 	note F_, 2
 	intensity $C7
@@ -123,7 +123,7 @@ Music_PokeRadar_Loop2:
 	note D_, 4
 	note C#, 4
 	note C_, 12
-	octave 2
+	octave 3
 	note B_, 16
 	note __, 16
 	note __, 16
