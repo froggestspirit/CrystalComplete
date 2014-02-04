@@ -220,6 +220,11 @@ INCLUDE "audio/music/custom/pokeathelonfinal.asm"
 INCLUDE "audio/music/custom/pokeradar.asm"
 INCLUDE "audio/music/custom/sinnohtrainer.asm"
 
+SECTION "Custom Songs 2", ROMX, BANK[CUSTOM_SONGS_2]
+
+INCLUDE "audio/music/custom/naljowildbattle.asm"
+INCLUDE "audio/music/custom/naljogymbattle.asm"
+INCLUDE "audio/music/custom/palletbattle.asm"
 
 
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]

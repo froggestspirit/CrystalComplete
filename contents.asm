@@ -120,6 +120,7 @@ EXTRA_SONGS_2             EQU $33
 RBY_SONGS_1             EQU $79
 RBY_SONGS_2             EQU $7A
 CUSTOM_SONGS_1             EQU $7B
+CUSTOM_SONGS_2             EQU $7F
 
 SOUND_EFFECTS             EQU $3C
 CRYSTAL_SOUND_EFFECTS     EQU $5E
@@ -130,5 +131,4 @@ CRIES                     EQU $3C
 ; misc.o
 
 MISC_CRYSTAL              EQU $5E
-
-
+VOLTORB_FLIP              EQU $7F

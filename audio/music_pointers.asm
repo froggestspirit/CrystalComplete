@@ -125,3 +125,6 @@
 	dbw BANK(Music_Shop), Music_Shop
 	dbw BANK(Music_PokeathelonFinal), Music_PokeathelonFinal
 	dbw BANK(Music_PokeRadar), Music_PokeRadar
+	dbw BANK(Music_NaljoWildBattle), Music_NaljoWildBattle
+	dbw BANK(Music_NaljoGymBattle), Music_NaljoGymBattle
+	dbw BANK(Music_PalletBattle), Music_PalletBattle

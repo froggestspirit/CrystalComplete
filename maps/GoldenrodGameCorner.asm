@@ -300,6 +300,10 @@ CooltrainerFScript_0x56e1d: ; 0x56e1d
 	jumptextfaceplayer UnknownText_0x57097
 ; 0x56e20
 
+GentlemanScript_VF: ; 0x56e1d
+	jumptextfaceplayer UnknownText_VF
+; 0x56e20
+
 GentlemanScript_0x56e20: ; 0x56e20
 	faceplayer
 	loadfont
@@ -339,6 +343,13 @@ MapGoldenrodGameCornerSignpost7Script: ; 0x56e40
 MapGoldenrodGameCornerSignpost29Script: ; 0x56e49
 	refreshscreen $0
 	special $002b
+	loadmovesprites
+	end
+; 0x56e50
+
+MapGoldenrodGameCornerSignpostVFScript: ; 0x56e49
+	refreshscreen $0
+	special $002c
 	loadmovesprites
 	end
 ; 0x56e50
@@ -453,6 +464,19 @@ UnknownText_0x571af: ; 0x571af
 	db "It smells sweet.", $57
 ; 0x571db
 
+UnknownText_VF: ; 0x56f9e
+	db $0, "Voltorb Flip makes", $4f
+	db "my heart pound", $51
+	db "with excitement!", $51
+	db "You can mark cards", $4f
+	db "by holding B and", $51
+	db "press a diagonal!", $51
+	db "To keep your coins", $4f
+	db "press SELECT", $51
+	db "to quit, press", $4f
+	db "START.", $57
+; 0x56ff4
+
 GoldenrodGameCorner_MapEventHeader: ; 0x571db
 	; filler
 	db 0, 0
@@ -491,12 +515,12 @@ GoldenrodGameCorner_MapEventHeader: ; 0x571db
 	signpost 9, 13, $0, MapGoldenrodGameCornerSignpost29Script
 	signpost 10, 13, $0, MapGoldenrodGameCornerSignpost29Script
 	signpost 11, 13, $4, MapGoldenrodGameCornerSignpost29Script
-	signpost 6, 18, $0, MapGoldenrodGameCornerSignpost29Script
-	signpost 7, 18, $0, MapGoldenrodGameCornerSignpost29Script
-	signpost 8, 18, $0, MapGoldenrodGameCornerSignpost29Script
-	signpost 9, 18, $0, MapGoldenrodGameCornerSignpost29Script
-	signpost 10, 18, $0, MapGoldenrodGameCornerSignpost29Script
-	signpost 11, 18, $3, MapGoldenrodGameCornerSignpost29Script
+	signpost 6, 18, $0, MapGoldenrodGameCornerSignpostVFScript
+	signpost 7, 18, $0, MapGoldenrodGameCornerSignpostVFScript
+	signpost 8, 18, $0, MapGoldenrodGameCornerSignpostVFScript
+	signpost 9, 18, $0, MapGoldenrodGameCornerSignpostVFScript
+	signpost 10, 18, $0, MapGoldenrodGameCornerSignpostVFScript
+	signpost 11, 18, $3, MapGoldenrodGameCornerSignpostVFScript
 	signpost 1, 12, $4, MapGoldenrodGameCornerSignpost30Script
 
 	; people-events
@@ -504,15 +528,15 @@ GoldenrodGameCorner_MapEventHeader: ; 0x571db
 	person_event SPRITE_CLERK, 6, 7, $6, $0, 255, 255, $80, 0, ClerkScript_0x56c25, $ffff
 	person_event SPRITE_RECEPTIONIST, 6, 20, $6, $0, 255, 255, $80, 0, ReceptionistScript_0x56c28, $ffff
 	person_event SPRITE_RECEPTIONIST, 6, 22, $6, $0, 255, 255, $80, 0, ReceptionistScript_0x56d01, $ffff
-	person_event SPRITE_PHARMACIST, 11, 12, $8, $0, 255, 2, $90, 0, PharmacistScript_0x56df1, $ffff
-	person_event SPRITE_PHARMACIST, 11, 12, $8, $0, 255, 4, $90, 0, PharmacistScript_0x56df1, $ffff
+	person_event SPRITE_PHARMACIST, 11, 12, $8, $0, 255, 255, $90, 0, PharmacistScript_0x56df1, $ffff
+	person_event SPRITE_GENTLEMAN, 15, 21, $9, $0, 255, 255, $b0, 0, GentlemanScript_VF, $ffff
 	person_event SPRITE_POKEFAN_M, 14, 15, $9, $0, 255, 255, $b0, 0, PokefanMScript_0x56dfc, $ffff
 	person_event SPRITE_COOLTRAINER_M, 12, 18, $8, $0, 255, 255, $90, 0, CooltrainerMScript_0x56e07, $ffff
 	person_event SPRITE_POKEFAN_F, 10, 21, $9, $0, 255, 255, $80, 0, PokefanFScript_0x56e12, $ffff
 	person_event SPRITE_COOLTRAINER_F, 7, 14, $2, $12, 255, 255, $a0, 0, CooltrainerFScript_0x56e1d, $ffff
 	person_event SPRITE_GENTLEMAN, 14, 9, $9, $0, 255, 255, $90, 0, GentlemanScript_0x56e20, $ffff
 	person_event SPRITE_POKEFAN_M, 13, 6, $2, $11, 255, 255, $b0, 0, PokefanMScript_0x56e2b, $ffff
-	person_event SPRITE_POKEFAN_M, 14, 21, $9, $0, 255, 255, $80, 0, PokefanMScript_0x56c1a, $076b
+	person_event SPRITE_POKEFAN_M, 13, 21, $9, $0, 255, 255, $80, 0, PokefanMScript_0x56c1a, $076b
 ; 0x57322
 
 

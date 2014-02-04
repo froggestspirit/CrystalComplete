@@ -44,6 +44,10 @@ FishingGuruScript_0x72139: ; 0x72139
 	end
 ; 0x72144
 
+GentlemanScript_VF2: ; 0x56e1d
+	jumptextfaceplayer UnknownText_VF2
+; 0x56e20
+
 FisherScript_0x72144: ; 0x72144
 	faceplayer
 	loadfont
@@ -102,7 +106,7 @@ GrampsScript_0x72190: ; 0x72190
 	2writetext UnknownText_0x724ad
 	closetext
 	loadmovesprites
-	spriteface $a, $2
+	spriteface $9, $2
 	end
 ; 0x7219b
 
@@ -138,6 +142,13 @@ MapCeladonGameCornerSignpost11Script: ; 0x721b9
 	loadmovesprites
 	end
 ; 0x721c0
+
+MapCeledonGameCornerSignpostVFScript: ; 0x56e49
+	refreshscreen $0
+	special $002c
+	loadmovesprites
+	end
+; 0x56e50
 
 MapCeladonGameCornerSignpost32Script: ; 0x721c0
 	jumptext UnknownText_0x7254f
@@ -264,6 +275,19 @@ UnknownText_0x72567: ; 0x72567
 	db "Huh? It's empty!", $57
 ; 0x725a4
 
+UnknownText_VF2: ; 0x56f9e
+	db $0, "Voltorb Flip makes", $4f
+	db "my heart pound", $51
+	db "with excitement!", $51
+	db "The numbers to the", $4f
+	db "side and bottom", $51
+	db "tell you how many", $4f
+	db "VOLTORB or numbers", $51
+	db "are there.", $51
+	db "Flip every 2 and 3", $4f
+	db "to win big!", $57
+; 0x56ff4
+
 CeladonGameCorner_MapEventHeader: ; 0x725a4
 	; filler
 	db 0, 0
@@ -278,12 +302,12 @@ CeladonGameCorner_MapEventHeader: ; 0x725a4
 
 	; signposts
 	db 38
-	signpost 6, 1, $0, MapCeladonGameCornerSignpost11Script
-	signpost 7, 1, $0, MapCeladonGameCornerSignpost11Script
-	signpost 8, 1, $0, MapCeladonGameCornerSignpost11Script
-	signpost 9, 1, $0, MapCeladonGameCornerSignpost11Script
-	signpost 10, 1, $0, MapCeladonGameCornerSignpost11Script
-	signpost 11, 1, $4, MapCeladonGameCornerSignpost11Script
+	signpost 6, 1, $0, MapCeledonGameCornerSignpostVFScript
+	signpost 7, 1, $0, MapCeledonGameCornerSignpostVFScript
+	signpost 8, 1, $0, MapCeledonGameCornerSignpostVFScript
+	signpost 9, 1, $0, MapCeledonGameCornerSignpostVFScript
+	signpost 10, 1, $0, MapCeledonGameCornerSignpostVFScript
+	signpost 11, 1, $4, MapCeledonGameCornerSignpostVFScript
 	signpost 6, 6, $0, MapCeladonGameCornerSignpost11Script
 	signpost 7, 6, $0, MapCeladonGameCornerSignpost11Script
 	signpost 8, 6, $0, MapCeladonGameCornerSignpost11Script
@@ -324,9 +348,9 @@ CeladonGameCorner_MapEventHeader: ; 0x725a4
 	person_event SPRITE_POKEFAN_M, 14, 18, $8, $0, 255, 255, $80, 0, PokefanMScript_0x72123, $ffff
 	person_event SPRITE_TEACHER, 11, 21, $9, $0, 255, 255, $90, 0, TeacherScript_0x7212e, $ffff
 	person_event SPRITE_FISHING_GURU, 11, 15, $9, $0, 255, 255, $a0, 0, FishingGuruScript_0x72139, $ffff
-	person_event SPRITE_FISHER, 14, 12, $8, $0, 255, 2, $80, 0, FisherScript_0x72144, $ffff
-	person_event SPRITE_FISHER, 14, 12, $8, $0, 255, 4, $80, 0, FisherScript_0x72144, $ffff
+	person_event SPRITE_FISHER, 14, 12, $8, $0, 255, 255, $80, 0, FisherScript_0x72144, $ffff
+	person_event SPRITE_GENTLEMAN, 14, 6, $8, $0, 255, 255, $80, 0, GentlemanScript_VF2, $ffff
 	person_event SPRITE_GYM_GUY, 7, 15, $6, $0, 255, 255, $80, 0, CeladonGymGuyScript, $ffff
-	person_event SPRITE_GRAMPS, 12, 6, $8, $0, 255, 255, $a0, 0, GrampsScript_0x72190, $ffff
+	person_event SPRITE_GRAMPS, 12, 9, $9, $0, 255, 255, $a0, 0, GrampsScript_0x72190, $ffff
 ; 0x726e7
 

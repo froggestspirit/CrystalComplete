@@ -8234,10 +8234,10 @@ Functionc380: ; c380
 ; c38d
 
 Functionc38d: ; c38d
-	call Functionc3ae
+	db $cd, $b5, $43 ;till this bank is fixed... should skip the coin check
 	ret c
-	ld a, BANK(Functione1e5b)
-	ld hl, Functione1e5b
+	ld a, BANK(VoltorbFlip)
+	ld hl, VoltorbFlip
 	call Functionc39a
 	ret
 ; c39a
@@ -77271,7 +77271,6 @@ GetOptionPointer: ; e42d6
 	dw Options_Cancel
 ; e42f5
 
-
 Options_TextSpeed: ; e42f5
 	call GetTextSpeed
 	ld a, [hJoyPressed]
@@ -77694,7 +77693,7 @@ Options_MusicTest: ; e44fa
 .RightPressed
 	ld a, [hl]
 	inc a
-	cp a, 110 ;max number of songs +1
+	cp a, 113 ;max number of songs +1
 	jr nz, .Display
 	ld a, 0
 	jr .Display
@@ -77704,7 +77703,7 @@ Options_MusicTest: ; e44fa
 	dec a
 	cp a, $ff
 	jr nz, .Display
-	ld a, 109 ;max number or songs
+	ld a, 112 ;max number or songs
 	
 .Display
 	ld [hl], a
@@ -98679,6 +98678,7 @@ INCLUDE "stats/odd_eggs.asm"
 
 
 SECTION "bank7F", ROMX, BANK[$7F]
+
 
 SECTION "stadium2",ROMX[$8000-$220],BANK[$7F]
 INCBIN "baserom.gbc",$1ffde0,$200000 - $1ffde0
