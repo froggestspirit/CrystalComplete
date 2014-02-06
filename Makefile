@@ -21,6 +21,7 @@ stats/evos_attacks_crystal.o \
 stats/pokedex/entries_crystal.o \
 misc/crystal_misc.o \
 misc/voltorb_flip.o \
+misc/musicplayer.o \
 gfx/pics.o
 
 OBJS := $(CRYSTAL_OBJS)

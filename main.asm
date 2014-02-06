@@ -77236,7 +77236,7 @@ StringOptions: ; e4241
 	db "FRAME TYPE:", $22
 	db "MUSIC TEST:", $22
 	db "SOUND TEST:", $22
-	db " ", $22
+	db "MUSIC PLAYER", $22
 	db " ", $22
 	db " ", $22
 	db " ", $22
@@ -77268,6 +77268,7 @@ GetOptionPointer: ; e42d6
 	dw Options_Frame
 	dw Options_MusicTest
 	dw Options_SoundTest
+	dw Options_MusicPlayer
 	dw Options_Cancel
 ; e42f5
 
@@ -77769,6 +77770,15 @@ Options_SoundTest: ; e4520
 .blank
 	db "000@"
 
+Options_MusicPlayer:
+	ld a, [hJoyPressed]
+	and A_BUTTON
+	ret z
+	callba MusicPlayer
+	scf
+	ret
+    
+
 Options_Cancel: ; e4520
 	ld a, [hJoyPressed]
 	and A_BUTTON
@@ -77793,7 +77803,7 @@ OptionsControl: ; e452a
 
 .DownPressed
 	ld a, [hl] ;load the cursor position to a
-	cp 10 ;maximum number of items in option menu
+	cp 11 ;maximum number of items in option menu
 	jr nz, .CheckFive
 	ld [hl], $0
 	scf
@@ -77820,7 +77830,7 @@ OptionsControl: ; e452a
 .NotSix
 	and a
 	jr nz, .Decrease
-	ld [hl], 11 ;number of option items +1
+	ld [hl], 12 ;number of option items +1
 
 .Decrease
 	dec [hl]
@@ -77839,7 +77849,7 @@ Functione455c: ; e455c
 	jr nz, .asm_e4564
 	hlcoord 1, 2
 	ld a, [$cf63]
-	cp a, 10 ;is the pointer on cancel?
+	cp a, 11 ;is the pointer on cancel?
 	jr z, .PointerCancel
 	ld bc, $0014
 	call AddNTimes

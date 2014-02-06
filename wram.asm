@@ -16,6 +16,9 @@ VBGMap1:
 
 SECTION "WRAMBank0",WRAM0[$c000]
 
+SECTION "hack", WRAM0[$c000]
+wSongSelection: ds 2
+
 SECTION "stack",WRAM0[$c0ff]
 Stack: ; c0ff
 	ds -$100
