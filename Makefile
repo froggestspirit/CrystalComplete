@@ -68,7 +68,7 @@ $(OBJS): $$*.tx $$(patsubst %.asm, %.tx, $$($$*_DEPENDENCIES))
 
 pokecrystal.gbc: globals.tx $(CRYSTAL_OBJS)
 	rgblink -n $*.sym -m $*.map -o $@ $(CRYSTAL_OBJS)
-	rgbfix -Cjv -i BYTE -k 01 -l 0x33 -m 0x10 -p 0 -r 3 -t PM_CRYSTAL $@
+	rgbfix -Cjv -i BYTE -k 01 -l 0x33 -m 0x1b -p 0 -r 3 -t PM_CRYSTAL $@
 	cmp baserom.gbc $@
 
 
