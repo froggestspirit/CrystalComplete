@@ -5,6 +5,9 @@ SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
 NUMSONGS EQU 167
 
+MusicTestGFX:
+INCBIN "gfx/misc/music_test.2bpp"
+
 placestring_: MACRO
     hlcoord \1, \2
     ld de, \3
@@ -38,13 +41,26 @@ textbox: MACRO
     call TextBox
     ENDM
 
-SECTION "bank79", ROMX, BANK[$79]
-
 MusicPlayer:
 	;ld de, 01
 	;call PlayMusic
 	;call WhiteBGMap
 	;call ClearTileMap
+	di
+	ld hl, $ff41
+	ld a, 1
+.wait
+	ld a, [hl]
+	and 3
+	cp a,1
+	jr nz, .wait
+	ld b, MUSIC_PLAYER ;load the gfx
+	ld c, 10
+	ld de, MusicTestGFX
+	ld hl, $8c60
+	call Copy2bpp
+	ei
+
 	ld bc, MPTilemapEnd-MPTilemap
 	ld hl, MPTilemap
 	decoord 0, 0
@@ -93,6 +109,7 @@ MusicPlayer:
     jr .redraw
 .redraw
     ld [wSongSelection], a
+	ld [CurMusic], a
 	ld a, " "
 	hlcoord 5, 2
 	ld bc, 95
@@ -291,7 +308,7 @@ ZeroText:
     db "000@"
 
 NoteNames:
-    db "- @C @C'@D @D'@E @F @F'@G @G'@A @A'@B @XX@"
+    db "- @C @C",198,"@D @D",198,"@E @F @F",198,"@G @G",198,"@A @A",198,"@B @XX@"
 ; ┌─┐│└┘
 MPTilemap:
 db "──┘ MUSIC PLAYER └──"
@@ -479,7 +496,7 @@ SongInfo:
     db 160, "Route 24@", 7, 1, 2
     db 161, "Shop@", 7, 1, 2
     db 162, "Pokéathelon Finals@", 7, 1, 2
-    db 163, "Vs. Johto Trainer 2@", 4, 1, 2
+    db 163, "Vs. Johto Trainer   GS Kanto Style Remix@", 3, 1, 2
     db 164, "Vs. Naljo Wild@", 11, 3, 2
     db 165, "Vs. Naljo Gym Leader@", 11, 4, 2
     db 166, "Vs. Pallet Patrol@", 11, 5, 2
