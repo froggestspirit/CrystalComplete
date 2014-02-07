@@ -109,7 +109,6 @@ MusicPlayer:
     jr .redraw
 .redraw
     ld [wSongSelection], a
-	ld [CurMusic], a
 	ld a, " "
 	hlcoord 5, 2
 	ld bc, 95
