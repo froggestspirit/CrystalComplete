@@ -1940,13 +1940,17 @@ MusicDB: ; e8984
 	ld hl, Channel1DutyCycle - Channel1
 	add hl, bc
 	ld d, a
+	ld a, [GBPrinter]
+	bit 2, a
+	jr nz, .NiteDuty ;for the Music test
 	ld a, [TimeOfDay]
 	cp NITE
-	ld a, d
 	jr z, .NiteDuty
+	ld a, d
 	ld [hl], a
 	ret
 .NiteDuty
+	ld a, d
 	xor a, $40
 	ld [hl], a
 	ret
@@ -1978,6 +1982,9 @@ MusicDA: ; e899a
 	ld d, a
 	call GetMusicByte
 	ld e, a
+	ld a, [GBPrinter]
+	bit 2, a
+	jr nz, .NiteTempo ;for the Music test
 	ld a, [TimeOfDay]
 	cp NITE
 	jr z, .NiteTempo
@@ -2389,6 +2396,8 @@ _PlayMusic: ; e8b30
 	inc hl
 	ld [hl], d ; MusicIDHi (always $00)
 	ld a, [GBPrinter]
+	bit 1, a
+	jr nz, .MTMusic
 	bit 0, a
 	jr nz, .AltMusic
 	ld hl, Music
@@ -2430,6 +2439,9 @@ _PlayMusic: ; e8b30
 
 .AltMusic
 	ld hl, Music2
+	jr .ContinueMusic
+.MTMusic
+	ld hl, MusicMT
 	jr .ContinueMusic
 PlayCry: ; e8b79
 ; Play cry de using parameters:

@@ -77672,7 +77672,13 @@ Options_MusicPlayer:
 	ld a, [hJoyPressed]
 	and A_BUTTON
 	ret z
+	ld a, [GBPrinter]
+	or 2 ;sets bit for Whole soundtrack
+	ld [GBPrinter], a
 	callba MusicPlayer
+	ld a, [GBPrinter]
+	and $f9 ;resets bits for nite music force, and Whole soundtrack
+	ld [GBPrinter], a
 	scf
 	ret
     

@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 113
+NUMSONGS EQU 167
 
 placestring_: MACRO
     hlcoord \1, \2
@@ -41,27 +41,32 @@ textbox: MACRO
 SECTION "bank79", ROMX, BANK[$79]
 
 MusicPlayer:
-	ld de, MUSIC_NONE
-	call PlayMusic
+	;ld de, 01
+	;call PlayMusic
 	;call WhiteBGMap
 	;call ClearTileMap
 	ld bc, MPTilemapEnd-MPTilemap
 	ld hl, MPTilemap
 	decoord 0, 0
 	call CopyBytes
+	ld a, [CurMusic]
+	jr .redraw
 .loop
     call DelayFrame
 	call GetJoypad
 	jbutton B_BUTTON, .exit
 	jbutton D_LEFT, .left
 	jbutton D_RIGHT, .right
+	jbutton D_DOWN, .down
+	jbutton D_UP, .up
 	jbutton A_BUTTON, .a
+	jbutton SELECT, .select
 	call DrawChData
     jr .loop
 .left
     ld a, [wSongSelection]
     dec a
-    cp a, $ff
+    cp a, $0
     jr nz, .redraw
     ld a, NUMSONGS-1
     jr .redraw
@@ -70,7 +75,21 @@ MusicPlayer:
     inc a
     cp a, NUMSONGS
     jr nz, .redraw
-    xor a
+    ld a, 1
+    jr .redraw
+.down
+    ld a, [wSongSelection]
+    sub a, 10
+    cp a, NUMSONGS
+    jr c, .redraw
+    ld a, NUMSONGS-1
+    jr .redraw
+.up
+    ld a, [wSongSelection]
+    add a, 10
+    cp a, NUMSONGS
+    jr c, .redraw
+    ld a, 1
     jr .redraw
 .redraw
     ld [wSongSelection], a
@@ -89,13 +108,37 @@ MusicPlayer:
 	ld bc, $0103
 	call PrintNum
 	call DrawSongName
-	jr .loop
+	hlcoord 16, 1
+	ld de, .daystring
+	ld a, [GBPrinter]
+	bit 2, a
+	jr nz, .nitemusic
+.drawtimestring
+	call PlaceString
+	jp .loop
+.nitemusic
+	ld de, .nitestring
+	jr .drawtimestring
+.nitestring
+	db "Nite@"
+.daystring
+	db "    @"
 .a
 	ld a, [wSongSelection]
 	ld e, a
 	ld d, 0
 	callba PlayMusic2
-	jr .loop
+	jp .loop
+.select
+	ld a, [GBPrinter]
+	xor 4
+	ld [GBPrinter], a
+	ld a, [wSongSelection]
+	ld e, a
+	ld d, 0
+	callba PlayMusic2
+	ld a, [wSongSelection]
+	jp .redraw
 .exit
     ret
 
@@ -345,62 +388,68 @@ SongNames:
     db 100, "VS. Suicune@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
     db 101, "Battle Tower Lobby@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
     db 102, "Mobile Center@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 103, "VS. Johto Trainer 2@", "Pokémon Crystal@", "Junichi Masuda@", "FroggestSpirit@"
-    db 104, "Cerulean City@", "Pokémon HeartGold@", "Junichi Masuda@", "FroggestSpirit@"
-    db 105, "Cinnabar Island@", "Pokémon HeartGold@", "Junichi Masuda@", "FroggestSpirit@"
-    db 106, "Route 24@", "Pokémon HeartGold@", "Junichi Masuda@", "FroggestSpirit@"
-    db 107, "Shop@", "Pokémon HeartGold@", "Junichi Masuda@", "FroggestSpirit@"
-    db 108, "Pokéathelon Finals@", "Pokémon HeartGold@", "Junichi Masuda@", "FroggestSpirit@"
-    db 109, "PokéRadar@", "Pokémon Diamond@", "Junichi Masuda@", "FroggestSpirit@"
-    db 110, "VS. Naljo Wild@", "Pokémon Prism@", "LevusBevus@", "FroggestSpirit@"
-    db 111, "VS. Naljo Gym Leader@", "Pokémon Crystal@", "GRonnoc@", "FroggestSpirit@"
-    db 112, "VS. Pallet Patrol@", "Pokémon Crystal@", "Cat333Pokémon@", "FroggestSpirit@"
-    db 113, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 114, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 115, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 116, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 117, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 118, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 119, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 120, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 121, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 122, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 123, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 124, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 125, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 126, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 127, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 128, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 129, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 130, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 131, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 132, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 133, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 134, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 135, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 136, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 137, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 138, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 139, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 140, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 141, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 142, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 143, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 144, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 145, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 146, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 147, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 148, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 149, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 150, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 151, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 152, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 153, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 154, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 155, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 156, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 157, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 158, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 159, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
-    db 160, "Bicycle@", "Pokémon Crystal@", "Junichi Masuda@", "Junichi Masuda@"
+    db 103, "Opening@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 104, "Opening@", "Pokémon Yellow@", "Junichi Masuda@", "Junichi Masuda@"
+    db 105, "Title Screen@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 106, "Introduction@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 107, "Pallet Town@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 108, "Professor Oak@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 109, "Oak's Lab@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 110, "Rival Appears@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 111, "Rival Departure@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 112, "Route 1@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 113, "Viridian City@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 114, "Pokémon Center@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 115, "Heal Pokémon@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 116, "Viridian Forest@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 117, "Follow Me!@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 118, "Gym@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 119, "Jigglypuff Sings@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 120, "Route 3@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 121, "Mt. Moon@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 122, "Jessie and James@", "Pokémon Yellow@", "Junichi Masuda@", "Junichi Masuda@"
+    db 123, "Cerulean City@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 124, "Vermilion City@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 125, "S.S. Anne@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 126, "Route 11@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 127, "Lavender Town@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 128, "Pokémon Tower@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 129, "Celedon City@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 130, "Game Corner@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 131, "Rocket Hideout@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 132, "Bicycle@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 133, "Evolution@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 134, "Surfing Pikachu@", "Pokémon Yellow@", "Junichi Masuda@", "Junichi Masuda@"
+    db 135, "Silph Co.@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 136, "Surfing@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 137, "Cinnabar Island@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 138, "Cinnabar Mansion@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 139, "Indigo Plateau@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 140, "Hall of Fame@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 141, "Credits@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 142, "Spotted! Boy@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 143, "Spotted! Girl@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 144, "Spotted! Rocket@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 145, "VS. Wild@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 146, "VS. Trainer@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 147, "VS. Gym Leader@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 148, "VS. Champion@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 149, "Victory! Wild@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 150, "Victory! Trainer@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 151, "Victory! Champion@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 152, "Unused@", "Pokémon Red@", "Junichi Masuda@", "Junichi Masuda@"
+    db 153, "Unused@", "Pokémon Yellow@", "Junichi Masuda@", "Junichi Masuda@"
+    db 154, "VS. Wild@", "Pokémon Diamond@", "Junichi Masuda@", "FroggestSpirit@"
+    db 155, "VS. Trainer@", "Pokémon Diamond@", "Junichi Masuda@", "FroggestSpirit@"
+    db 156, "Route 206@", "Pokémon Diamond@", "Junichi Masuda@", "FroggestSpirit@"
+    db 157, "PokéRadar@", "Pokémon Diamond@", "Junichi Diamond@", "FroggestSpirit@"
+    db 158, "Cerulean City@", "Pokémon HeartGold@", "Junichi Masuda@", "FroggestSpirit@"
+    db 159, "Cinnabar Island@", "Pokémon HeartGold@", "Junichi Masuda@", "FroggestSpirit@"
+    db 160, "Route 24@", "Pokémon HeartGold@", "Junichi Masuda@", "FroggestSpirit@"
+    db 161, "Shop@", "Pokémon HeartGold@", "Junichi Masuda@", "FroggestSpirit@"
+    db 162, "Pokéathelon Finals@", "Pokémon HeartGold@", "Junichi Masuda@", "FroggestSpirit@"
+    db 163, "VS. Johto Trainer 2@", "Pokémon Crystal@", "Junichi Masuda@", "FroggestSpirit@"
+    db 164, "VS. Naljo Wild@", "Pokémon Prism@", "LevusBevus@", "FroggestSpirit@"
+    db 165, "VS. Naljo Gym Leader@", "Pokémon Crystal@", "GRonnoc@", "FroggestSpirit@"
+    db 166, "VS. Pallet Patrol@", "Pokémon Crystal@", "Cat333Pokémon@", "FroggestSpirit@"
     db -1

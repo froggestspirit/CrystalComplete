@@ -10,40 +10,40 @@
 
 ; e906e
 	dbw BANK(Music_Nothing), Music_Nothing ; 0xe91a3
-	dbw BANK(Music_TitleScreen), Music_TitleScreen ; 0xeb808
-	dbw BANK(Music_Route1), Music_Route1 ; 0xec000
-	dbw BANK(Music_Route3), Music_Route3 ; 0xec2ca
-	dbw BANK(Music_Route12), Music_Route12 ; 0xec506
-	dbw BANK(Music_MagnetTrain), Music_MagnetTrain ; 0xef5f0
-	dbw BANK(Music_KantoGymBattle), Music_KantoGymBattle ; 0xec720
-	dbw BANK(Music_KantoTrainerBattle), Music_KantoTrainerBattle ; 0xec9fa
-	dbw BANK(Music_KantoWildBattle), Music_KantoWildBattle ; 0xed06d
-	dbw BANK(Music_PokemonCenter), Music_PokemonCenter ; 0xed5c6
-	dbw BANK(Music_LookHiker), Music_LookHiker ; 0xf7411
-	dbw BANK(Music_LookLass), Music_LookLass ; 0xed79b
-	dbw BANK(Music_LookOfficer), Music_LookOfficer ; 0xed82d
-	dbw BANK(Music_HealPokemon), Music_HealPokemon ; 0xf0697
-	dbw BANK(Music_LavenderTown), Music_LavenderTown ; 0xef72f
-	dbw BANK(Music_Route2), Music_Route2 ; 0xed8dd
-	dbw BANK(Music_MtMoon), Music_MtMoon ; 0xedb29
-	dbw BANK(Music_ShowMeAround), Music_ShowMeAround ; 0xedbd8
-	dbw BANK(Music_GameCorner), Music_GameCorner ; 0xedd6d
-	dbw BANK(Music_Bicycle), Music_Bicycle ; 0xee119
-	dbw BANK(Music_HallOfFame), Music_HallOfFame ; 0xf05bf
-	dbw BANK(Music_ViridianCity), Music_ViridianCity ; 0xf4000
-	dbw BANK(Music_CeladonCity), Music_CeladonCity ; 0xf435b
-	dbw BANK(Music_TrainerVictory), Music_TrainerVictory ; 0xebeab
-	dbw BANK(Music_WildPokemonVictory), Music_WildPokemonVictory ; 0xf4518
-	dbw BANK(Music_GymLeaderVictory), Music_GymLeaderVictory ; 0xf462c
-	dbw BANK(Music_MtMoonSquare), Music_MtMoonSquare ; 0xf4815
-	dbw BANK(Music_Gym), Music_Gym ; 0xf48ae
-	dbw BANK(Music_PalletTown), Music_PalletTown ; 0xf4b0c
-	dbw BANK(Music_ProfOaksPokemonTalk), Music_ProfOaksPokemonTalk ; 0xf4c9f
-	dbw BANK(Music_ProfOak), Music_ProfOak ; 0xf4dea
-	dbw BANK(Music_LookRival), Music_LookRival ; 0xf4f79
-	dbw BANK(Music_AfterTheRivalFight), Music_AfterTheRivalFight ; 0xf5127
-	dbw BANK(Music_Surf), Music_Surf ; 0xf518a
-	dbw BANK(Music_Evolution), Music_Evolution ; 0xf06e1
+	dbw BANK(Music_RBYTitleScreen), Music_RBYTitleScreen ; 0xeb808
+	dbw BANK(Music_Routes1), Music_Routes1 ; 0xec000
+	dbw BANK(Music_Routes3), Music_Routes3 ; 0xec2ca
+	dbw BANK(Music_Routes4), Music_Routes4 ; 0xec506
+	dbw BANK(Music_MagnetTrain), Music_MagnetTrain ; unchanged
+	dbw BANK(Music_GymLeaderBattle), Music_GymLeaderBattle ; 0xec720
+	dbw BANK(Music_TrainerBattle), Music_TrainerBattle ; 0xec9fa
+	dbw BANK(Music_WildBattle), Music_WildBattle ; 0xed06d
+	dbw BANK(Music_PokemonCenter), Music_PokemonCenter ; unchanged
+	dbw BANK(Music_LookHiker), Music_LookHiker ; unchanged
+	dbw BANK(Music_LookLass), Music_LookLass ; unchanged
+	dbw BANK(Music_LookOfficer), Music_LookOfficer ; unchanged
+	dbw BANK(Music_HealPokemon), Music_HealPokemon ; unchanged
+	dbw BANK(Music_Lavender), Music_Lavender ; 0xef72f
+	dbw BANK(Music_Dungeon2), Music_Dungeon2 ; 0xed8dd
+	dbw BANK(Music_Dungeon3), Music_Dungeon3 ; 0xedb29
+	dbw BANK(Music_MuseumGuy), Music_MuseumGuy ; 0xedbd8
+	dbw BANK(Music_RBYGameCorner), Music_RBYGameCorner ; 0xedd6d
+	dbw BANK(Music_BikeRiding), Music_BikeRiding ; 0xee119
+	dbw BANK(Music_HallOfFame), Music_HallOfFame ; unchanged
+	dbw BANK(Music_Cities1), Music_Cities1 ; 0xf4000
+	dbw BANK(Music_Celadon), Music_Celadon ; 0xf435b
+	dbw BANK(Music_TrainerVictory), Music_TrainerVictory ; unchanged
+	dbw BANK(Music_WildPokemonVictory), Music_WildPokemonVictory ; unchanged
+	dbw BANK(Music_GymLeaderVictory), Music_GymLeaderVictory ; unchanged
+	dbw BANK(Music_MtMoonSquare), Music_MtMoonSquare ; unchanged
+	dbw BANK(Music_RBYGym), Music_RBYGym ; 0xf48ae
+	dbw BANK(Music_RBYPalletTown), Music_RBYPalletTown ; 0xf4b0c
+	dbw BANK(Music_OaksLab), Music_OaksLab ; 0xf4c9f
+	dbw BANK(Music_MeetProfOak), Music_MeetProfOak ; 0xf4dea
+	dbw BANK(Music_LookRival), Music_LookRival ; unchanged
+	dbw BANK(Music_AfterTheRivalFight), Music_AfterTheRivalFight ; unchanged
+	dbw BANK(Music_Surf), Music_Surf ; unchanged
+	dbw BANK(Music_Evolution), Music_Evolution ; unchanged
 	dbw BANK(Music_NationalPark), Music_NationalPark ; 0xf54e8
 	dbw BANK(Music_Credits), Music_Credits ; 0x1f31c
 	dbw BANK(Music_AzaleaTown), Music_AzaleaTown ; 0xf57e8
@@ -52,7 +52,7 @@
 	dbw BANK(Music_UnionCave), Music_UnionCave ; 0xf5c60
 	dbw BANK(Music_SinnohWildBattle), Music_SinnohWildBattle ; 0xf5dc5
 	dbw BANK(Music_SinnohTrainerBattle), Music_SinnohTrainerBattle ; 0xf6096
-	dbw BANK(Music_DPRoute), Music_DPRoute ; 0xefc01
+	dbw BANK(Music_Route206), Music_Route206 ; 0xefc01
 	dbw BANK(Music_EcruteakCity), Music_EcruteakCity ; 0xef2d0
 	dbw BANK(Music_VioletCity), Music_VioletCity ; 0xf0000
 	dbw BANK(Music_JohtoGymBattle), Music_JohtoGymBattle ; 0xea50d
@@ -71,7 +71,7 @@
 	dbw BANK(Music_LookSage), Music_LookSage ; 0xee35e
 	dbw BANK(Music_NewBarkTown), Music_NewBarkTown ; 0xeb2d3
 	dbw BANK(Music_GoldenrodCity), Music_GoldenrodCity ; 0xeb453
-	dbw BANK(Music_VermilionCity), Music_VermilionCity ; 0xeb676
+	dbw BANK(Music_Vermilion), Music_Vermilion ; 0xeb676
 	dbw BANK(Music_PokemonChannel), Music_PokemonChannel ; 0xee45f
 	dbw BANK(Music_PokeFluteChannel), Music_PokeFluteChannel ; 0xf7b13
 	dbw BANK(Music_TinTower), Music_TinTower ; 0xf6811
@@ -79,7 +79,7 @@
 	dbw BANK(Music_BurnedTower), Music_BurnedTower ; 0xf6a99
 	dbw BANK(Music_Lighthouse), Music_Lighthouse ; 0xee569
 	dbw BANK(Music_LakeOfRage), Music_LakeOfRage ; 0xee6c5
-	dbw BANK(Music_IndigoPlateau), Music_IndigoPlateau ; 0xee852
+	dbw BANK(Music_IndigoPlateau), Music_IndigoPlateau ; unchanged
 	dbw BANK(Music_Route37), Music_Route37 ; 0xee94b
 	dbw BANK(Music_RocketHideout), Music_RocketHideout ; 0xeeb75
 	dbw BANK(Music_DragonsDen), Music_DragonsDen ; 0xeece8
