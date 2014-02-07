@@ -8,6 +8,9 @@ INCLUDE "audio/engine.asm"
 ; What music plays when a trainer notices you
 INCLUDE "audio/trainer_encounters.asm"
 
+MusicMT:
+INCLUDE "audio/music_pointers_music_test.asm"
+
 Music:
 INCLUDE "audio/music_pointers.asm"
 
@@ -229,7 +232,7 @@ SECTION "DPPt Songs 1", ROMX, BANK[DPPT_SONGS_1]
 INCLUDE "audio/music/DPPt/pokeradar.asm"
 INCLUDE "audio/music/DPPt/sinnohtrainer.asm"
 INCLUDE "audio/music/DPPt/sinnohwild.asm"
-INCLUDE "audio/music/DPPt/dproute.asm"
+INCLUDE "audio/music/DPPt/route206.asm"
 
 
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]

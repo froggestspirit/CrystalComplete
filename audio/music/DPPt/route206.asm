@@ -1,10 +1,10 @@
-Music_DPRoute:
-	dbw $C0, Music_DPRoute_Ch1
-	dbw $01, Music_DPRoute_Ch2
-	dbw $02, Music_DPRoute_Ch3
-	dbw $03, Music_DPRoute_Ch4
+Music_Route206:
+	dbw $C0, Music_Route206_Ch1
+	dbw $01, Music_Route206_Ch2
+	dbw $02, Music_Route206_Ch3
+	dbw $03, Music_Route206_Ch4
 
-Music_DPRoute_Ch1:
+Music_Route206_Ch1:
 	tempo 160
 	volume $77
 	tone $0001
@@ -73,7 +73,7 @@ Music_DPRoute_Ch1:
 	note E_, 4
 	octave 2
 	note B_, 2
-Music_DPRoute_Loop1:
+Music_Route206_Loop1:
 	note __, 12
 	intensity 164
 	dutycycle 3
@@ -330,8 +330,8 @@ Music_DPRoute_Loop1:
 	note E_, 4
 	octave 2
 	note B_, 2
-	loopchannel 0, Music_DPRoute_Loop1
-Music_DPRoute_Ch2:
+	loopchannel 0, Music_Route206_Loop1
+Music_Route206_Ch2:
 	notetype $4, 177
 	vibrato $12, $36
 	stereopanning $f
@@ -421,7 +421,7 @@ Music_DPRoute_Ch2:
 	note E_, 4
 	octave 2
 	note B_, 4
-Music_DPRoute_Loop2:
+Music_Route206_Loop2:
 	intensity 184
 	dutycycle 3
 	octave 3
@@ -569,8 +569,8 @@ DPRouteLoop:
 	note E_, 4
 	octave 2
 	note B_, 4
-	loopchannel 0, Music_DPRoute_Loop2
-Music_DPRoute_Ch3:
+	loopchannel 0, Music_Route206_Loop2
+Music_Route206_Ch3:
 	notetype $4, $27
 	note __, 16
 	note __, 16
@@ -635,7 +635,7 @@ Music_DPRoute_Ch3:
 	note E_, 12
 	octave 2
 	note G#, 12
-Music_DPRoute_Loop3:
+Music_Route206_Loop3:
 	note B_, 12
 	octave 1
 	note B_, 4
@@ -781,8 +781,8 @@ Music_DPRoute_Loop3:
 	note E_, 12
 	octave 2
 	note G#, 12
-	loopchannel 0, Music_DPRoute_Loop3
-Music_DPRoute_Ch4:
+	loopchannel 0, Music_Route206_Loop3
+Music_Route206_Ch4:
 	notetype $4
 	togglenoise 0
 	note __, 16
@@ -814,7 +814,7 @@ Music_DPRoute_Ch4:
 	note D#, 4
 	note G#, 16
 	note __, 16
-Music_DPRoute_Loop4:
+Music_Route206_Loop4:
 	note __, 16
 	note __, 16
 	note __, 16
@@ -949,4 +949,4 @@ Music_DPRoute_Loop4:
 	note C_, 12
 	note G#, 16
 	note __, 16
-	loopchannel 0, Music_DPRoute_Loop4
+	loopchannel 0, Music_Route206_Loop4
