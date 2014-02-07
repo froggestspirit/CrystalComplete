@@ -4,7 +4,7 @@ Music_SinnohWildBattle:
 	dbw $02, Music_SinnohWildBattle_Ch3
 
 Music_SinnohWildBattle_Ch1:
-	tempo 104
+	ftempo 104
 	volume $77
 	notetype $C, 178
 	dutycycle 3

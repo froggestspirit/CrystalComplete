@@ -9,7 +9,7 @@ Music_PalletBattle: ; 1ec454
 INCBIN "baserom.gbc", $1ec45d, $1edb00 - $1ec45d
 
 Music_PalletBattle_Ch1: ; 1edb00
-	tempo 96
+	ftempo 96
 	volume $77
 	stereopanning $f0
 	dutycycle $3

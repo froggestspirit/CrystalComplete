@@ -6,7 +6,7 @@ Music_NaljoGymBattle:
 	dbw $02, Music_NaljoGymBattle_Ch3
 
 Music_NaljoGymBattle_Ch1:
-	tempo 101
+	ftempo 101
 	volume $77
 	notetype $c, $b2
 	dutycycle $3

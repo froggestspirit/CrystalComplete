@@ -7,7 +7,7 @@ Music_NaljoWildBattle:
 
 
 Music_NaljoWildBattle_Ch1:
-	tempo 104
+	ftempo 104
 	volume $77
 	stereopanning $f
 	dutycycle $3
