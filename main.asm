@@ -77180,7 +77180,7 @@ _OptionsMenu: ; e41d0
 	xor a
 	ld [$cf63], a
 	ld [hJoyPressed], a
-	ld c, 10 ;number of options -1
+	ld c, 8 ;number of options -1
 .asm_e41f3
 	push bc
 	xor a
@@ -77234,9 +77234,9 @@ StringOptions: ; e4241
 	db "NITE MUSIC:", $22
 	db "MENU ACCOUNT:", $22
 	db "FRAME TYPE:", $22
-	db "MUSIC TEST:", $22
-	db "SOUND TEST:", $22
 	db "MUSIC PLAYER", $22
+	db " ", $22
+	db " ", $22
 	db " ", $22
 	db " ", $22
 	db " ", $22
@@ -77266,8 +77266,6 @@ GetOptionPointer: ; e42d6
 	dw Options_NiteMusic
 	dw Options_MenuAccount
 	dw Options_Frame
-	dw Options_MusicTest
-	dw Options_SoundTest
 	dw Options_MusicPlayer
 	dw Options_Cancel
 ; e42f5
@@ -77670,106 +77668,6 @@ Functione4512: ; e4512
 	ret
 ; e4520
 
-Options_MusicTest: ; e44fa
-	ld hl, CurMusic
-	ld a, [hJoyPressed]
-	bit 5, a
-	jr nz, .LeftPressed
-	bit 4, a
-	jr nz, .RightPressed
-	and A_BUTTON
-	jr nz, .APressed
-	ld a, [hl]
-	jr .Display
-
-.APressed
-	ld a, [hl]
-	push de
-	ld e, a
-	ld d, 0
-	call PlayMusic2
-	pop de
-	ret
-	
-.RightPressed
-	ld a, [hl]
-	inc a
-	cp a, 113 ;max number of songs +1
-	jr nz, .Display
-	ld a, 0
-	jr .Display
-	
-.LeftPressed
-	ld a, [hl]
-	dec a
-	cp a, $ff
-	jr nz, .Display
-	ld a, 112 ;max number or songs
-	
-.Display
-	ld [hl], a
-	hlcoord 13, 10
-	ld de, .blank
-	call PlaceString
-	ld de, CurMusic
-	ld bc, $0103
-	call PrintNum
-	and a
-	ret
-
-.blank
-	db "000@"
-
-Options_SoundTest: ; e4520
-	ld hl, $c000
-	ld a, [hJoyPressed]
-	bit 5, a
-	jr nz, .LeftPressed
-	bit 4, a
-	jr nz, .RightPressed
-	and A_BUTTON
-	jr nz, .APressed
-	ld a, [hl]
-	jr .Display
-
-.APressed
-	ld a, [hl]
-	push de
-	ld e, a
-	ld d, 0
-	call PlaySFX
-	pop de
-	ret
-	
-.RightPressed
-	ld a, [hl]
-	inc a
-	cp a, 207 ;max number of sfx +1
-	jr nz, .Display
-	ld a, 0
-	jr .Display
-	
-.LeftPressed
-	ld a, [hl]
-	dec a
-	cp a, $ff
-	jr nz, .Display
-	ld a, 206 ;max number or sfx
-	
-.Display
-	ld [hl], a
-	hlcoord 13, 11
-	ld de, .blank
-	call PlaceString
-	ld de, $c000
-	ld bc, $0103
-	call PrintNum
-	and a
-	ret
-
-.blank
-	db "000@"
-
 Options_MusicPlayer:
 	ld a, [hJoyPressed]
 	and A_BUTTON
@@ -77803,7 +77701,7 @@ OptionsControl: ; e452a
 
 .DownPressed
 	ld a, [hl] ;load the cursor position to a
-	cp 11 ;maximum number of items in option menu
+	cp 9 ;maximum number of items in option menu
 	jr nz, .CheckFive
 	ld [hl], $0
 	scf
@@ -77830,7 +77728,7 @@ OptionsControl: ; e452a
 .NotSix
 	and a
 	jr nz, .Decrease
-	ld [hl], 12 ;number of option items +1
+	ld [hl], 10 ;number of option items +1
 
 .Decrease
 	dec [hl]
@@ -77849,7 +77747,7 @@ Functione455c: ; e455c
 	jr nz, .asm_e4564
 	hlcoord 1, 2
 	ld a, [$cf63]
-	cp a, 11 ;is the pointer on cancel?
+	cp a, 9 ;is the pointer on cancel?
 	jr z, .PointerCancel
 	ld bc, $0014
 	call AddNTimes

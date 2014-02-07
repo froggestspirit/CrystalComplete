@@ -117,10 +117,14 @@ SONGS_5                   EQU $5E
 
 EXTRA_SONGS_1             EQU $7
 EXTRA_SONGS_2             EQU $33
-RBY_SONGS_1             EQU $79
-RBY_SONGS_2             EQU $7A
-CUSTOM_SONGS_1             EQU $7B
-CUSTOM_SONGS_2             EQU $7F
+RBY_SONGS_1             EQU $81
+RBY_SONGS_2             EQU $82
+RSE_SONGS_1             EQU $83
+RSE_SONGS_2             EQU $84
+DPPT_SONGS_1             EQU $85
+DPPT_SONGS_2             EQU $86
+CUSTOM_SONGS_1             EQU $87
+CUSTOM_SONGS_2             EQU $88
 
 SOUND_EFFECTS             EQU $3C
 CRYSTAL_SOUND_EFFECTS     EQU $5E
@@ -132,3 +136,4 @@ CRIES                     EQU $3C
 
 MISC_CRYSTAL              EQU $5E
 VOLTORB_FLIP              EQU $7F
+MUSIC_PLAYER              EQU $80

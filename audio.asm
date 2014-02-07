@@ -217,14 +217,19 @@ INCLUDE "audio/music/custom/cinnabarGSC.asm"
 INCLUDE "audio/music/custom/nuggetbridge.asm"
 INCLUDE "audio/music/custom/shop.asm"
 INCLUDE "audio/music/custom/pokeathelonfinal.asm"
-INCLUDE "audio/music/custom/pokeradar.asm"
-INCLUDE "audio/music/custom/sinnohtrainer.asm"
 
 SECTION "Custom Songs 2", ROMX, BANK[CUSTOM_SONGS_2]
 
 INCLUDE "audio/music/custom/naljowildbattle.asm"
 INCLUDE "audio/music/custom/naljogymbattle.asm"
 INCLUDE "audio/music/custom/palletbattle.asm"
+
+SECTION "DPPt Songs 1", ROMX, BANK[DPPT_SONGS_1]
+
+INCLUDE "audio/music/DPPt/pokeradar.asm"
+INCLUDE "audio/music/DPPt/sinnohtrainer.asm"
+INCLUDE "audio/music/DPPt/sinnohwild.asm"
+INCLUDE "audio/music/DPPt/dproute.asm"
 
 
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]
