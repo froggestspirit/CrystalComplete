@@ -420,6 +420,8 @@ UpdateChannels: ; e8125
 	add hl, hl
 	ld de, WaveSamples
 	add hl, de
+	cp $f
+	jr z, .skip
 	; load wavepattern into $ff30-$ff3f
 	ld a, [hli]
 	ld [$ff30], a
@@ -453,6 +455,7 @@ UpdateChannels: ; e8125
 	ld [$ff3e], a
 	ld a, [hli]
 	ld [$ff3f], a
+.skip
 	pop hl
 	ld a, [$c293]
 	and a, $f0
@@ -1416,6 +1419,15 @@ MusicF2: ; e8780
 	ret
 
 MusicF3: ; e8780
+;custom waveform
+	ld e, 16
+	ld hl, $ff30
+.read
+	call GetMusicByte
+	ldi [hl], a
+	dec e
+	jr nz, .read
+	ret
 MusicF4: ; e8780
 MusicF5: ; e8780
 MusicF6: ; e8780

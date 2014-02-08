@@ -84,12 +84,13 @@ Music_Lavender_branch_bba5:
 
 Music_Lavender_Ch3: ; bbae (2:7bae)
 	vibrato 4, 17
-	notetype 12, 56
+	notetype 12, $3f
 	note __, 16
 	note __, 16
 	note __, 16
 	note __, 16
-	notetype 12, 40
+	notetype 12, $2f
+	db $f3, $ed, $00, $90, $f0, $77, $ec, $02, $e8, $dc, $81, $c1, $eb, $00, $4b, $b1, $eb
 
 Music_Lavender_branch_bbb9:
 	octave 4
@@ -120,13 +121,13 @@ Music_Lavender_branch_bbb9:
 	note B_, 4
 	octave 4
 	note E_, 4
-	notetype 12, 56
+	notetype 12, $3f
 	octave 6
 	note B_, 4
 	note G_, 4
 	note F#, 4
 	note B_, 4
-	notetype 12, 40
+	notetype 12, $2f
 	note B_, 4
 	note G_, 4
 	note F#, 4
@@ -168,7 +169,7 @@ Music_Lavender_branch_bbb9:
 	note B_, 4
 	octave 4
 	note E_, 4
-	notetype 12, 40
+	notetype 12, $2f
 	octave 6
 	note B_, 4
 	note G_, 4
@@ -190,7 +191,6 @@ Music_Lavender_branch_bbb9:
 	note F#, 4
 	note B_, 4
 	loopchannel 0, Music_Lavender_branch_bbb9
-
 
 Music_Lavender_Ch4: ; bc21 (2:7c21)
 	notetype 12
