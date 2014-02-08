@@ -70,7 +70,7 @@
 	dbw BANK(Music_LookPokemaniac), Music_LookPokemaniac ; 0xebde1
 	dbw BANK(Music_LookSage), Music_LookSage ; 0xee35e
 	dbw BANK(Music_NewBarkTown), Music_NewBarkTown ; 0xeb2d3
-	dbw BANK(Music_GoldenrodCity), Music_GoldenrodCity ; 0xeb453
+	dbw BANK(Music_JubilifeCity), Music_JubilifeCity ; 0xeb453
 	dbw BANK(Music_Vermilion), Music_Vermilion ; 0xeb676
 	dbw BANK(Music_PokemonChannel), Music_PokemonChannel ; 0xee45f
 	dbw BANK(Music_PokeFluteChannel), Music_PokeFluteChannel ; 0xf7b13

@@ -233,6 +233,7 @@ INCLUDE "audio/music/DPPt/pokeradar.asm"
 INCLUDE "audio/music/DPPt/sinnohtrainer.asm"
 INCLUDE "audio/music/DPPt/sinnohwild.asm"
 INCLUDE "audio/music/DPPt/route206.asm"
+INCLUDE "audio/music/DPPt/jubilifecity.asm"
 
 
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]

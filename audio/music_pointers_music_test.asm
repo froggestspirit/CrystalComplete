@@ -173,6 +173,7 @@
 ;Diamond and Pearl
 	dbw BANK(Music_SinnohWildBattle), Music_SinnohWildBattle 
 	dbw BANK(Music_SinnohTrainerBattle), Music_SinnohTrainerBattle 
+	dbw BANK(Music_JubilifeCity), Music_JubilifeCity 
 	dbw BANK(Music_Route206), Music_Route206 
 	dbw BANK(Music_PokeRadar), Music_PokeRadar
 
