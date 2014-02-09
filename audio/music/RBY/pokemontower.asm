@@ -407,7 +407,8 @@ Music_PokemonTower_branch_7f1a2:
 	note __, 7
 	note G_, 1
 	note __, 15
-	notetype 12, 21
+	notetype 12, $1f
+	db $f3, $ed, $00, $90, $f0, $77, $ec, $02, $e8, $dc, $81, $c1, $eb, $00, $4b, $b1, $eb
 	octave 4
 	note F#, 1
 	note __, 3
