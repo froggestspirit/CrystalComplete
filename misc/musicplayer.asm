@@ -61,8 +61,9 @@ MPLoadPalette: ; stolen shamelessly from voltorb flip
 	call CopyPals
 	pop af
 	ld [rSVBK], a
-	call DelayFrame
-	call ForceUpdateCGBPals
+	ld a, 1
+	ld [hCGBPalUpdate], a
+	;call ForceUpdateCGBPals
 	ret
 
 MusicPlayer:
@@ -99,12 +100,22 @@ MusicPlayer:
 
     call MPLoadPalette ; XXX why won't this work sometimes?
 
+MPlayerTilemap:
+
 	ld bc, MPTilemapEnd-MPTilemap
 	ld hl, MPTilemap
 	decoord 0, 0
 	call CopyBytes
+	
+    call ClearSprites
+    xor a
+    ld [wNumNoteLines], a
+    ld [wChLastNotes], a
+    ld [wChLastNotes+1], a
+    ld [wChLastNotes+2], a
+	
 	ld a, [CurMusic]
-	jr .redraw
+	jp .redraw
 .loop
     call DelayFrame
 	call GetJoypad
@@ -115,6 +126,7 @@ MusicPlayer:
 	jbutton D_UP, .up
 	jbutton A_BUTTON, .a
 	jbutton SELECT, .select
+	jbutton START, .start
 	call DrawChData
 	call DrawNotes
     jr .loop
@@ -148,6 +160,9 @@ MusicPlayer:
     jr c, .redraw
     ld a, 1
     jr .redraw
+.start
+    call SongSelector
+    jp MPlayerTilemap
 .redraw
     ld [wSongSelection], a
 	ld a, " "
@@ -194,11 +209,7 @@ MusicPlayer:
 	ld a, [wSongSelection]
 	jp .redraw
 .exit
-    ; clear the sprites
-    xor a
-    ld bc, 160
-    ld hl, Sprites
-    call ByteFill
+    call ClearSprites
     ret
 
 DrawChData:
@@ -266,7 +277,7 @@ DrawNote:
     call GetPitchAddr
     ld a, [hl]
     and a
-    ret z
+    ret z ; TODO clear the sprite instead so there's not a flying bit
     inc hl
     ld a, [hld] ; octave
     ld c, 14
@@ -531,6 +542,17 @@ GetSongArtist2:
     ret
 .noname
 	ld de, BlankName
+    ret
+    
+SongSelector:
+    call ClearSprites
+    textbox 0, 1, $12, $10
+.loop
+    call DelayFrame
+	call GetJoypad
+	jbutton B_BUTTON, .exit
+    jr .loop
+.exit
     ret
 
 MusicPlayerText:
