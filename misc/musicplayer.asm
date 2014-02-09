@@ -225,7 +225,9 @@ DrawChData:
     hlcoord 0, 14
     call PlaceString
     ld a, [Channel1Octave]
-    add $f6
+    ld d, a
+	ld a, $fe
+	sub d
     hlcoord 2, 14
     ld [hli], a
     
@@ -244,7 +246,9 @@ DrawChData:
     hlcoord 5, 14
     call PlaceString
     ld a, [$c146]
-    add $f6
+    ld d, a
+	ld a, $fe
+	sub d
     hlcoord 7, 14
     ld [hli], a
 
@@ -257,7 +261,9 @@ DrawChData:
     hlcoord 10, 14
     call PlaceString
     ld a, [$c178]
-    add $f6
+    ld d, a
+	ld a, $fe
+	sub d
     hlcoord 12, 14
     ld [hli], a
     	
@@ -613,7 +619,7 @@ SongInfo:
     db "Route 11@", 3, 1, 0
     db "Magnet Train@", 3, 1, 0
     db "Vs. Kanto Gym Leader@", 3, 1, 0
-    db "Vs. Kanto Trainer@", 3, 1, 0
+    db "Vs. Kanto Trainer@", 3, 1, 2
     db "Vs. Kanto Wild@", 3, 1, 0
     db "Pokémon Center@", 3, 1, 0
     db "Spotted! Hiker@", 3, 1, 0
