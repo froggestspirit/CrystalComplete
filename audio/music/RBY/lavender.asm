@@ -90,8 +90,7 @@ Music_Lavender_Ch3: ; bbae (2:7bae)
 	note __, 16
 	note __, 16
 	notetype 12, $2f
-	db $f3, $ed, $00, $90, $f0, $77, $ec, $02, $e8, $dc, $81, $c1, $eb, $00, $4b, $b1, $eb
-
+	db $f3, $21, $E2, $33, $28, $E1, $22, $FF, $EA, $10, $14, $DC, $10, $E3, $41, $51, $73
 Music_Lavender_branch_bbb9:
 	octave 4
 	note E_, 16
