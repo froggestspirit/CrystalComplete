@@ -102,7 +102,6 @@ MusicPlayer:
     
     ld hl, rLCDC
     set 2, [hl] ; 8x16 sprites
-
 MPlayerTilemap:
 
 	ld bc, MPTilemapEnd-MPTilemap

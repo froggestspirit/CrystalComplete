@@ -1940,8 +1940,11 @@ MusicDB: ; e8984
 ; duty cycle, includes nite check
 ; params: 1
 	ld a, [GBPrinter]
+	bit 2, a
+	jr nz, .ForceNite ;for the Music test
 	bit 3, a
 	jp nz, MusicF2 ;skip nite check
+.ForceNite
 	ld a, [CurChannel]
 	cp a, $04
 	jp nc, MusicF2 ;skip nite check
@@ -1985,8 +1988,11 @@ MusicDA: ; e899a
 ; params: 2
 ;	de: tempo
 	ld a, [GBPrinter]
+	bit 2, a
+	jr nz, .ForceNite ;for the Music test
 	bit 3, a
 	jp nz, MusicF1 ;skip nite check
+.ForceNite
 	ld a, [CurChannel]
 	cp a, $04
 	jp nc, MusicF1 ;skip nite check
