@@ -94,11 +94,14 @@ MusicPlayer:
 	
 	ld de, NotesGFX
 	ld b, BANK(NotesGFX)
-	ld c, $50
+	ld c, $80
 	ld hl, $8000
 	call Request2bpp
 
     call MPLoadPalette ; XXX why won't this work sometimes?
+    
+    ld hl, rLCDC
+    set 2, [hl] ; 8x16 sprites
 
 MPlayerTilemap:
 
@@ -210,6 +213,8 @@ MPlayerTilemap:
 	jp .redraw
 .exit
     call ClearSprites
+    ld hl, rLCDC
+    res 2, [hl] ; 8x8 sprites
     ret
 
 DrawChData:
@@ -338,13 +343,13 @@ DrawNewNote:
     ld [hli], a
     
     push hl
-    ld hl, 00
-    ld bc, $10
+    ld hl, $0020
+    ld bc, $20
     ld a, [wTmpCh]
     call AddNTimes
     ld a, l
     pop hl
-    add 1;8
+    ;add 1;8
     ld [hli], a
     ld a, $80
     ld [hli], a
@@ -360,9 +365,11 @@ DrawLongerNote:
     inc hl
     ld a, [hl]
     inc a
+    inc a
     ld b, a
-    and a, %0001111
-    cp 9
+    and a, %00011111
+    ;srl a
+    
     jr z, .newnote
     ld a, b
     ld [hl], a
@@ -415,9 +422,19 @@ MoveNotes:
     ld hl, Sprites
 .loop
     dec [hl]
+    jr z, .remove
+.removed
     add hl, de
     dec b
     jr nz, .loop
+    ret
+.remove
+    inc hl
+    inc hl
+    xor a
+    ld [hld], a
+    dec hl
+    jr .removed
     ret
 
 Pitchels:
