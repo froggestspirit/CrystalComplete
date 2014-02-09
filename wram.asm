@@ -18,6 +18,9 @@ SECTION "WRAMBank0",WRAM0[$c000]
 
 SECTION "hack", WRAM0[$c000]
 wSongSelection: ds 2
+wNumNoteLines: ds 1
+wTmpCh: ds 1
+wChLastNotes: ds 3
 
 SECTION "stack",WRAM0[$c0ff]
 Stack: ; c0ff

@@ -7,6 +7,15 @@ NUMSONGS EQU 168
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
+PianoGFX:
+INCBIN "gfx/misc/piano.2bpp"
+NotesGFX:
+INCBIN "gfx/misc/note_lines.2bpp"
+NotePals:
+    RGB 31, 31, 31
+    RGB 15, 31, 15
+    RGB 15, 15, 31
+    RGB 31, 15, 15
 
 placestring_: MACRO
     hlcoord \1, \2
@@ -41,6 +50,21 @@ textbox: MACRO
     call TextBox
     ENDM
 
+MPLoadPalette: ; stolen shamelessly from voltorb flip
+	ld a, [rSVBK] ; $ff00+$70
+	push af
+	ld a, 5
+	ld [rSVBK], a
+	ld bc, $e401
+	ld hl, OBPals
+	ld de, NotePals
+	call CopyPals
+	pop af
+	ld [rSVBK], a
+	call DelayFrame
+	call ForceUpdateCGBPals
+	ret
+
 MusicPlayer:
 	;ld de, 01
 	;call PlayMusic
@@ -60,6 +84,20 @@ MusicPlayer:
 	ld hl, $8c60
 	call Copy2bpp
 	ei
+	
+	ld de, PianoGFX
+	ld b, BANK(PianoGFX)
+	ld c, $50
+	ld hl, $9000
+	call Request2bpp
+	
+	ld de, NotesGFX
+	ld b, BANK(NotesGFX)
+	ld c, $50
+	ld hl, $8000
+	call Request2bpp
+
+    call MPLoadPalette ; XXX why won't this work sometimes?
 
 	ld bc, MPTilemapEnd-MPTilemap
 	ld hl, MPTilemap
@@ -78,6 +116,7 @@ MusicPlayer:
 	jbutton A_BUTTON, .a
 	jbutton SELECT, .select
 	call DrawChData
+	call DrawNotes
     jr .loop
 .left
     ld a, [wSongSelection]
@@ -155,6 +194,11 @@ MusicPlayer:
 	ld a, [wSongSelection]
 	jp .redraw
 .exit
+    ; clear the sprites
+    xor a
+    ld bc, 160
+    ld hl, Sprites
+    call ByteFill
     ret
 
 DrawChData:
@@ -204,6 +248,182 @@ DrawChData:
     	
 ; CHANNEL 4
     ret
+
+DrawNotes:
+    ld a, 0
+    ld [wTmpCh], a
+    call DrawNote
+    ld a, 1
+    ld [wTmpCh], a
+    call DrawNote
+    ld a, 2
+    ld [wTmpCh], a
+    call DrawNote
+    call MoveNotes
+    ret
+
+DrawNote:
+    call GetPitchAddr
+    inc hl
+    ld a, [hld] ; octave
+    ld c, 14
+    call SimpleMultiply
+    add [hl] ; pitch
+    ld b, a
+    ld hl, wChLastNotes
+    ld a, [wTmpCh]
+    ld e, a
+    ld d, 0
+    add hl, de
+    ld a, [hl]
+    cp b
+    jp z, DrawLongerNote
+    jp DrawChangedNote
+    
+DrawChangedNote:
+    ld [hl], b
+    ld a, [wTmpCh]
+    ld bc, 4
+    ld hl, Sprites
+    call AddNTimes
+    
+    call AddNoteToOld
+    ; spillover
+
+DrawNewNote:
+    call GetPitchAddr
+    push hl
+    inc hl
+    ld a, [hl]
+    sub $3
+    ld bc, 28
+    ld hl, 08
+    call AddNTimes
+    ld b, l
+    pop hl
+    ld a, [hl]
+    dec a
+    ld hl, Pitchels
+    ld e, a
+    ld d, 0
+    add hl, de
+    ld a, [hl]
+    add b
+    ld c, a
+    
+    push bc
+    ld a, [wTmpCh]
+    ld bc, 4
+    ld hl, Sprites
+    call AddNTimes
+    pop bc
+    ld a, $13*8
+    ld [hli], a 
+    ld a, c
+    ld [hli], a
+    
+    push hl
+    ld hl, 00
+    ld bc, $10
+    ld a, [wTmpCh]
+    call AddNTimes
+    ld a, l
+    pop hl
+    add 1;8
+    ld [hli], a
+    ld a, $80
+    ld [hli], a
+    
+    ret
+
+DrawLongerNote:
+    ld a, [wTmpCh]
+    ld bc, 4
+    ld hl, Sprites
+    call AddNTimes
+    inc hl
+    inc hl
+    ld a, [hl]
+    inc a
+    ld b, a
+    and a, %0001111
+    cp 9
+    jr z, .newnote
+    ld a, b
+    ld [hl], a
+    ret
+.newnote
+    dec hl
+    dec hl
+    call AddNoteToOld
+    call DrawNewNote
+    ret
+
+AddNoteToOld:
+    push hl
+    ld a, [wNumNoteLines]
+    add a
+    add a
+    ld c, a
+    ld b, 0
+    ld hl, Sprites+12
+    add hl, bc
+    push hl
+    pop de
+    pop hl
+    ld a, [hli]
+    ld [de], a
+    inc de
+    ld a, [hli]
+    ld [de], a
+    inc de
+    ld a, [hli]
+    ld [de], a
+    inc de
+    ld a, [hl]
+    ld [de], a
+    
+    ld a, [wNumNoteLines]
+    inc a
+    cp $25
+    jr z, .startover
+    ld [wNumNoteLines], a
+    ret
+.startover
+    xor a
+    ld [wNumNoteLines], a
+    ret
+
+MoveNotes:
+    ld b, $28
+    ld de, 4
+    ld hl, Sprites
+.loop
+    dec [hl]
+    add hl, de
+    dec b
+    jr nz, .loop
+    ret
+
+Pitchels:
+    db 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25
+
+GetPitchAddr:
+    ld a, [wTmpCh]
+    add a
+    ld hl, PitchAddrs
+    ld c, a
+    ld b, 0
+    add hl, bc
+    ld a, [hli]
+    ld h, [hl]
+    ld l, a
+    ret
+
+PitchAddrs:
+    dw Channel1Pitch
+    dw $c145
+    dw $c177
 
 DrawSongInfo:
     ld a, [wSongSelection]
@@ -336,7 +556,7 @@ db "Ch1──Ch2──Wave─Noise"
 db "    │    │    │     "
 db "    │    │    │     "
 db "    │    │    │     "
-db "────────────────────"
+db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
 MPTilemapEnd
 
 Additional:
