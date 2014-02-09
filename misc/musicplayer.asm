@@ -264,6 +264,9 @@ DrawNotes:
 
 DrawNote:
     call GetPitchAddr
+    ld a, [hl]
+    and a
+    ret z
     inc hl
     ld a, [hld] ; octave
     ld c, 14
@@ -295,7 +298,8 @@ DrawNewNote:
     push hl
     inc hl
     ld a, [hl]
-    sub $3
+    xor $0f ; why are lower octaves higher.
+    sub $8
     ld bc, 28
     ld hl, 08
     call AddNTimes
