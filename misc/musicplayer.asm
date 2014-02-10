@@ -217,58 +217,44 @@ MPlayerTilemap:
     ret
 
 DrawChData:
-    ld a, [Channel1Pitch]
-    ld hl, NoteNames
-    call GetNthString
-    push hl
-    pop de
-    hlcoord 0, 14
-    call PlaceString
-    ld a, [Channel1Octave]
-    ld d, a
-	ld a, $fe
-	sub d
-    hlcoord 2, 14
-    ld [hli], a
-    
-    ;hlcoord 0, 1
-	;ld de, Channel1Tempo ;Maybe wait till we can get BPM
-	;ld bc, $0103
-	;call PrintNum
-	
-	
-; CHANNEL 2
-    ld a, [$c145]
-    ld hl, NoteNames
-    call GetNthString
-    push hl
-    pop de
-    hlcoord 5, 14
-    call PlaceString
-    ld a, [$c146]
-    ld d, a
-	ld a, $fe
-	sub d
-    hlcoord 7, 14
-    ld [hli], a
 
-; CHANNEL 3    
-    ld a, [$c177]
-    ld hl, NoteNames
-    call GetNthString
-    push hl
-    pop de
-    hlcoord 10, 14
-    call PlaceString
-    ld a, [$c178]
-    ld d, a
+	ld a, 0
+	hlcoord 0, 14
+.ch
+	ld [wTmpCh], a
+	call .Draw
+	inc a
+	ld de, 2
+	add hl, de
+	cp 3
+	jr c, .ch
+
+	; Ch4 handling goes here.
+	ret
+
+.Draw
+	push af
+	push hl
+	call GetPitchAddr
+	ld a, [hl]
+	ld hl, NoteNames
+	call GetNthString
+	ld e, l
+	ld d, h
+	pop hl
+	push hl
+	call PlaceString
+	call GetOctaveAddr
+	ld d, [hl]
 	ld a, $fe
 	sub d
-    hlcoord 12, 14
-    ld [hli], a
-    	
-; CHANNEL 4
-    ret
+	pop hl
+	inc hl
+	inc hl
+	ld [hli], a
+	pop af
+	ret
+
 
 DrawNotes:
     ld a, 0
@@ -507,6 +493,13 @@ PitchAddrs:
     dw $c145
     dw $c177
 
+GetOctaveAddr:
+	ld a, [wTmpCh]
+	ld hl, Channel1Octave
+	ld bc, Channel2 - Channel1
+	call AddNTimes
+	ret
+
 DrawSongInfo:
     ld a, [wSongSelection]
     ld b, a
@@ -629,7 +622,21 @@ ZeroText:
     db "000@"
 
 NoteNames:
-    db "- @C @C",198,"@D @D",198,"@E @F @F",198,"@G @G",198,"@A @A",198,"@B @XX@"
+	db "- @"
+	db "C @"
+	db "C", 198, "@"
+	db "D @"
+	db "D", 198, "@"
+	db "E @
+	db "F @"
+	db "F", 198, "@"
+	db "G @"
+	db "G", 198, "@"
+	db "A @"
+	db "A", 198, "@"
+	db "B @"
+	db "XX@"
+
 ; ┌─┐│└┘
 MPTilemap:
 db "──┘ MUSIC PLAYER └──"
