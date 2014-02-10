@@ -318,9 +318,6 @@ CheckEndedNote:
 	ret
 
 DrawNote:
-	call CheckEndedNote
-	ret c
-
     call GetPitchAddr
     inc hl
     ld a, [hld] ; octave
@@ -396,6 +393,9 @@ DrawNewNote:
     ret
 
 DrawLongerNote:
+	call CheckEndedNote
+	ret c
+
     ld a, [wTmpCh]
     ld bc, 4
     ld hl, Sprites
