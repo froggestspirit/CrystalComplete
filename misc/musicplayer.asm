@@ -286,10 +286,17 @@ DrawNotes:
 CheckEndedNote:
 ; Check that the current channel is actually playing a note.
 
+; Rests count as ends.
+	call GetPitchAddr
+	ld a, [hl]
+	and a
+	jr z, .ended
+
 	ld a, [wTmpCh]
 	ld e, a
 	ld bc, Channel2 - Channel1
 
+; Note duration
 ;	ld a, e
 	ld hl, Channel1NoteDuration
 	call AddNTimes
@@ -297,12 +304,16 @@ CheckEndedNote:
 	cp 2
 	jr c, .ended
 
+; Channel on/off flag
 	ld a, e
 	ld hl, Channel1Flags
 	call AddNTimes
 	bit 0, [hl]
 	jr z, .ended
 
+; Rest flag
+; Note flags are wiped after each
+; note is read, so this is pointless.
 	ld a, e
 	ld hl, Channel1NoteFlags
 	call AddNTimes
