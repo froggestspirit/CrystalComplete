@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Events", ROMX, BANK[EVENTS]
 
-OverworldLoop: ; 966b0
+OverworldLoop:: ; 966b0
 	xor a
 	ld [MapStatus], a
 .loop
@@ -30,7 +30,7 @@ Function966cb: ; 966cb
 	ret
 ; 966d0
 
-Function966d0: ; 966d0
+Function966d0:: ; 966d0
 	ld a, $ff
 	ld [ScriptFlags3], a
 	ret
@@ -134,7 +134,7 @@ EnterMap: ; 9673e
 	ld [$d453], a
 	ld [$d454], a
 	call Function968d1
-	callba Function15363
+	callba RunMapSetupScript
 	call Function966cb
 
 	ld a, [$ff9f]
@@ -419,7 +419,7 @@ CheckTileEvent: ; 96874
 ; 968c7
 
 
-Function968c7: ; 968c7
+Function968c7:: ; 968c7
 	ld hl, $d452
 	ld a, [hl]
 	and a

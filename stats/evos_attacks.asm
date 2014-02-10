@@ -1,4 +1,13 @@
-EvosAttacks:
+INCLUDE "includes.asm"
+
+
+SECTION "Evolutions and Attacks", ROMX, BANK[EVOS_ATTACKS]
+
+
+INCLUDE "stats/evos_attacks_pointers.asm"
+
+
+EvosAttacks::
 
 BulbasaurEvosAttacks:
 	db EVOLVE_LEVEL,16,IVYSAUR
