@@ -1,5 +1,4 @@
 # generated
-globals.asm
 *.tx
 *.o
 
@@ -14,7 +13,6 @@ globals.asm
 *.gbc
 *.gb
 *.bat
-*.exe
 *.mid
 
 # for any of the poor souls with save game files in their working directory

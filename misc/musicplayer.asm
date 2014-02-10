@@ -66,7 +66,7 @@ MPLoadPalette: ; stolen shamelessly from voltorb flip
 	;call ForceUpdateCGBPals
 	ret
 
-MusicPlayer:
+MusicPlayer::
 	;ld de, 01
 	;call PlayMusic
 	;call WhiteBGMap

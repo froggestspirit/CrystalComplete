@@ -58,7 +58,7 @@ VoltorbFlipPaletteBlank:
 	dw $7fff, $7fff, $7fff, $7fff
 	dw $7fff, $7fff, $7fff, $7fff
 	
-VoltorbFlip:;this is where the magic happens
+VoltorbFlip::;this is where the magic happens
 	ld a, $d
 	ld [$ffff], a
 	call VFLoadGFX

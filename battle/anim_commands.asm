@@ -335,7 +335,7 @@ Functioncc293: ; cc293
 
 
 ; no known jump sources
-BattleAnimCommands: ; cc2a4 (33:42a4)
+BattleAnimCommands:: ; cc2a4 (33:42a4)
 	dw BattleAnimCmd_D0
 	dw BattleAnimCmd_D1
 	dw BattleAnimCmd_D2
@@ -1430,7 +1430,7 @@ Functioncc8d3: ; cc8d3
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld hl, $506f
+	ld hl, BattleAnimations
 	add hl, de
 	add hl, de
 	call Function3ae1
