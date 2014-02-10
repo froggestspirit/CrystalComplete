@@ -1166,6 +1166,10 @@ ParseMusic: ; e85e1
 	jp LoadNote
 .rest
 ; note = rest
+	ld hl, Channel1Pitch - Channel1
+	add hl, bc
+	ld [hl], a
+
 	ld hl, Channel1NoteFlags - Channel1
 	add hl, bc
 	set 5, [hl] ; Rest
