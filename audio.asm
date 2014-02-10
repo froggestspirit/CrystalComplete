@@ -238,19 +238,19 @@ INCLUDE "audio/music/DPPt/jubilifecity.asm"
 
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]
 
-INCBIN "baserom.gbc",$f0941, $f2787 - $f0941
+INCLUDE "audio/sfx.asm"
 
 
 SECTION "Crystal Sound Effects", ROMX, BANK[CRYSTAL_SOUND_EFFECTS]
 
-INCBIN "baserom.gbc",$17982d, $1799ef - $17982d
+INCLUDE "audio/sfx_crystal.asm"
 
 
 
 SECTION "Cries", ROMX, BANK[CRIES]
 
-CryHeaders: INCLUDE "audio/cry_headers.asm"
+CryHeaders:: INCLUDE "audio/cry_headers.asm"
 
-INCBIN "baserom.gbc",$f2d69, $f3fb6 - $f2d69
+INCLUDE "audio/cries.asm"
 
 
