@@ -79,27 +79,26 @@ MusicPlayer::
 	and 3
 	cp a,1
 	jr nz, .wait
-	ld b, MUSIC_PLAYER ;load the gfx
+	ld b, BANK(MusicTestGFX) ;load the gfx
 	ld c, 10
 	ld de, MusicTestGFX
 	ld hl, $8c60
-	call Copy2bpp
-	ei
-	
+	call Copy2bpp	
 	ld de, PianoGFX
 	ld b, BANK(PianoGFX)
 	ld c, $50
 	ld hl, $9000
-	call Request2bpp
+	call Copy2bpp
 	
 	ld de, NotesGFX
 	ld b, BANK(NotesGFX)
 	ld c, $80
 	ld hl, $8000
-	call Request2bpp
+	call Copy2bpp
 
     call MPLoadPalette ; XXX why won't this work sometimes?
-    
+    ei
+
     ld hl, rLCDC
     set 2, [hl] ; 8x16 sprites
 MPlayerTilemap:
@@ -115,7 +114,11 @@ MPlayerTilemap:
     ld [wChLastNotes], a
     ld [wChLastNotes+1], a
     ld [wChLastNotes+2], a
-	
+    ld a, [wSongSelection]
+	and a ;let's see if a song is currently selected
+	jr z, .getsong
+	jp .redraw
+.getsong ;get the current song
 	ld a, [CurMusic]
 	jp .redraw
 .loop
@@ -130,7 +133,6 @@ MPlayerTilemap:
 	jbutton SELECT, .select
 	jbutton START, .start
 	call DrawChData
-	call DrawNotes
     jr .loop
 .left
     ld a, [wSongSelection]
@@ -231,13 +233,58 @@ DrawChData:
     hlcoord 2, 14
     ld [hli], a
     
+	ld a, [Channel1Intensity] ;temporary
+	swap a ;temporary
+	and $f ;temporary
+	ld [wC1Vol], a ;temporary
+	
+	ld a, [wC1Vol]
+	cp 8
+	jr c, .lowvol
+
+.highvol
+	and $7
+	add $c7
+	hlcoord 1, 15
+	ldi [hl], a
+	ldi [hl], a
+	hlcoord 1,16
+	ld a, $cf
+	ldi [hl], a
+	ldi [hl], a
+	jr .done
+
+.lowvol
+	and $7
+	add $c7
+	hlcoord 1, 16
+	ldi [hl], a
+	ldi [hl], a
+	hlcoord 1,15
+	ld a, $c7
+	ldi [hl], a
+	ldi [hl], a
+	jr .done
+	
+.mute
+	ld a, $c7
+	hlcoord 1, 15
+	ldi [hl], a
+	ldi [hl], a
+	hlcoord 1, 16
+	ldi [hl], a
+	ldi [hl], a
+
+
+.done	
+
+
     ;hlcoord 0, 1
 	;ld de, Channel1Tempo ;Maybe wait till we can get BPM
 	;ld bc, $0103
 	;call PrintNum
 	
-	
-; CHANNEL 2
+CHANNEL2:
     ld a, [$c145]
     ld hl, NoteNames
     call GetNthString
@@ -252,7 +299,51 @@ DrawChData:
     hlcoord 7, 14
     ld [hli], a
 
-; CHANNEL 3    
+	ld a, [(Channel1Intensity-Channel1) + Channel2] ;temporary
+	swap a ;temporary
+	and $f ;temporary
+	ld [wC2Vol], a ;temporary
+
+	ld a, [wC2Vol]
+	cp 8
+	jr c, .lowvol
+
+.highvol
+	and $7
+	add $c7
+	hlcoord 6, 15
+	ldi [hl], a
+	ldi [hl], a
+	hlcoord 6,16
+	ld a, $cf
+	ldi [hl], a
+	ldi [hl], a
+	jr .done
+
+.lowvol
+	and $7
+	add $c7
+	hlcoord 6, 16
+	ldi [hl], a
+	ldi [hl], a
+	hlcoord 6,15
+	ld a, $c7
+	ldi [hl], a
+	ldi [hl], a
+	jr .done
+
+.mute
+	ld a, $c7
+	hlcoord 6, 15
+	ldi [hl], a
+	ldi [hl], a
+	hlcoord 6, 16
+	ldi [hl], a
+	ldi [hl], a
+	
+.done	
+
+CHANNEL3:    
     ld a, [$c177]
     ld hl, NoteNames
     call GetNthString
@@ -266,8 +357,66 @@ DrawChData:
 	sub d
     hlcoord 12, 14
     ld [hli], a
+
+	ld a, [(Channel1Intensity-Channel1) + Channel3] ;temporary
+	swap a ;temporary
+	and $3 ;temporary
+	ld [wC3Vol], a ;temporary
+
+	ld a, [wC3Vol]
+	cp 0
+	jr z, .mute
+	dec a
+	jr z, .full
+	dec a
+	jr z, .mid
+	dec a
+	jr z, .low
+.mute
+	ld a, $c7
+	hlcoord 11, 15
+	ldi [hl], a
+	ldi [hl], a
+	hlcoord 11, 16
+	ldi [hl], a
+	ldi [hl], a
+	jr .done
+
+.low
+	ld a, $c7
+	hlcoord 11, 15
+	ldi [hl], a
+	ldi [hl], a
+	hlcoord 11, 16
+	ld a, $cb
+	ldi [hl], a
+	ldi [hl], a
+	jr .done
+
+.mid
+	ld a, $c7
+	hlcoord 11, 15
+	ldi [hl], a
+	ldi [hl], a
+	hlcoord 11, 16
+	ld a, $cf
+	ldi [hl], a
+	ldi [hl], a
+	jr .done
+
+.full
+	ld a, $cf
+	hlcoord 11, 15
+	ldi [hl], a
+	ldi [hl], a
+	hlcoord 11, 16
+	ldi [hl], a
+	ldi [hl], a
+
+
+.done	
     	
-; CHANNEL 4
+CHANNEL4:
     ret
 
 DrawNotes:
@@ -601,10 +750,19 @@ GetSongArtist2:
     ret
     
 SongSelector:
+	ld bc, MPKeymapEnd-MPKeymap
+	ld hl, MPKeymap
+	decoord 0, 17
+	call CopyBytes
+	ld a, " "
+	hlcoord 0, 0
+	ld bc, 340
+	call ByteFill
     call ClearSprites
-    textbox 0, 1, $12, $10
+	
 .loop
     call DelayFrame
+	call DrawNotes
 	call GetJoypad
 	jbutton B_BUTTON, .exit
     jr .loop
@@ -638,8 +796,14 @@ db "Ch1──Ch2──Wave─Noise"
 db "    │    │    │     "
 db "    │    │    │     "
 db "    │    │    │     "
-db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
+db "────────────────────"
+
 MPTilemapEnd
+
+MPKeymap:
+db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
+
+MPKeymapEnd
 
 Additional:
 	db "Additional Credits:@"
