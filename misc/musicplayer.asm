@@ -283,11 +283,42 @@ DrawNotes:
     call MoveNotes
     ret
 
+CheckEndedNote:
+; Check that the current channel is actually playing a note.
+
+	ld a, [wTmpCh]
+	ld e, a
+	ld bc, Channel2 - Channel1
+
+;	ld a, e
+	ld hl, Channel1NoteDuration
+	call AddNTimes
+	ld a, [hl]
+	cp 2
+	jr c, .ended
+
+	ld a, e
+	ld hl, Channel1Flags
+	call AddNTimes
+	bit 0, [hl]
+	jr z, .ended
+
+	ld a, e
+	ld hl, Channel1NoteFlags
+	call AddNTimes
+	bit 5, [hl]
+	jr nz, .ended
+
+.still_going
+	and a
+	ret
+
+.ended
+	scf
+	ret
+
 DrawNote:
     call GetPitchAddr
-    ld a, [hl]
-    and a
-    ret z ; TODO clear the sprite instead so there's not a flying bit
     inc hl
     ld a, [hld] ; octave
     ld c, 14
@@ -362,6 +393,9 @@ DrawNewNote:
     ret
 
 DrawLongerNote:
+	call CheckEndedNote
+	ret c
+
     ld a, [wTmpCh]
     ld bc, 4
     ld hl, Sprites
