@@ -79,6 +79,8 @@ MusicPlayer::
 	and 3
 	cp a,1
 	jr nz, .wait
+	dec hl
+	res 7, [hl]
 	ld b, BANK(MusicTestGFX) ;load the gfx
 	ld c, 10
 	ld de, MusicTestGFX
@@ -96,11 +98,12 @@ MusicPlayer::
 	ld hl, $8000
 	call Copy2bpp
 
-    call MPLoadPalette ; XXX why won't this work sometimes?
-    ei
+	call MPLoadPalette ; XXX why won't this work sometimes?
+	ld hl, rLCDC
+	set 7, [hl]
+	ei
 
-    ld hl, rLCDC
-    set 2, [hl] ; 8x16 sprites
+	set 2, [hl] ; 8x16 sprites
 MPlayerTilemap:
 
 	ld bc, MPTilemapEnd-MPTilemap
