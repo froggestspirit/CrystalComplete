@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 168
+NUMSONGS EQU 170
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -974,10 +974,12 @@ SongInfo:
     db "PokéRadar@", 6, 1, 2
     db "Cerulean City@", 7, 1, 2
     db "Cinnabar Island@", 7, 1, 2
+    db "Cinnabar Island     GSC Remix@", 1, 1, 2
     db "Route 24@", 7, 1, 2
     db "Shop@", 7, 1, 2
     db "Pokéathelon Finals@", 7, 1, 2
     db "Vs. Johto Trainer   GS Kanto Style Remix@", 3, 1, 2
+    db "Vs. Kanto Gym LeaderRemix@", 1, 1, 2
     db "Vs. Naljo Wild@", 11, 3, 2
     db "Vs. Naljo Gym Leader@", 11, 4, 2
     db "Vs. Pallet Patrol@", 11, 5, 2
