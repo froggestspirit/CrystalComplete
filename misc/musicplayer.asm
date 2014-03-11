@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 168
+NUMSONGS EQU 170
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -79,29 +79,31 @@ MusicPlayer::
 	and 3
 	cp a,1
 	jr nz, .wait
-	ld b, MUSIC_PLAYER ;load the gfx
+	dec hl
+	res 7, [hl]
+	ld b, BANK(MusicTestGFX) ;load the gfx
 	ld c, 10
 	ld de, MusicTestGFX
 	ld hl, $8c60
-	call Copy2bpp
-	ei
-	
+	call Copy2bpp	
 	ld de, PianoGFX
 	ld b, BANK(PianoGFX)
 	ld c, $50
 	ld hl, $9000
-	call Request2bpp
+	call Copy2bpp
 	
 	ld de, NotesGFX
 	ld b, BANK(NotesGFX)
 	ld c, $80
 	ld hl, $8000
-	call Request2bpp
+	call Copy2bpp
 
-    call MPLoadPalette ; XXX why won't this work sometimes?
-    
-    ld hl, rLCDC
-    set 2, [hl] ; 8x16 sprites
+	call MPLoadPalette ; XXX why won't this work sometimes?
+	ld hl, rLCDC
+	set 7, [hl]
+	ei
+
+	set 2, [hl] ; 8x16 sprites
 MPlayerTilemap:
 
 	ld bc, MPTilemapEnd-MPTilemap
@@ -115,7 +117,11 @@ MPlayerTilemap:
     ld [wChLastNotes], a
     ld [wChLastNotes+1], a
     ld [wChLastNotes+2], a
-	
+    ld a, [wSongSelection]
+	and a ;let's see if a song is currently selected
+	jr z, .getsong
+	jp .redraw
+.getsong ;get the current song
 	ld a, [CurMusic]
 	jp .redraw
 .loop
@@ -252,6 +258,45 @@ DrawChData:
 	inc hl
 	inc hl
 	ld [hli], a
+
+	push hl
+	dec hl
+	dec hl
+	dec hl
+	ld a, $c7
+	ld de, 20
+	add hl, de
+	ld [hli], a
+	ld [hld], a
+	add hl, de
+	ld [hli], a
+	ld [hld], a
+
+	push hl
+	call GetIntensityAddr
+	ld a, [hl]
+	pop hl
+	swap a
+	and $f
+	cp 8
+	jr c, .ok
+
+	push af
+	ld a, $cf
+	ld [hli], a
+	ld [hld], a
+	pop af
+	ld de, -20
+	add hl, de
+
+.ok
+	and 7
+	add $c7
+	ld [hli], a
+	ld [hld], a
+
+	pop hl
+
 	pop af
 	ret
 
@@ -500,6 +545,13 @@ GetOctaveAddr:
 	call AddNTimes
 	ret
 
+GetIntensityAddr:
+	ld a, [wTmpCh]
+	ld hl, Channel1Intensity
+	ld bc, Channel2 - Channel1
+	call AddNTimes
+	ret
+
 DrawSongInfo:
     ld a, [wSongSelection]
     ld b, a
@@ -605,10 +657,19 @@ GetSongArtist2:
     ret
     
 SongSelector:
+	ld bc, MPKeymapEnd-MPKeymap
+	ld hl, MPKeymap
+	decoord 0, 17
+	call CopyBytes
+	ld a, " "
+	hlcoord 0, 0
+	ld bc, 340
+	call ByteFill
     call ClearSprites
-    textbox 0, 1, $12, $10
+	
 .loop
     call DelayFrame
+	call DrawNotes
 	call GetJoypad
 	jbutton B_BUTTON, .exit
     jr .loop
@@ -656,8 +717,14 @@ db "Ch1──Ch2──Wave─Noise"
 db "    │    │    │     "
 db "    │    │    │     "
 db "    │    │    │     "
-db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
+db "────────────────────"
+
 MPTilemapEnd
+
+MPKeymap:
+db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
+
+MPKeymapEnd
 
 Additional:
 	db "Additional Credits:@"
@@ -825,10 +892,12 @@ SongInfo:
     db "PokéRadar@", 6, 1, 2
     db "Cerulean City@", 7, 1, 2
     db "Cinnabar Island@", 7, 1, 2
+    db "Cinnabar Island     GSC Remix@", 1, 1, 2
     db "Route 24@", 7, 1, 2
     db "Shop@", 7, 1, 2
     db "Pokéathelon Finals@", 7, 1, 2
     db "Vs. Johto Trainer   GS Kanto Style Remix@", 3, 1, 2
+    db "Vs. Kanto Gym LeaderRemix@", 1, 1, 2
     db "Vs. Naljo Wild@", 11, 3, 2
     db "Vs. Naljo Gym Leader@", 11, 4, 2
     db "Vs. Pallet Patrol@", 11, 5, 2

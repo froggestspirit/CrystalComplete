@@ -226,6 +226,8 @@ SECTION "Custom Songs 2", ROMX, BANK[CUSTOM_SONGS_2]
 INCLUDE "audio/music/custom/naljowildbattle.asm"
 INCLUDE "audio/music/custom/naljogymbattle.asm"
 INCLUDE "audio/music/custom/palletbattle.asm"
+INCLUDE "audio/music/custom/cinnabarremix.asm"
+INCLUDE "audio/music/custom/kantogymleaderremix.asm"
 
 SECTION "DPPt Songs 1", ROMX, BANK[DPPT_SONGS_1]
 

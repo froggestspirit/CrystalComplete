@@ -21,6 +21,16 @@ wSongSelection:: ds 2
 wNumNoteLines:: ds 1
 wTmpCh:: ds 1
 wChLastNotes:: ds 3
+wVolTimer:: ds 1
+wC1Vol:: ds 1
+wC2Vol:: ds 1
+wC3Vol:: ds 1
+wC4Vol:: ds 1
+wC1VolSub:: ds 1
+wC2VolSub:: ds 1
+wC3VolSub:: ds 1
+wC4VolSub:: ds 1
+
 
 SECTION "stack",WRAM0[$c0ff]
 Stack:: ; c0ff
