@@ -104,6 +104,15 @@ MusicPlayer::
 	ei
 
 	set 2, [hl] ; 8x16 sprites
+
+	call ClearSprites
+
+	xor a
+	ld [wNumNoteLines], a
+	ld [wChLastNotes], a
+	ld [wChLastNotes+1], a
+	ld [wChLastNotes+2], a
+
 MPlayerTilemap:
 
 	ld bc, MPTilemapEnd-MPTilemap
@@ -111,13 +120,7 @@ MPlayerTilemap:
 	decoord 0, 0
 	call CopyBytes
 	
-    call ClearSprites
-    xor a
-    ld [wNumNoteLines], a
-    ld [wChLastNotes], a
-    ld [wChLastNotes+1], a
-    ld [wChLastNotes+2], a
-    ld a, [wSongSelection]
+	ld a, [wSongSelection]
 	and a ;let's see if a song is currently selected
 	jr z, .getsong
 	jp .redraw
@@ -665,8 +668,7 @@ SongSelector:
 	hlcoord 0, 0
 	ld bc, 340
 	call ByteFill
-    call ClearSprites
-	
+
 .loop
     call DelayFrame
 	call DrawNotes
