@@ -674,6 +674,7 @@ SongSelector:
 	call DrawNotes
 	call GetJoypad
 	jbutton B_BUTTON, .exit
+	jbutton START, .exit
     jr .loop
 .exit
     ret
