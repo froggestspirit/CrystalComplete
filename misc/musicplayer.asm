@@ -104,6 +104,15 @@ MusicPlayer::
 	ei
 
 	set 2, [hl] ; 8x16 sprites
+
+	call ClearSprites
+
+	xor a
+	ld [wNumNoteLines], a
+	ld [wChLastNotes], a
+	ld [wChLastNotes+1], a
+	ld [wChLastNotes+2], a
+
 MPlayerTilemap:
 
 	ld bc, MPTilemapEnd-MPTilemap
@@ -111,13 +120,7 @@ MPlayerTilemap:
 	decoord 0, 0
 	call CopyBytes
 	
-    call ClearSprites
-    xor a
-    ld [wNumNoteLines], a
-    ld [wChLastNotes], a
-    ld [wChLastNotes+1], a
-    ld [wChLastNotes+2], a
-    ld a, [wSongSelection]
+	ld a, [wSongSelection]
 	and a ;let's see if a song is currently selected
 	jr z, .getsong
 	jp .redraw
@@ -136,6 +139,7 @@ MPlayerTilemap:
 	jbutton SELECT, .select
 	jbutton START, .start
 	call DrawChData
+	call DrawNotes
     jr .loop
 .left
     ld a, [wSongSelection]
@@ -222,205 +226,83 @@ MPlayerTilemap:
     ret
 
 DrawChData:
-    ld a, [Channel1Pitch]
-    ld hl, NoteNames
-    call GetNthString
-    push hl
-    pop de
-    hlcoord 0, 14
-    call PlaceString
-    ld a, [Channel1Octave]
-    ld d, a
+
+	ld a, 0
+	hlcoord 0, 14
+.ch
+	ld [wTmpCh], a
+	call .Draw
+	inc a
+	ld de, 2
+	add hl, de
+	cp 3
+	jr c, .ch
+
+	; Ch4 handling goes here.
+	ret
+
+.Draw
+	push af
+	push hl
+	call GetPitchAddr
+	ld a, [hl]
+	ld hl, NoteNames
+	call GetNthString
+	ld e, l
+	ld d, h
+	pop hl
+	push hl
+	call PlaceString
+	call GetOctaveAddr
+	ld d, [hl]
 	ld a, $fe
 	sub d
-    hlcoord 2, 14
-    ld [hli], a
-    
-	ld a, [Channel1Intensity] ;temporary
-	swap a ;temporary
-	and $f ;temporary
-	ld [wC1Vol], a ;temporary
-	
-	ld a, [wC1Vol]
+	pop hl
+	inc hl
+	inc hl
+	ld [hli], a
+
+	push hl
+	dec hl
+	dec hl
+	dec hl
+	ld a, $c7
+	ld de, 20
+	add hl, de
+	ld [hli], a
+	ld [hld], a
+	add hl, de
+	ld [hli], a
+	ld [hld], a
+
+	push hl
+	call GetIntensityAddr
+	ld a, [hl]
+	pop hl
+	swap a
+	and $f
 	cp 8
-	jr c, .lowvol
+	jr c, .ok
 
-.highvol
-	and $7
-	add $c7
-	hlcoord 1, 15
-	ldi [hl], a
-	ldi [hl], a
-	hlcoord 1,16
+	push af
 	ld a, $cf
-	ldi [hl], a
-	ldi [hl], a
-	jr .done
+	ld [hli], a
+	ld [hld], a
+	pop af
+	ld de, -20
+	add hl, de
 
-.lowvol
-	and $7
+.ok
+	and 7
 	add $c7
-	hlcoord 1, 16
-	ldi [hl], a
-	ldi [hl], a
-	hlcoord 1,15
-	ld a, $c7
-	ldi [hl], a
-	ldi [hl], a
-	jr .done
-	
-.mute
-	ld a, $c7
-	hlcoord 1, 15
-	ldi [hl], a
-	ldi [hl], a
-	hlcoord 1, 16
-	ldi [hl], a
-	ldi [hl], a
+	ld [hli], a
+	ld [hld], a
 
+	pop hl
 
-.done	
+	pop af
+	ret
 
-
-    ;hlcoord 0, 1
-	;ld de, Channel1Tempo ;Maybe wait till we can get BPM
-	;ld bc, $0103
-	;call PrintNum
-	
-CHANNEL2:
-    ld a, [$c145]
-    ld hl, NoteNames
-    call GetNthString
-    push hl
-    pop de
-    hlcoord 5, 14
-    call PlaceString
-    ld a, [$c146]
-    ld d, a
-	ld a, $fe
-	sub d
-    hlcoord 7, 14
-    ld [hli], a
-
-	ld a, [(Channel1Intensity-Channel1) + Channel2] ;temporary
-	swap a ;temporary
-	and $f ;temporary
-	ld [wC2Vol], a ;temporary
-
-	ld a, [wC2Vol]
-	cp 8
-	jr c, .lowvol
-
-.highvol
-	and $7
-	add $c7
-	hlcoord 6, 15
-	ldi [hl], a
-	ldi [hl], a
-	hlcoord 6,16
-	ld a, $cf
-	ldi [hl], a
-	ldi [hl], a
-	jr .done
-
-.lowvol
-	and $7
-	add $c7
-	hlcoord 6, 16
-	ldi [hl], a
-	ldi [hl], a
-	hlcoord 6,15
-	ld a, $c7
-	ldi [hl], a
-	ldi [hl], a
-	jr .done
-
-.mute
-	ld a, $c7
-	hlcoord 6, 15
-	ldi [hl], a
-	ldi [hl], a
-	hlcoord 6, 16
-	ldi [hl], a
-	ldi [hl], a
-	
-.done	
-
-CHANNEL3:    
-    ld a, [$c177]
-    ld hl, NoteNames
-    call GetNthString
-    push hl
-    pop de
-    hlcoord 10, 14
-    call PlaceString
-    ld a, [$c178]
-    ld d, a
-	ld a, $fe
-	sub d
-    hlcoord 12, 14
-    ld [hli], a
-
-	ld a, [(Channel1Intensity-Channel1) + Channel3] ;temporary
-	swap a ;temporary
-	and $3 ;temporary
-	ld [wC3Vol], a ;temporary
-
-	ld a, [wC3Vol]
-	cp 0
-	jr z, .mute
-	dec a
-	jr z, .full
-	dec a
-	jr z, .mid
-	dec a
-	jr z, .low
-.mute
-	ld a, $c7
-	hlcoord 11, 15
-	ldi [hl], a
-	ldi [hl], a
-	hlcoord 11, 16
-	ldi [hl], a
-	ldi [hl], a
-	jr .done
-
-.low
-	ld a, $c7
-	hlcoord 11, 15
-	ldi [hl], a
-	ldi [hl], a
-	hlcoord 11, 16
-	ld a, $cb
-	ldi [hl], a
-	ldi [hl], a
-	jr .done
-
-.mid
-	ld a, $c7
-	hlcoord 11, 15
-	ldi [hl], a
-	ldi [hl], a
-	hlcoord 11, 16
-	ld a, $cf
-	ldi [hl], a
-	ldi [hl], a
-	jr .done
-
-.full
-	ld a, $cf
-	hlcoord 11, 15
-	ldi [hl], a
-	ldi [hl], a
-	hlcoord 11, 16
-	ldi [hl], a
-	ldi [hl], a
-
-
-.done	
-    	
-CHANNEL4:
-    ret
 
 DrawNotes:
     ld a, 0
@@ -438,10 +320,17 @@ DrawNotes:
 CheckEndedNote:
 ; Check that the current channel is actually playing a note.
 
+; Rests count as ends.
+	call GetPitchAddr
+	ld a, [hl]
+	and a
+	jr z, .ended
+
 	ld a, [wTmpCh]
 	ld e, a
 	ld bc, Channel2 - Channel1
 
+; Note duration
 ;	ld a, e
 	ld hl, Channel1NoteDuration
 	call AddNTimes
@@ -449,12 +338,16 @@ CheckEndedNote:
 	cp 2
 	jr c, .ended
 
+; Channel on/off flag
 	ld a, e
 	ld hl, Channel1Flags
 	call AddNTimes
 	bit 0, [hl]
 	jr z, .ended
 
+; Rest flag
+; Note flags are wiped after each
+; note is read, so this is pointless.
 	ld a, e
 	ld hl, Channel1NoteFlags
 	call AddNTimes
@@ -648,6 +541,20 @@ PitchAddrs:
     dw $c145
     dw $c177
 
+GetOctaveAddr:
+	ld a, [wTmpCh]
+	ld hl, Channel1Octave
+	ld bc, Channel2 - Channel1
+	call AddNTimes
+	ret
+
+GetIntensityAddr:
+	ld a, [wTmpCh]
+	ld hl, Channel1Intensity
+	ld bc, Channel2 - Channel1
+	call AddNTimes
+	ret
+
 DrawSongInfo:
     ld a, [wSongSelection]
     ld b, a
@@ -761,13 +668,13 @@ SongSelector:
 	hlcoord 0, 0
 	ld bc, 340
 	call ByteFill
-    call ClearSprites
-	
+
 .loop
     call DelayFrame
 	call DrawNotes
 	call GetJoypad
 	jbutton B_BUTTON, .exit
+	jbutton START, .exit
     jr .loop
 .exit
     ret
@@ -779,7 +686,21 @@ ZeroText:
     db "000@"
 
 NoteNames:
-    db "- @C @C",198,"@D @D",198,"@E @F @F",198,"@G @G",198,"@A @A",198,"@B @XX@"
+	db "- @"
+	db "C @"
+	db "C", 198, "@"
+	db "D @"
+	db "D", 198, "@"
+	db "E @
+	db "F @"
+	db "F", 198, "@"
+	db "G @"
+	db "G", 198, "@"
+	db "A @"
+	db "A", 198, "@"
+	db "B @"
+	db "XX@"
+
 ; ┌─┐│└┘
 MPTilemap:
 db "──┘ MUSIC PLAYER └──"
