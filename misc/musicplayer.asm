@@ -13,9 +13,9 @@ NotesGFX:
 INCBIN "gfx/misc/note_lines.2bpp"
 NotePals:
     RGB 31, 31, 31
-    RGB 15, 31, 15
-    RGB 15, 15, 31
-    RGB 31, 15, 15
+    RGB 7, 31, 7
+    RGB 7, 7, 31
+    RGB 31, 7, 7
 
 placestring_: MACRO
     hlcoord \1, \2
@@ -50,20 +50,20 @@ textbox: MACRO
     call TextBox
     ENDM
 
-MPLoadPalette: ; stolen shamelessly from voltorb flip
-	ld a, [rSVBK] ; $ff00+$70
+MPLoadPalette:
 	push af
-	ld a, 5
-	ld [rSVBK], a
-	ld bc, $e401
-	ld hl, OBPals
+	ld a, $80
+	ld hl, $FF6A
 	ld de, NotePals
-	call CopyPals
+	ld c, 8
+	ldi [hl], a
+.loop
+	ld a, [de]
+	inc de
+	ld [hl], a
+	dec c
+	jr nz, .loop
 	pop af
-	ld [rSVBK], a
-	ld a, 1
-	ld [hCGBPalUpdate], a
-	;call ForceUpdateCGBPals
 	ret
 
 MusicPlayer::
@@ -98,7 +98,7 @@ MusicPlayer::
 	ld hl, $8000
 	call Copy2bpp
 
-	call MPLoadPalette ; XXX why won't this work sometimes?
+	call MPLoadPalette ; XXX why won't this work sometimes?	
 	ld hl, rLCDC
 	set 7, [hl]
 	ei
