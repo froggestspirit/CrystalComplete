@@ -128,7 +128,8 @@ MPlayerTilemap:
 	ld a, [CurMusic]
 	jp .redraw
 .loop
-    call DelayFrame
+	call UpdateVisualIntensity
+	call DelayFrame
 	call GetJoypad
 	jbutton B_BUTTON, .exit
 	jbutton D_LEFT, .left
@@ -239,6 +240,25 @@ DrawChData:
 	jr c, .ch
 
 	; Ch4 handling goes here.
+	hlcoord 16, 16
+	ld a, [wC4Vol]
+	and $f
+	cp 8
+	jr c, .okc4
+
+	push af
+	ld a, $cf
+	ld [hli], a
+	ld [hld], a
+	pop af
+	ld de, -20
+	add hl, de
+
+.okc4
+	and 7
+	add $c7
+	ld [hli], a
+	ld [hld], a
 	ret
 
 .Draw
@@ -279,7 +299,6 @@ DrawChData:
 	call GetIntensityAddr
 	ld a, [hl]
 	pop hl
-	swap a
 	and $f
 	cp 8
 	jr c, .ok
@@ -299,7 +318,6 @@ DrawChData:
 	ld [hld], a
 
 	pop hl
-
 	pop af
 	ret
 
@@ -321,7 +339,7 @@ CheckEndedNote:
 ; Check that the current channel is actually playing a note.
 
 ; Rests count as ends.
-	call GetPitchAddr
+	call GetIntensityAddr
 	ld a, [hl]
 	and a
 	jr z, .ended
@@ -386,8 +404,8 @@ DrawChangedNote:
     ld bc, 4
     ld hl, Sprites
     call AddNTimes
-    
     call AddNoteToOld
+    call SetVisualIntensity
     ; spillover
 
 DrawNewNote:
@@ -465,6 +483,131 @@ DrawLongerNote:
     call DrawNewNote
     ret
 
+SetVisualIntensity:
+    ld a,[wTmpCh]
+    ld hl, Channel1Pitch
+    ld bc, Channel2 - Channel1
+    call AddNTimes
+    ld a, [hl]
+    cp a, 0
+    jr z, .skip
+    ld a,[wTmpCh]
+    ld hl, Channel1Intensity
+    ld bc, Channel2 - Channel1
+    push af
+    call AddNTimes
+    pop af
+    cp a, 2
+    jr z, .wavChannel
+    ld a, [hl]
+    ld e, a
+    swap a
+    and $0F
+    ld d, a
+    
+    ld a, [wTmpCh]
+    ld hl, wC1Vol
+    ld bc, 2
+    call AddNTimes
+    ld a, d
+    ldi [hl], a
+    ld a, e
+    and $0F
+    ld e, a
+    swap a
+    or e
+    and $F7
+    ld [hl], a
+    ret
+.wavChannel
+    ld a, [hl]
+    and $F0
+    cp a, $10
+    jr z, .full
+    cp a, $20
+    jr z, .half
+    cp a, $30
+    jr z, .quarter
+    xor a
+    jr .setWavVol
+.full
+    ld a, $f
+    jr .setWavVol
+.half
+    ld a, $7
+    jr .setWavVol
+.quarter
+    ld a, $3
+.setWavVol
+    ld hl, wC3Vol
+    ld [hl], a
+    ret
+.skip
+    ld a, [wTmpCh]
+    ld hl, wC1Vol
+    ld bc, 2
+    call AddNTimes
+    xor a
+    ld [hli], a
+    ld [hl], a
+    ret
+UpdateVisualIntensity:
+    ld c, 4
+    ld hl, wVolTimer
+    ld a, [hl]
+    sub a, 60
+    ld [hl], a
+    ret nc
+.timerup
+    add a, 64
+    ldi [hl], a
+.updateChannels
+    inc hl
+    ld a, [hld]
+    ld b, a
+    and $7F
+    jr z, .nextChannel
+    ld a, b
+    dec a
+    ld b, a
+    and $0F
+    jr z, .changeEnvelope
+    inc hl
+    jr .doneCh
+.changeEnvelope
+    ld a, b
+    swap a
+    or b
+    and $F7
+    ld b, a
+    ld a, [hl]
+    bit 7, b
+    jr nz, .increase
+    dec a
+    bit 7, a
+    jr z, .doneInc
+    xor a
+    jr .doneInc
+.increase
+    inc a
+    bit 4, a
+    jr z, .doneInc
+    ld a, $0F
+.doneInc
+    ld [hli], a
+.doneCh
+    ld a, b
+    ld [hld], a
+.nextChannel
+    inc hl
+    inc hl
+    dec c
+    ret z
+    ld a, c
+    cp a, 2
+    jr z, .nextChannel
+    jr .updateChannels
+ 
 AddNoteToOld:
     push hl
     ld a, [wNumNoteLines]
@@ -550,11 +693,11 @@ GetOctaveAddr:
 
 GetIntensityAddr:
 	ld a, [wTmpCh]
-	ld hl, Channel1Intensity
-	ld bc, Channel2 - Channel1
+	ld hl, wC1Vol
+	ld bc, 2
 	call AddNTimes
 	ret
-
+	
 DrawSongInfo:
     ld a, [wSongSelection]
     ld b, a
