@@ -237,6 +237,35 @@ INCLUDE "audio/music/DPPt/sinnohwild.asm"
 INCLUDE "audio/music/DPPt/route206.asm"
 INCLUDE "audio/music/DPPt/jubilifecity.asm"
 
+SECTION "TCG Songs 1", ROMX, BANK[TCG_SONGS_1]
+INCLUDE "audio/music/TCG/titlescreen.asm"
+INCLUDE "audio/music/TCG/battletheme1.asm"
+INCLUDE "audio/music/TCG/battletheme2.asm"
+INCLUDE "audio/music/TCG/battletheme3.asm"
+INCLUDE "audio/music/TCG/pausemenu.asm"
+INCLUDE "audio/music/TCG/pcmainmenu.asm"
+INCLUDE "audio/music/TCG/deckmachine.asm"
+INCLUDE "audio/music/TCG/cardpop.asm"
+INCLUDE "audio/music/TCG/overworld.asm"
+INCLUDE "audio/music/TCG/pokemondome.asm"
+INCLUDE "audio/music/TCG/challengehall.asm"
+INCLUDE "audio/music/TCG/club1.asm"
+INCLUDE "audio/music/TCG/club2.asm"
+INCLUDE "audio/music/TCG/club3.asm"
+
+SECTION "TCG Songs 2", ROMX, BANK[TCG_SONGS_2]
+INCLUDE "audio/music/TCG/ronald.asm"
+INCLUDE "audio/music/TCG/imakuni.asm"
+INCLUDE "audio/music/TCG/hallofhonor.asm"
+INCLUDE "audio/music/TCG/credits.asm"
+INCLUDE "audio/music/TCG/matchstart1.asm"
+INCLUDE "audio/music/TCG/matchstart2.asm"
+INCLUDE "audio/music/TCG/matchstart3.asm"
+INCLUDE "audio/music/TCG/matchvictory.asm"
+INCLUDE "audio/music/TCG/matchloss.asm"
+INCLUDE "audio/music/TCG/darkdiddly.asm"
+INCLUDE "audio/music/TCG/boosterpack.asm"
+INCLUDE "audio/music/TCG/medal.asm"
 
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]
 

@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 170
+NUMSONGS EQU 196
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -1047,6 +1047,32 @@ SongInfo:
     db "Vs. Naljo Wild@", 11, 3, 2
     db "Vs. Naljo Gym Leader@", 11, 4, 2
     db "Vs. Pallet Patrol@", 11, 5, 2
+	db "Title Screen@", 12, 6, 7
+	db "Battle Theme 1@", 12, 6, 7
+	db "Battle Theme 2@", 12, 6, 7
+	db "Battle Theme 3@", 12, 6, 7
+	db "Pause Menu@", 12, 6, 7
+	db "PC/Main Menu@", 12, 6, 7
+	db "Deck Machine@", 12, 6, 7
+	db "Card Pop@", 12, 6, 7
+	db "Overworld@", 12, 6, 7
+	db "Pokemon Dome@", 12, 6, 7
+	db "Challenge Hall@", 12, 6, 7
+	db "Club 1@", 12, 6, 7
+	db "Club 2@", 12, 6, 7
+	db "Club 3@", 12, 6, 7
+	db "Ronald@", 12, 6, 7
+	db "Imakuni@", 12, 6, 7
+	db "Hall Of Honor@", 12, 6, 7
+	db "Credits@", 12, 6, 7
+	db "Match Start 1@", 12, 6, 7
+	db "Match Start 2@", 12, 6, 7
+	db "Match Start 3@", 12, 6, 7
+	db "Match Victory@", 12, 6, 7
+	db "Match Loss@", 12, 6, 7
+	db "Dark Diddly@", 12, 6, 7
+	db "Booster Pack@", 12, 6, 7
+	db "Medal@", 12, 6, 7
     db -1
 	
 Origin:
@@ -1061,6 +1087,7 @@ Origin:
 	db 09, "Pokémon Black 2@"
 	db 10, "Pokémon X and Y@"
 	db 11, "Pokémon Prism@"
+	db 12, "Pokémon TCG@"
 	db -1
 	
 Artist:
@@ -1069,4 +1096,6 @@ Artist:
 	db 03, "LevusBevus@"
 	db 04, "GRonnoc@"
 	db 05, "Cat333Pokémon@"
+	db 06, "Ichiro Shimakura@"
+	db 07, "Danny-E 33@"
 	db -1

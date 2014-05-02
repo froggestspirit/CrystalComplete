@@ -190,3 +190,32 @@
 	dbw BANK(Music_NaljoWildBattle), Music_NaljoWildBattle
 	dbw BANK(Music_NaljoGymBattle), Music_NaljoGymBattle
 	dbw BANK(Music_PalletBattle), Music_PalletBattle
+
+; TCG songs:
+
+	dbw BANK(Music_TCGTitleScreen), Music_TCGTitleScreen
+	dbw BANK(Music_TCGBattleTheme1), Music_TCGBattleTheme1
+	dbw BANK(Music_TCGBattleTheme2), Music_TCGBattleTheme2
+	dbw BANK(Music_TCGBattleTheme3), Music_TCGBattleTheme3
+	dbw BANK(Music_TCGPauseMenu), Music_TCGPauseMenu
+	dbw BANK(Music_TCGPCMainMenu), Music_TCGPCMainMenu
+	dbw BANK(Music_TCGDeckMachine), Music_TCGDeckMachine
+	dbw BANK(Music_TCGCardPop), Music_TCGCardPop
+	dbw BANK(Music_TCGOverworld), Music_TCGOverworld
+	dbw BANK(Music_TCGPokemonDome), Music_TCGPokemonDome
+	dbw BANK(Music_TCGChallengeHall), Music_TCGChallengeHall
+	dbw BANK(Music_TCGClub1), Music_TCGClub1
+	dbw BANK(Music_TCGClub2), Music_TCGClub2
+	dbw BANK(Music_TCGClub3), Music_TCGClub3
+	dbw BANK(Music_TCGRonald), Music_TCGRonald
+	dbw BANK(Music_TCGImakuni), Music_TCGImakuni
+	dbw BANK(Music_TCGHallOfHonor), Music_TCGHallOfHonor
+	dbw BANK(Music_TCGCredits), Music_TCGCredits
+	dbw BANK(Music_TCGMatchStart1), Music_TCGMatchStart1
+	dbw BANK(Music_TCGMatchStart2), Music_TCGMatchStart2
+	dbw BANK(Music_TCGMatchStart3), Music_TCGMatchStart3
+	dbw BANK(Music_TCGMatchVictory), Music_TCGMatchVictory
+	dbw BANK(Music_TCGMatchLoss), Music_TCGMatchLoss
+	dbw BANK(Music_TCGDarkDiddly), Music_TCGDarkDiddly
+	dbw BANK(Music_TCGBoosterPack), Music_TCGBoosterPack
+	dbw BANK(Music_TCGMedal), Music_TCGMedal

@@ -99,6 +99,25 @@ A_ EQU 10
 A# EQU 11
 B_ EQU 12
 
+inc_octave: MACRO
+	db $f4
+	ENDM
+
+dec_octave: MACRO
+	db $f5
+	ENDM
+
+notetype0: MACRO
+	db $f6, \1
+	ENDM
+
+notetype1: MACRO
+	db $f7, \1
+	ENDM
+
+notetype2: MACRO
+	db $f8, \1
+	ENDM
 
 ; It's better to use *coord than FuncCoord.
 FuncCoord: MACRO
