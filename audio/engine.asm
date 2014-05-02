@@ -3069,11 +3069,11 @@ NoiseSampleSets5: ; e8ee0
 NoiseSampleSets6:
 	dw NoiseSampleSet00
 	dw NoiseSampleSet37
-	dw NoiseSampleSet02
-	dw NoiseSampleSet02
-	dw NoiseSampleSet04
-	dw NoiseSampleSet09
-	dw NoiseSampleSet09
+	dw NoiseSampleSet17
+	dw NoiseSampleSet18
+	dw NoiseSampleSet19
+	dw NoiseSampleSet34
+	dw NoiseSampleSet30
 ; e8efa
 
 NoiseSampleSet00: ; e8efa
