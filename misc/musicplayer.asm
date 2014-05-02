@@ -16,6 +16,7 @@ NotePals:
     RGB 7, 31, 7
     RGB 7, 7, 31
     RGB 31, 7, 7
+NotePalsEnd
 
 placestring_: MACRO
     hlcoord \1, \2
@@ -51,19 +52,23 @@ textbox: MACRO
     ENDM
 
 MPLoadPalette:
+	ld a, [rSVBK]
 	push af
-	ld a, $80
-	ld hl, $FF6A
-	ld de, NotePals
-	ld c, 8
-	ldi [hl], a
-.loop
-	ld a, [de]
-	inc de
-	ld [hl], a
-	dec c
-	jr nz, .loop
+
+	ld a, 5
+	ld [rSVBK], a
+	
+	ld hl, NotePals
+	ld de, OBPals
+	ld bc, NotePalsEnd-NotePals
+	call CopyBytes
+
 	pop af
+	ld [rSVBK], a
+
+; Request palette update
+	ld a, 1
+	ld [hCGBPalUpdate], a
 	ret
 
 MusicPlayer::
@@ -71,34 +76,26 @@ MusicPlayer::
 	;call PlayMusic
 	;call WhiteBGMap
 	;call ClearTileMap
-	di
-	ld hl, $ff41
-	ld a, 1
-.wait
-	ld a, [hl]
-	and 3
-	cp a,1
-	jr nz, .wait
-	dec hl
-	res 7, [hl]
 	ld b, BANK(MusicTestGFX) ;load the gfx
 	ld c, 10
 	ld de, MusicTestGFX
 	ld hl, $8c60
-	call Copy2bpp	
+	call Request2bpp	
+	
 	ld de, PianoGFX
 	ld b, BANK(PianoGFX)
 	ld c, $50
 	ld hl, $9000
-	call Copy2bpp
+	call Request2bpp
 	
 	ld de, NotesGFX
 	ld b, BANK(NotesGFX)
 	ld c, $80
 	ld hl, $8000
-	call Copy2bpp
+	call Request2bpp
 
-	call MPLoadPalette ; XXX why won't this work sometimes?	
+    call DelayFrame
+	call MPLoadPalette
 	ld hl, rLCDC
 	set 7, [hl]
 	ei
@@ -697,8 +694,8 @@ GetIntensityAddr:
 	ld bc, 2
 	call AddNTimes
 	ret
-	
-DrawSongInfo:
+
+GetSongInfo:
     ld a, [wSongSelection]
     ld b, a
 	ld c, 0
@@ -717,6 +714,22 @@ DrawSongInfo:
 	jr z, .nextline
     jr .loop2
 .found
+    xor a
+    ret
+.nextline
+	inc hl
+	inc hl
+	inc hl
+	jr .loop
+.noname
+    scf
+    ret
+
+DrawSongInfo:
+    ld a, [wSongSelection]
+    call GetSongInfo
+    ret c ; no data
+    
     push hl
     pop de
     hlcoord 0, 4
@@ -739,13 +752,6 @@ DrawSongInfo:
     hlcoord 0, 11
     call PlaceString
 	pop de
-    ret
-.nextline
-	inc hl
-	inc hl
-	inc hl
-	jr .loop
-.noname
     ret
 
 GetSongOrigin:
@@ -802,6 +808,8 @@ GetSongArtist2:
 	ld de, BlankName
     ret
     
+PER_PAGE EQU 15
+
 SongSelector:
 	ld bc, MPKeymapEnd-MPKeymap
 	ld hl, MPKeymap
@@ -811,16 +819,58 @@ SongSelector:
 	hlcoord 0, 0
 	ld bc, 340
 	call ByteFill
-
+    call ClearSprites
+    textbox 0, 1, $12, $10
+    ld a, 1
+    ld [wSelectorTop], a
+    call UpdateSelectorNames
 .loop
     call DelayFrame
-	call DrawNotes
 	call GetJoypad
 	jbutton B_BUTTON, .exit
 	jbutton START, .exit
+	jbutton D_DOWN, .down
+	jbutton D_UP, .up
     jr .loop
+.down
+    ld a, [wSelectorCur]
+    inc a
+    cp PER_PAGE
+    jr nz, .nextpage
+    ld [wSelectorCur], a
+    ret ; i'm too lazy
+.nextpage
+.up
 .exit
     ret
+
+UpdateSelectorNames:
+    ld a, [wSelectorTop]
+    call GetSongInfo
+    ld b, 0
+    push hl
+    pop de
+.loop
+    hlcoord 2, 2
+    push bc
+    ld a, b
+    ld bc, $0014
+    call AddNTimes
+    call PlaceString
+    inc de
+    inc de
+    inc de
+    inc de
+    pop bc
+    inc b
+    ld a, b
+    cp PER_PAGE
+    jr nz, .loop
+    ret
+    
+
+LoadingText:
+    db "LOADING…@"
 
 MusicPlayerText:
     db "--- MUSIC PLAYER ---@"
@@ -863,7 +913,7 @@ db "Ch1──Ch2──Wave─Noise"
 db "    │    │    │     "
 db "    │    │    │     "
 db "    │    │    │     "
-db "────────────────────"
+db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
 
 MPTilemapEnd
 
