@@ -128,3 +128,4 @@
 	dbw BANK(Music_NaljoWildBattle), Music_NaljoWildBattle
 	dbw BANK(Music_NaljoGymBattle), Music_NaljoGymBattle
 	dbw BANK(Music_PalletBattle), Music_PalletBattle
+	
