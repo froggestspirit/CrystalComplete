@@ -134,6 +134,10 @@ MPlayerTilemap:
 .loop
 	call UpdateVisualIntensity
 	call DelayFrame
+	
+	call DrawChData
+	call DrawNotes
+	
 	call GetJoypad
 	jbutton B_BUTTON, .exit
 	jbutton D_LEFT, .left
@@ -143,8 +147,9 @@ MPlayerTilemap:
 	jbutton A_BUTTON, .a
 	jbutton SELECT, .select
 	jbutton START, .start
-	call DrawChData
-	call DrawNotes
+	
+	ld a, 2
+	ld [hBGMapThird], a ; prioritize refreshing the note display
     jr .loop
 .left
     ld a, [wSongSelection]
@@ -179,8 +184,15 @@ MPlayerTilemap:
 .start
     call SongSelector
     jp MPlayerTilemap
-.redraw
+.redraw	
     ld [wSongSelection], a
+    
+    ; if this takes too long, don't let the user see
+    ; blank fields blink in
+	; disable copying the map during vblank
+	ld a, 2 ; VBlank2
+	ld [$ff9e], a
+    
 	ld a, " "
 	hlcoord 5, 2
 	ld bc, 95
@@ -200,6 +212,15 @@ MPlayerTilemap:
 	jr nz, .nitemusic
 .drawtimestring
 	call PlaceString
+	
+	
+	xor a ; VBlank0
+	ld [$ff9e], a
+	
+	; refresh top two portions
+	xor a
+	ld [hBGMapThird], a
+	call DelayFrame
 	jp .loop
 .nitemusic
 	ld de, .nitestring
