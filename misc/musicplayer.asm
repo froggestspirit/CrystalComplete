@@ -75,7 +75,14 @@ MusicPlayer::
 	;ld de, 01
 	;call PlayMusic
 	;call WhiteBGMap
-	;call ClearTileMap
+	call ClearTileMap
+	hlcoord 6, 5
+	ld de, LoadingText
+	call PlaceString
+	xor a
+	ld [hBGMapThird], a
+	call DelayFrame
+	
 	ld b, BANK(MusicTestGFX) ;load the gfx
 	ld c, 10
 	ld de, MusicTestGFX
@@ -395,7 +402,7 @@ DrawNote:
     jp z, DrawLongerNote
     jp DrawChangedNote
     
-DrawChangedNote:
+DrawChangedNote:    
     ld [hl], b
     ld a, [wTmpCh]
     ld bc, 4
@@ -417,7 +424,11 @@ DrawNewNote:
     call AddNTimes
     ld b, l
     pop hl
+    
     ld a, [hl]
+    and a
+    ret z ; rest
+    
     dec a
     ld hl, Pitchels
     ld e, a
