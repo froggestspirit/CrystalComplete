@@ -219,3 +219,28 @@
 	dbw BANK(Music_TCGDarkDiddly), Music_TCGDarkDiddly
 	dbw BANK(Music_TCGBoosterPack), Music_TCGBoosterPack
 	dbw BANK(Music_TCGMedal), Music_TCGMedal
+
+; Pinball songs:
+
+	dbw BANK(Music_Pinballredfield), Music_Pinballredfield
+	dbw BANK(Music_Pinballcatchem_red), Music_Pinballcatchem_red
+	dbw BANK(Music_Pinballhurryup_red), Music_Pinballhurryup_red
+	dbw BANK(Music_Pinballpokedex), Music_Pinballpokedex
+	dbw BANK(Music_Pinballgengarstage_gastly), Music_Pinballgengarstage_gastly
+	dbw BANK(Music_Pinballgengarstage_haunter), Music_Pinballgengarstage_haunter
+	dbw BANK(Music_Pinballgengarstage_gengar), Music_Pinballgengarstage_gengar
+	dbw BANK(Music_Pinballbluefield), Music_Pinballbluefield
+	dbw BANK(Music_Pinballcatchem_blue), Music_Pinballcatchem_blue
+	dbw BANK(Music_Pinballhurryup_blue), Music_Pinballhurryup_blue
+	dbw BANK(Music_Pinballhiscorescreen), Music_Pinballhiscorescreen
+	dbw BANK(Music_Pinballgameover), Music_Pinballgameover
+	dbw BANK(Music_Pinballdiglettstage_digletts), Music_Pinballdiglettstage_digletts
+	dbw BANK(Music_Pinballdiglettstage_dugtrio), Music_Pinballdiglettstage_dugtrio
+	dbw BANK(Music_Pinballseelstage), Music_Pinballseelstage
+	dbw BANK(Music_Pinballtitlescreen), Music_Pinballtitlescreen
+	dbw BANK(Music_Pinballmewtwostage), Music_Pinballmewtwostage
+	dbw BANK(Music_Pinballoptions), Music_Pinballoptions
+	dbw BANK(Music_Pinballfieldselect), Music_Pinballfieldselect
+	dbw BANK(Music_Pinballmeowthstage), Music_Pinballmeowthstage
+	dbw BANK(Music_Pinballendcredits), Music_Pinballendcredits
+	dbw BANK(Music_Pinballnameentry), Music_Pinballnameentry

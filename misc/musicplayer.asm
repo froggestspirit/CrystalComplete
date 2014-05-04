@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 196
+NUMSONGS EQU 196+22
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -265,6 +265,10 @@ DrawChData:
 	jr c, .ch
 
 	; Ch4 handling goes here.
+	hlcoord $13, $e
+	ld a, [MusicNoiseSampleSet]
+	add $f6
+	ld [hl], a
 	hlcoord 16, 16
 	ld a, [wC4Vol]
 	and $f
@@ -942,7 +946,7 @@ db "                    "
 db "                    "
 db "                    "
 db "Ch1──Ch2──Wave─Noise"
-db "    │    │    │     "
+db "    │    │    │Set  "
 db "    │    │    │     "
 db "    │    │    │     "
 db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
@@ -960,7 +964,7 @@ Additional:
 BlankName:
 	db " @"
 SongInfo:
-    db "Title Screen@", 3, 1, 0
+    db "Title Screen@", 4, 1, 0
     db "Route 1@", 3, 1, 0
     db "Route 3@", 3, 1, 0
     db "Route 11@", 3, 1, 0
@@ -1155,6 +1159,28 @@ SongInfo:
 	db "Dark Diddly@", 12, 6, 7
 	db "Booster Pack@", 12, 6, 7
 	db "Medal@", 12, 6, 7
+	db "Red Field Theme@"                         , 13, 8, 0
+	db "Catch 'Em & Evolution Mode in Red Field@" , 13, 8, 0
+	db "Hurry Up! Red Field@"                     , 13, 8, 0
+	db "Pokedex@"                                 , 13, 8, 0
+	db "Gengar Stage - Gastly in the Graveyard@"  , 13, 8, 0
+	db "Gengar Stage - Haunter in the Graveyard@" , 13, 8, 0
+	db "Gengar Stage - Gengar in the Graveyard@"  , 13, 8, 0
+	db "Blue Field Theme@"                        , 13, 8, 0
+	db "Catch 'Em & Evolution Mode in Blue Field@", 13, 8, 0
+	db "Hurry up! Blue Field@"                    , 13, 8, 0
+	db "Hi-Score Screen@"                         , 13, 8, 0
+	db "Game Over@"                               , 13, 8, 0
+	db "Diglett Stage - Whack the Digletts@"      , 13, 8, 0
+	db "Diglett Stage - Whack Dugtrio@"           , 13, 8, 0
+	db "Seel Stage@"                              , 13, 8, 0
+	db "Title Screen@"                            , 13, 8, 0
+	db "Mewtwo Stage@"                            , 13, 8, 0
+	db "Options@"                                 , 13, 8, 0
+	db "Field Select@"                            , 13, 8, 0
+	db "Meowth Stage@"                            , 13, 8, 0
+	db "End Credits@"                             , 13, 8, 0
+	db "Name Entry@"                              , 13, 8, 0
     db -1
 	
 Origin:
@@ -1170,6 +1196,7 @@ Origin:
 	db 10, "Pokémon X and Y@"
 	db 11, "Pokémon Prism@"
 	db 12, "Pokémon TCG@"
+	db 13, "Pokémon Pinball@"
 	db -1
 	
 Artist:
@@ -1180,4 +1207,5 @@ Artist:
 	db 05, "Cat333Pokémon@"
 	db 06, "Ichiro Shimakura@"
 	db 07, "Danny-E 33@"
+	db 08, "Go Ichinose (?)@"
 	db -1
