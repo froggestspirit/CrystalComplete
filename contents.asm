@@ -127,6 +127,9 @@ CUSTOM_SONGS_1            EQU $87
 CUSTOM_SONGS_2            EQU $88
 TCG_SONGS_1               EQU $89
 TCG_SONGS_2               EQU $8A
+TCG2_SONGS_1              EQU $8B
+TCG2_SONGS_2              EQU $8C
+TCG2_SONGS_3              EQU $8D
 
 SOUND_EFFECTS             EQU $3C
 CRYSTAL_SOUND_EFFECTS     EQU $5E

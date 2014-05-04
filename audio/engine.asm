@@ -3074,6 +3074,11 @@ NoiseSampleSets6:
 	dw NoiseSampleSet19
 	dw NoiseSampleSet34
 	dw NoiseSampleSet30
+	dw NoiseSampleSet17
+	dw NoiseSampleSet17
+	dw NoiseSampleSet17
+	dw NoiseSampleSet17
+	dw NoiseSampleSet17
 ; e8efa
 
 NoiseSampleSet00: ; e8efa

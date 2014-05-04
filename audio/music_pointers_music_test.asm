@@ -194,9 +194,9 @@
 ; TCG songs:
 
 	dbw BANK(Music_TCGTitleScreen), Music_TCGTitleScreen
-	dbw BANK(Music_TCGBattleTheme1), Music_TCGBattleTheme1
-	dbw BANK(Music_TCGBattleTheme2), Music_TCGBattleTheme2
-	dbw BANK(Music_TCGBattleTheme3), Music_TCGBattleTheme3
+	dbw BANK(Music_TCGDuelTheme1), Music_TCGDuelTheme1
+	dbw BANK(Music_TCGDuelTheme2), Music_TCGDuelTheme2
+	dbw BANK(Music_TCGDuelTheme3), Music_TCGDuelTheme3
 	dbw BANK(Music_TCGPauseMenu), Music_TCGPauseMenu
 	dbw BANK(Music_TCGPCMainMenu), Music_TCGPCMainMenu
 	dbw BANK(Music_TCGDeckMachine), Music_TCGDeckMachine
@@ -219,6 +219,32 @@
 	dbw BANK(Music_TCGDarkDiddly), Music_TCGDarkDiddly
 	dbw BANK(Music_TCGBoosterPack), Music_TCGBoosterPack
 	dbw BANK(Music_TCGMedal), Music_TCGMedal
+
+; TCG2 songs:
+
+	dbw BANK(Music_TCG2TitleScreen), Music_TCG2TitleScreen
+	dbw BANK(Music_TCG2HereComesGR), Music_TCG2HereComesGR
+	dbw BANK(Music_TCG2GROverworld), Music_TCG2GROverworld
+	dbw BANK(Music_TCG2Fort1), Music_TCG2Fort1
+	dbw BANK(Music_TCG2Fort2), Music_TCG2Fort2
+	dbw BANK(Music_TCG2Fort3), Music_TCG2Fort3
+	dbw BANK(Music_TCG2Fort4), Music_TCG2Fort4
+	dbw BANK(Music_TCG2GRCastle), Music_TCG2GRCastle
+	dbw BANK(Music_TCG2GRChallengeCup), Music_TCG2GRChallengeCup
+	dbw BANK(Music_TCG2GameCorner), Music_TCG2GameCorner
+	dbw BANK(Music_TCG2GRBlimp), Music_TCG2GRBlimp
+	dbw BANK(Music_TCG2GRDuelTheme1), Music_TCG2GRDuelTheme1
+	dbw BANK(Music_TCG2GRDuelTheme2), Music_TCG2GRDuelTheme2
+	dbw BANK(Music_TCG2GRDuelTheme3), Music_TCG2GRDuelTheme3
+	dbw BANK(Music_TCG2Ishihara), Music_TCG2Ishihara
+	dbw BANK(Music_TCG2Imakuni2), Music_TCG2Imakuni2
+	dbw BANK(Music_TCG2Credits), Music_TCG2Credits
+	dbw BANK(Music_TCG2Diddly1), Music_TCG2Diddly1
+	dbw BANK(Music_TCG2Diddly2), Music_TCG2Diddly2
+	dbw BANK(Music_TCG2Diddly3), Music_TCG2Diddly3
+	dbw BANK(Music_TCG2Diddly4), Music_TCG2Diddly4
+	dbw BANK(Music_TCG2Diddly5), Music_TCG2Diddly5
+	dbw BANK(Music_TCG2Diddly6), Music_TCG2Diddly6
 
 ; Pinball songs:
 

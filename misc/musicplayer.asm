@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 196+22
+NUMSONGS EQU 241
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -1134,9 +1134,9 @@ SongInfo:
     db "Vs. Naljo Gym Leader@", 11, 4, 2
     db "Vs. Pallet Patrol@", 11, 5, 2
 	db "Title Screen@", 12, 6, 7
-	db "Battle Theme 1@", 12, 6, 7
-	db "Battle Theme 2@", 12, 6, 7
-	db "Battle Theme 3@", 12, 6, 7
+	db "Duel Theme 1@", 12, 6, 7
+	db "Duel Theme 2@", 12, 6, 7
+	db "Duel Theme 3@", 12, 6, 7
 	db "Pause Menu@", 12, 6, 7
 	db "PC/Main Menu@", 12, 6, 7
 	db "Deck Machine@", 12, 6, 7
@@ -1159,28 +1159,51 @@ SongInfo:
 	db "Dark Diddly@", 12, 6, 7
 	db "Booster Pack@", 12, 6, 7
 	db "Medal@", 12, 6, 7
-	db "Red Field Theme@"                         , 13, 8, 0
-	db "Catch 'Em & Evolution Mode in Red Field@" , 13, 8, 0
-	db "Hurry Up! Red Field@"                     , 13, 8, 0
-	db "Pokedex@"                                 , 13, 8, 0
-	db "Gengar Stage - Gastly in the Graveyard@"  , 13, 8, 0
-	db "Gengar Stage - Haunter in the Graveyard@" , 13, 8, 0
-	db "Gengar Stage - Gengar in the Graveyard@"  , 13, 8, 0
-	db "Blue Field Theme@"                        , 13, 8, 0
-	db "Catch 'Em & Evolution Mode in Blue Field@", 13, 8, 0
-	db "Hurry up! Blue Field@"                    , 13, 8, 0
-	db "Hi-Score Screen@"                         , 13, 8, 0
-	db "Game Over@"                               , 13, 8, 0
-	db "Diglett Stage - Whack the Digletts@"      , 13, 8, 0
-	db "Diglett Stage - Whack Dugtrio@"           , 13, 8, 0
-	db "Seel Stage@"                              , 13, 8, 0
-	db "Title Screen@"                            , 13, 8, 0
-	db "Mewtwo Stage@"                            , 13, 8, 0
-	db "Options@"                                 , 13, 8, 0
-	db "Field Select@"                            , 13, 8, 0
-	db "Meowth Stage@"                            , 13, 8, 0
-	db "End Credits@"                             , 13, 8, 0
-	db "Name Entry@"                              , 13, 8, 0
+	db "Titlescreen@", 13, 6, 7
+	db "Here Comes GR@", 13, 6, 7
+	db "GR Overworld@", 13, 6, 7
+	db "Fort 1@", 13, 6, 7
+	db "Fort 2@", 13, 6, 7
+	db "Fort 3@", 13, 6, 7
+	db "Fort 4@", 13, 6, 7
+	db "GR Castle@", 13, 6, 7
+	db "GR Challenge Cup@", 13, 6, 7
+	db "Game Corner@", 13, 6, 7
+	db "GR Blimp@", 13, 6, 7
+	db "GR Duel Theme 1@", 13, 6, 7
+	db "GR Duel Theme 2@", 13, 6, 7
+	db "GR Duel Theme 3@", 13, 6, 7
+	db "Ishihara@", 13, 6, 7
+	db "Imakuni 2@", 13, 6, 7
+	db "Credits@", 13, 6, 7
+	db "Diddly 1@", 13, 6, 7
+	db "Diddly 2@", 13, 6, 7
+	db "Diddly 3@", 13, 6, 7
+	db "Diddly 4@", 13, 6, 7
+	db "Diddly 5@", 13, 6, 7
+	db "Diddly 6@", 13, 6, 7
+	db "Red Field Theme@"                         , 14, 8, 0
+	db "Catch 'Em & Evolution Mode in Red Field@" , 14, 8, 0
+	db "Hurry Up! Red Field@"                     , 14, 8, 0
+	db "Pokedex@"                                 , 14, 8, 0
+	db "Gengar Stage - Gastly in the Graveyard@"  , 14, 8, 0
+	db "Gengar Stage - Haunter in the Graveyard@" , 14, 8, 0
+	db "Gengar Stage - Gengar in the Graveyard@"  , 14, 8, 0
+	db "Blue Field Theme@"                        , 14, 8, 0
+	db "Catch 'Em & Evolution Mode in Blue Field@", 14, 8, 0
+	db "Hurry up! Blue Field@"                    , 14, 8, 0
+	db "Hi-Score Screen@"                         , 14, 8, 0
+	db "Game Over@"                               , 14, 8, 0
+	db "Diglett Stage - Whack the Digletts@"      , 14, 8, 0
+	db "Diglett Stage - Whack Dugtrio@"           , 14, 8, 0
+	db "Seel Stage@"                              , 14, 8, 0
+	db "Title Screen@"                            , 14, 8, 0
+	db "Mewtwo Stage@"                            , 14, 8, 0
+	db "Options@"                                 , 14, 8, 0
+	db "Field Select@"                            , 14, 8, 0
+	db "Meowth Stage@"                            , 14, 8, 0
+	db "End Credits@"                             , 14, 8, 0
+	db "Name Entry@"                              , 14, 8, 0
     db -1
 	
 Origin:
@@ -1196,7 +1219,8 @@ Origin:
 	db 10, "Pokémon X and Y@"
 	db 11, "Pokémon Prism@"
 	db 12, "Pokémon TCG@"
-	db 13, "Pokémon Pinball@"
+	db 13, "Pokémon TCG 2@"
+	db 14, "Pokémon Pinball@"
 	db -1
 	
 Artist:

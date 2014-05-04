@@ -1,14 +1,14 @@
-Music_TCGBattleTheme2:
+Music_TCGDuelTheme2:
 	db $C0
-	dw Music_TCGBattleTheme2_Ch1
+	dw Music_TCGDuelTheme2_Ch1
 	db $01
-	dw Music_TCGBattleTheme2_Ch2
+	dw Music_TCGDuelTheme2_Ch2
 	db $02
-	dw Music_TCGBattleTheme2_Ch3
+	dw Music_TCGDuelTheme2_Ch3
 	db $03
-	dw Music_TCGBattleTheme2_Ch4
+	dw Music_TCGDuelTheme2_Ch4
 
-Music_TCGBattleTheme2_Ch1: 
+Music_TCGDuelTheme2_Ch1: 
 	notetype0 9
 	vibrato 20, $33
 	notetype2 8
@@ -425,7 +425,7 @@ Branch_f5f90:
 	endchannel
 
 
-Music_TCGBattleTheme2_Ch2: 
+Music_TCGDuelTheme2_Ch2: 
 	notetype0 9
 	vibrato 15, $33
 	notetype2 8
@@ -825,7 +825,7 @@ Branch_f618f:
 	endchannel
 
 
-Music_TCGBattleTheme2_Ch3: 
+Music_TCGDuelTheme2_Ch3: 
 	notetype0 9
 	notetype1 1
 	notetype2 11
@@ -1053,7 +1053,7 @@ Branch_f62e5:
 	endchannel
 
 
-Music_TCGBattleTheme2_Ch4: 
+Music_TCGDuelTheme2_Ch4: 
 	togglenoise $06
 	notetype 9
 .Loop1
