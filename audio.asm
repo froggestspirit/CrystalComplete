@@ -267,6 +267,31 @@ INCLUDE "audio/music/TCG/darkdiddly.asm"
 INCLUDE "audio/music/TCG/boosterpack.asm"
 INCLUDE "audio/music/TCG/medal.asm"
 
+SECTION "Pinball Songs", ROMX
+INCLUDE "audio/music/pinball/redfield.asm"
+INCLUDE "audio/music/pinball/catchem_red.asm"
+INCLUDE "audio/music/pinball/hurryup_red.asm"
+INCLUDE "audio/music/pinball/pokedex.asm"
+INCLUDE "audio/music/pinball/gengarstage_gastly.asm"
+INCLUDE "audio/music/pinball/gengarstage_hauntergengar.asm" ; the two songs are interleaved
+INCLUDE "audio/music/pinball/bluefield.asm"
+INCLUDE "audio/music/pinball/catchem_blue.asm"
+INCLUDE "audio/music/pinball/hurryup_blue.asm"
+INCLUDE "audio/music/pinball/hiscorescreen.asm"
+INCLUDE "audio/music/pinball/gameover.asm"
+INCLUDE "audio/music/pinball/diglettstage_digletts.asm"
+INCLUDE "audio/music/pinball/diglettstage_dugtrio.asm"
+
+SECTION "Pinball Songs 2", ROMX
+INCLUDE "audio/music/pinball/seelstage.asm"
+INCLUDE "audio/music/pinball/titlescreen.asm"
+INCLUDE "audio/music/pinball/mewtwostage.asm"
+INCLUDE "audio/music/pinball/options.asm"
+INCLUDE "audio/music/pinball/fieldselect.asm"
+INCLUDE "audio/music/pinball/meowthstage.asm"
+INCLUDE "audio/music/pinball/endcredits.asm"
+INCLUDE "audio/music/pinball/nameentry.asm"
+
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]
 
 INCLUDE "audio/sfx.asm"
