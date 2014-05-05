@@ -19,14 +19,18 @@ Music_TCGClub2_Ch1:
 	note C_, 4
 	notetype1 7
 	note F#, 4
+	notetype2 6
 	note F#, 16
 	notetype1 7
+	notetype2 8
 	note G_, 4
 	note A_, 4
 	note B_, 4
 	notetype1 7
 	note F#, 4
+	notetype2 6
 	note F#, 16
+	notetype2 8
 	loopchannel 8, .Loop1
 	notetype1 7
 	note G_, 4
@@ -36,16 +40,20 @@ Music_TCGClub2_Ch1:
 	inc_octave
 	notetype1 7
 	note B_, 4
+	notetype2 6
 	note B_, 16
 	notetype1 7
+	notetype2 8
 	note G_, 4
 	note D_, 4
 	note C_, 4
 	notetype1 7
 	note B_, 4
+	notetype2 6
 	note B_, 16
 	dec_octave
 	notetype1 7
+	notetype2 8
 	note F#, 4
 	dec_octave
 	note D_, 4
@@ -88,6 +96,7 @@ Music_TCGClub2_Ch1:
 	note D_, 5
 	notetype0 6
 	note D_, 15
+	notetype2 6
 	note D_, 16
 	loopchannel 0, .MainLoop
 
@@ -107,10 +116,12 @@ Music_TCGClub2_Ch2:
 	inc_octave
 	notetype1 7
 	note D_, 4
+	notetype2 6
 	note D_, 16
 	dec_octave
 	dec_octave
 	notetype1 7
+	notetype2 8
 	note C_, 4
 	note G_, 4
 	inc_octave
@@ -118,9 +129,11 @@ Music_TCGClub2_Ch2:
 	note C_, 4
 	notetype1 7
 	note D_, 4
+	notetype2 6
 	note D_, 16
 	dec_octave
 	dec_octave
+	notetype2 8
 	loopchannel 8, .Loop1
 	dec_octave
 	notetype1 7
@@ -132,11 +145,13 @@ Music_TCGClub2_Ch2:
 	inc_octave
 	notetype1 7
 	note G_, 4
+	notetype2 6
 	note G_, 16
 	dec_octave
 	dec_octave
 	dec_octave
 	notetype1 7
+	notetype2 8
 	note A_, 4
 	inc_octave
 	note A_, 4
@@ -145,10 +160,12 @@ Music_TCGClub2_Ch2:
 	inc_octave
 	notetype1 7
 	note C_, 4
+	notetype2 6
 	note C_, 16
 	dec_octave
 	dec_octave
 	notetype1 7
+	notetype2 8
 	note D_, 4
 	octave 2
 	note F#, 4
@@ -194,6 +211,7 @@ Music_TCGClub2_Ch2:
 	note F#, 7
 	notetype0 6
 	note F#, 14
+	notetype2 6
 	note F#, 16
 	loopchannel 0, .MainLoop
 
