@@ -2969,6 +2969,7 @@ WaveSamples: ; e8db2
 	db $46, $8a, $cc, $cc, $cc, $cc, $ca, $86, $42, $11, $00, $00, $00, $00, $01, $12
 	db $7a, $df, $ff, $da, $74, $10, $00, $14, $7a, $df, $ff, $da, $74, $10, $00, $14
 	db $ee, $ee, $ee, $ee, $ee, $ee, $ee, $ee, $00, $00, $00, $00, $00, $00, $00, $00
+	db $ee, $ee, $ee, $ee, $ee, $ee, $ed, $cb, $21, $00, $00, $00, $00, $00, $00, $00
 ; e8e52
 
 NoiseSampleSetsPointers: ; e8e52
