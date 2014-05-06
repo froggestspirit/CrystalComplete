@@ -234,6 +234,10 @@ MPlayerTilemap:
 	ld e, a
 	ld d, 0
 	callba PlayMusic2
+	ld a, 1
+	ld [wNoteEnded], a
+	ld [wNoteEnded+1], a
+	ld [wNoteEnded+2], a
 	jp .loop
 .select
 	ld a, [GBPrinter]
@@ -364,33 +368,32 @@ DrawNotes:
     call MoveNotes
     ret
 
-CheckEndedNote:
+CheckChannelPlaying:
 ; Check that the current channel is actually playing a note.
 
 ; Rests count as ends.
 	call GetIntensityAddr
 	ld a, [hl]
 	and a
-	jr z, .ended
+	jr z, NoteEnded
 
+CheckNoteDuration:
 	ld a, [wTmpCh]
-	ld e, a
 	ld bc, Channel2 - Channel1
-
-; Note duration
-;	ld a, e
 	ld hl, Channel1NoteDuration
 	call AddNTimes
 	ld a, [hl]
 	cp 2
-	jr c, .ended
+	jr c, NoteEnded
 
+CheckChannelOn:
 ; Channel on/off flag
-	ld a, e
+	ld a, [wTmpCh]
+	ld bc, Channel2 - Channel1
 	ld hl, Channel1Flags
 	call AddNTimes
 	bit 0, [hl]
-	jr z, .ended
+	jr z, NoteEnded
 
 ; Rest flag
 ; Note flags are wiped after each
@@ -399,17 +402,31 @@ CheckEndedNote:
 	ld hl, Channel1NoteFlags
 	call AddNTimes
 	bit 5, [hl]
-	jr nz, .ended
+	jr nz, NoteEnded
 
 .still_going
 	and a
 	ret
 
-.ended
+NoteEnded:
 	scf
 	ret
 
 DrawNote:
+    call CheckChannelOn
+    ret c
+    ld hl, wNoteEnded
+    ld a, [wTmpCh]
+    ld e, a
+    ld d, 0
+    add hl, de
+    ld a, [hl]
+    and a
+    jr z, .notNewNote
+    xor a
+    ld [hl], a
+    call SetVisualIntensity
+.notNewNote
     call GetPitchAddr
     inc hl
     ld a, [hld] ; octave
@@ -434,7 +451,6 @@ DrawChangedNote:
     ld hl, Sprites
     call AddNTimes
     call AddNoteToOld
-    call SetVisualIntensity
     ; spillover
 
 DrawNewNote:
@@ -489,9 +505,20 @@ DrawNewNote:
     ret
 
 DrawLongerNote:
-	call CheckEndedNote
-	ret c
+	call CheckChannelPlaying
+	jr nc, .notEnded
+	call CheckNoteDuration
+	ret nc
+	ld hl, wNoteEnded
+	ld a, [wTmpCh]
+	ld e, a
+	ld d, 0
+	add hl, de
+	ld a, 1
+	ld [hl], a
+	ret
 
+.notEnded
     ld a, [wTmpCh]
     ld bc, 4
     ld hl, Sprites
