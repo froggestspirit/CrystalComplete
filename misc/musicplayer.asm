@@ -234,10 +234,11 @@ MPlayerTilemap:
 	ld e, a
 	ld d, 0
 	callba PlayMusic2
-	ld a, 1
-	ld [wNoteEnded], a
-	ld [wNoteEnded+1], a
-	ld [wNoteEnded+2], a
+	ld hl, wChLastNotes
+	xor a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
 	jp .loop
 .select
 	ld a, [GBPrinter]
@@ -359,16 +360,19 @@ DrawNotes:
     ld a, 0
     ld [wTmpCh], a
     call DrawNote
+    call CheckForVolumeBarReset
     ld a, 1
     ld [wTmpCh], a
     call DrawNote
+    call CheckForVolumeBarReset
     ld a, 2
     ld [wTmpCh], a
     call DrawNote
+    call CheckForVolumeBarReset
     call MoveNotes
     ret
 
-CheckChannelPlaying:
+CheckEndedNote:
 ; Check that the current channel is actually playing a note.
 
 ; Rests count as ends.
@@ -379,17 +383,19 @@ CheckChannelPlaying:
 
 CheckNoteDuration:
 	ld a, [wTmpCh]
+	ld e, a
 	ld bc, Channel2 - Channel1
+
+; Note duration
+;	ld a, e
 	ld hl, Channel1NoteDuration
 	call AddNTimes
 	ld a, [hl]
 	cp 2
 	jr c, NoteEnded
 
-CheckChannelOn:
 ; Channel on/off flag
-	ld a, [wTmpCh]
-	ld bc, Channel2 - Channel1
+	ld a, e
 	ld hl, Channel1Flags
 	call AddNTimes
 	bit 0, [hl]
@@ -413,20 +419,6 @@ NoteEnded:
 	ret
 
 DrawNote:
-    call CheckChannelOn
-    ret c
-    ld hl, wNoteEnded
-    ld a, [wTmpCh]
-    ld e, a
-    ld d, 0
-    add hl, de
-    ld a, [hl]
-    and a
-    jr z, .notNewNote
-    xor a
-    ld [hl], a
-    call SetVisualIntensity
-.notNewNote
     call GetPitchAddr
     inc hl
     ld a, [hld] ; octave
@@ -451,6 +443,7 @@ DrawChangedNote:
     ld hl, Sprites
     call AddNTimes
     call AddNoteToOld
+    call SetVisualIntensity
     ; spillover
 
 DrawNewNote:
@@ -505,20 +498,9 @@ DrawNewNote:
     ret
 
 DrawLongerNote:
-	call CheckChannelPlaying
-	jr nc, .notEnded
-	call CheckNoteDuration
-	ret nc
-	ld hl, wNoteEnded
-	ld a, [wTmpCh]
-	ld e, a
-	ld d, 0
-	add hl, de
-	ld a, 1
-	ld [hl], a
-	ret
+	call CheckEndedNote
+	ret c
 
-.notEnded
     ld a, [wTmpCh]
     ld bc, 4
     ld hl, Sprites
@@ -541,6 +523,35 @@ DrawLongerNote:
     dec hl
     call AddNoteToOld
     call DrawNewNote
+    ret
+
+CheckForVolumeBarReset:
+    call CheckNoteDuration
+    jr c, .noteEnded ; not a new note, but this note just ended!
+    ld hl, wNoteEnded
+    ld a, [wTmpCh]
+    ld e, a
+    ld d, 0
+    add hl, de
+    ld a, [hl]
+    and a
+    ret z ; also not a new note
+    xor a
+    ld [hl], a
+    jp SetVisualIntensity ; new note!
+
+.noteEnded
+    ld hl, wNoteEnded
+    ld a, [wTmpCh]
+    ld e, a
+    ld d, 0
+    add hl, de
+    ld a, 1
+    ld [hl], a
+    ld hl, wChLastNotes
+    add hl, de
+    xor a
+    ld [hl], a
     ret
 
 SetVisualIntensity:
