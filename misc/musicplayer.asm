@@ -239,6 +239,11 @@ MPlayerTilemap:
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
+	inc a
+	ld hl, wNoteEnded
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
 	jp .loop
 .select
 	ld a, [GBPrinter]
@@ -298,10 +303,15 @@ DrawChData:
 .Draw
 	push af
 	push hl
+	call CheckChannelOn
+	ld a, 0
+	ld hl, NoteNames
+	jr c, .isNotPlaying
 	call GetPitchAddr
 	ld a, [hl]
 	ld hl, NoteNames
 	call GetNthString
+.isNotPlaying
 	ld e, l
 	ld d, h
 	pop hl
@@ -330,9 +340,16 @@ DrawChData:
 	ld [hld], a
 
 	push hl
+	call CheckChannelOn
+	pop hl
+	ld a, 0
+	jr c, .isNotPlaying2
+
+	push hl
 	call GetIntensityAddr
 	ld a, [hl]
 	pop hl
+.isNotPlaying2
 	and $f
 	cp 8
 	jr c, .ok
@@ -383,19 +400,19 @@ CheckEndedNote:
 
 CheckNoteDuration:
 	ld a, [wTmpCh]
-	ld e, a
 	ld bc, Channel2 - Channel1
 
 ; Note duration
-;	ld a, e
 	ld hl, Channel1NoteDuration
 	call AddNTimes
 	ld a, [hl]
 	cp 2
 	jr c, NoteEnded
 
+CheckChannelOn:
 ; Channel on/off flag
-	ld a, e
+	ld a, [wTmpCh]
+	ld bc, Channel2 - Channel1
 	ld hl, Channel1Flags
 	call AddNTimes
 	bit 0, [hl]
@@ -404,7 +421,7 @@ CheckNoteDuration:
 ; Rest flag
 ; Note flags are wiped after each
 ; note is read, so this is pointless.
-	ld a, e
+	ld a, [wTmpCh]
 	ld hl, Channel1NoteFlags
 	call AddNTimes
 	bit 5, [hl]
@@ -419,6 +436,8 @@ NoteEnded:
 	ret
 
 DrawNote:
+    call CheckEndedNote
+    ret c
     call GetPitchAddr
     inc hl
     ld a, [hld] ; octave
@@ -443,7 +462,6 @@ DrawChangedNote:
     ld hl, Sprites
     call AddNTimes
     call AddNoteToOld
-    call SetVisualIntensity
     ; spillover
 
 DrawNewNote:
@@ -958,7 +976,7 @@ NoteNames:
 	db "C", 198, "@"
 	db "D @"
 	db "D", 198, "@"
-	db "E @
+	db "E @"
 	db "F @"
 	db "F", 198, "@"
 	db "G @"
