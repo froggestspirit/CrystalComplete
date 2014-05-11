@@ -447,6 +447,9 @@ DrawNote:
     call CheckChannelOn
     ret c
     call GetPitchAddr
+    ld a, [hl]
+    and a
+    ret z ; rest
     inc hl
     ld a, [hld] ; octave
     ld c, 14
@@ -485,11 +488,7 @@ DrawNewNote:
     call AddNTimes
     ld b, l
     pop hl
-    
     ld a, [hl]
-    and a
-    ret z ; rest
-    
     dec a
     ld hl, Pitchels
     ld e, a
