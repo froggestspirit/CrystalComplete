@@ -346,6 +346,14 @@ DrawChData:
 	jr c, .isNotPlaying2
 
 	push hl
+	call GetPitchAddr
+	ld a, [hl]
+	and a
+	pop hl
+	ld a, 0
+	jr z, .isNotPlaying2
+
+	push hl
 	call GetIntensityAddr
 	ld a, [hl]
 	pop hl
