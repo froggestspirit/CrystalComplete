@@ -524,9 +524,22 @@ DrawNewNote:
     ret
 
 DrawLongerNote:
-	call CheckEndedNote
-	ret c
+    ld a,[wTmpCh]
+    ld hl, Channel1Intensity
+    ld bc, Channel2 - Channel1
+    call AddNTimes
+    ld a, [hl]
+    and $0f
+    cp $9
+    jr nc, .fadingUp
+    call CheckEndedNote
+    ret c
+    jr .notFadingUp
 
+.fadingUp
+    call CheckNoteDuration
+    ret c
+.notFadingUp
     ld a, [wTmpCh]
     ld bc, 4
     ld hl, Sprites
@@ -562,9 +575,9 @@ CheckForVolumeBarReset:
     ld a, [hl]
     and a
     ret z ; also not a new note
-    xor a
+    xor a ; new note!
     ld [hl], a
-    jp SetVisualIntensity ; new note!
+    ret
 
 .noteEnded
     ld hl, wNoteEnded
