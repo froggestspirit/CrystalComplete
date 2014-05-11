@@ -436,7 +436,7 @@ NoteEnded:
 	ret
 
 DrawNote:
-    call CheckEndedNote
+    call CheckChannelOn
     ret c
     call GetPitchAddr
     inc hl
@@ -462,6 +462,7 @@ DrawChangedNote:
     ld hl, Sprites
     call AddNTimes
     call AddNoteToOld
+    call SetVisualIntensity
     ; spillover
 
 DrawNewNote:
