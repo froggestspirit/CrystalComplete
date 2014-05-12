@@ -124,6 +124,7 @@ MPlayerTilemap:
 	decoord 0, 0
 	call CopyBytes
 	
+	call DelayFrame
 	ld a, [wSongSelection]
 	and a ;let's see if a song is currently selected
 	jr z, .getsong
