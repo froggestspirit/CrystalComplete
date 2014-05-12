@@ -116,6 +116,10 @@ MusicPlayer::
 	ld [wChLastNotes], a
 	ld [wChLastNotes+1], a
 	ld [wChLastNotes+2], a
+	ld [wChannelSelectorSwitches], a
+	ld [wChannelSelectorSwitches+1], a
+	ld [wChannelSelectorSwitches+2], a
+	ld [wChannelSelectorSwitches+3], a
 
 MPlayerTilemap:
 
@@ -246,7 +250,76 @@ MPlayerTilemap:
 	ld [hli], a
 	ld [hl], a
 	jp .loop
+
 .select
+	xor a
+	ld [wChannelSelector], a
+	hlcoord 0, 12
+	ld a, $ee
+	ld [hl], a
+	jp .songEditorLoop
+	
+.songEditorLoop
+	call UpdateVisualIntensity
+	call DelayFrame
+	
+	call DrawChData
+	call DrawNotes
+	
+	call GetJoypad
+	jbutton D_LEFT, .songEditorleft
+	jbutton D_RIGHT, .songEditorright
+	jbutton A_BUTTON, .songEditora
+	jbutton B_BUTTON, .songEditorb
+	jbutton SELECT, .songEditorselect
+	
+	ld a, 2
+	ld [hBGMapThird], a ; prioritize refreshing the note display
+	jr .songEditorLoop
+
+.songEditorleft
+	call .channelSelectorloadhl
+	ld a, $7f
+	ld [hl], a
+	ld a, [wChannelSelector]
+	dec a
+	cp -1
+	jr nz, .noOverflow
+	ld a, 4
+.noOverflow
+	ld [wChannelSelector], a
+	call .channelSelectorloadhl
+	ld [hl], a
+	jp .songEditorLoop
+
+.songEditorright
+	call .channelSelectorloadhl
+	ld a, $7f
+	ld [hl], a
+	ld a, [wChannelSelector]
+	inc a
+	cp 5
+	jr nz, .noOverflow2
+	xor a
+.noOverflow2
+	ld [wChannelSelector], a
+	call .channelSelectorloadhl
+	ld [hl], a
+	jp .songEditorLoop
+
+.songEditora
+	ld a, [wChannelSelector]
+	cp 4
+	jr z, .niteToggle
+	ld c, a
+	ld b, 0
+	ld hl, wChannelSelectorSwitches
+	add hl, bc
+	ld a, [hl]
+	xor 1
+	ld [hl], a
+	jp .songEditorLoop
+.niteToggle
 	ld a, [GBPrinter]
 	xor 4
 	ld [GBPrinter], a
@@ -254,8 +327,44 @@ MPlayerTilemap:
 	ld e, a
 	ld d, 0
 	callba PlayMusic2
-	ld a, [wSongSelection]
-	jp .redraw
+	hlcoord 16, 1
+	ld de, .daystring
+	ld a, [GBPrinter]
+	bit 2, a
+	jr z, .songEditordrawtimestring
+	ld de, .nitestring
+.songEditordrawtimestring
+	call PlaceString
+	xor a
+	ld [hBGMapThird], a
+	call DelayFrame
+	jp .songEditorLoop
+
+.songEditorselect
+.songEditorb
+	call .channelSelectorloadhl
+	ld a, $7f
+	ld [hl], a
+	jp .loop
+
+.channelSelectorloadhl
+	ld a, [wChannelSelector]
+	cp 4
+	jr z, .channelSelectorloadhlnite
+	ld c, 5
+	call SimpleMultiply
+	hlcoord 0, 12
+	add l
+	ld l, a
+	ld a, $ee
+	ret nc
+	inc h
+	ret
+.channelSelectorloadhlnite
+	hlcoord 15, 1
+	ld a, $ed
+	ret
+
 .exit
     call ClearSprites
     ld hl, rLCDC
