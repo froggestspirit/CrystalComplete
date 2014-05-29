@@ -1138,6 +1138,17 @@ ParseMusic: ; e85e1
 	and a, $0f
 	call SetNoteDuration
 	; get note pitch (top nybble)
+	ld a, [CurChannel]
+	ld e, a
+	ld d, 0
+	ld hl, wChannelSelectorSwitches
+	add hl, de
+	ld a, [hl]
+	and a
+	jr z, .notMuted
+	xor a
+	jr .rest
+.notMuted
 	ld a, [CurMusicByte]
 	swap a
 	and a, $0f
@@ -1284,6 +1295,9 @@ GetNoiseSample: ; e86c5
 	ld a, [CurMusicByte]
 	and a, $0f
 	call SetNoteDuration
+	ld a, [wChannelSelectorSwitches+3]
+	and a
+	ret nz
 	; check current channel
 	ld a, [CurChannel]
 	bit 2, a ; are we in a sfx channel?
@@ -1432,11 +1446,64 @@ MusicF3: ; e8780
 	dec e
 	jr nz, .read
 	ret
+
 MusicF4: ; e8780
+;inc_octave
+	ld hl, Channel1Octave - Channel1
+	add hl, bc
+	ld a, [hl]
+	dec a
+	ld [hl], a
+	ret
+
 MusicF5: ; e8780
+;dec_octave
+	ld hl, Channel1Octave - Channel1
+	add hl, bc
+	ld a, [hl]
+	inc a
+	ld [hl], a
+	ret
+
 MusicF6: ; e8780
+;notetype0
+	call GetMusicByte
+	ld hl, $002d
+	add hl, bc
+	ld [hl], a
+	ret
+
 MusicF7: ; e8780
+;notetype1
+	call GetMusicByte
+	ld hl, Channel1Intensity - Channel1
+	add hl, bc
+	rla
+	rla
+	rla
+	rla
+	and $f0
+	push bc
+	ld b, a
+	ld a, [hl]
+	and $f
+	add b
+	pop bc
+	ld [hl], a
+	ret
+
 MusicF8: ; e8780
+;notetype2
+	call GetMusicByte
+	ld hl, Channel1Intensity - Channel1
+	add hl, bc
+	push bc
+	ld b, a
+	ld a, [hl]
+	and $f0
+	add b
+	pop bc
+	ld [hl], a
 	ret
 ; e8781
 
@@ -2911,6 +2978,12 @@ WaveSamples: ; e8db2
 	db $c0, $a9, $87, $f5, $ff, $fe, $ed, $dc, $44, $33, $22, $f1, $02, $46, $8a, $ce
 	db $44, $33, $22, $1f, $00, $46, $8a, $ce, $f8, $fe, $ed, $dc, $cb, $a9, $87, $65
 	db $11, $00, $00, $08, $00, $13, $57, $9a, $b4, $ba, $a9, $98, $87, $65, $43, $21
+	db $79, $bd, $ff, $ff, $ff, $ff, $fd, $b9, $75, $31, $00, $00, $00, $00, $01, $35
+	db $01, $12, $23, $34, $45, $56, $67, $77, $88, $99, $aa, $bb, $cc, $dd, $ee, $ff
+	db $46, $8a, $cc, $cc, $cc, $cc, $ca, $86, $42, $11, $00, $00, $00, $00, $01, $12
+	db $7a, $df, $ff, $da, $74, $10, $00, $14, $7a, $df, $ff, $da, $74, $10, $00, $14
+	db $ee, $ee, $ee, $ee, $ee, $ee, $ee, $ee, $00, $00, $00, $00, $00, $00, $00, $00
+	db $ee, $ee, $ee, $ee, $ee, $ee, $ed, $cb, $21, $00, $00, $00, $00, $00, $00, $00
 ; e8e52
 
 NoiseSampleSetsPointers: ; e8e52
@@ -2920,6 +2993,7 @@ NoiseSampleSetsPointers: ; e8e52
 	dw NoiseSampleSets3
 	dw NoiseSampleSets4
 	dw NoiseSampleSets5
+	dw NoiseSampleSets6
 ; e8e5e
 
 NoiseSampleSets:
@@ -3007,6 +3081,19 @@ NoiseSampleSets5: ; e8ee0
 	dw NoiseSampleSet24
 	dw NoiseSampleSet23
 	dw NoiseSampleSet37
+NoiseSampleSets6:
+	dw NoiseSampleSet00
+	dw NoiseSampleSet37
+	dw NoiseSampleSet17
+	dw NoiseSampleSet18
+	dw NoiseSampleSet19
+	dw NoiseSampleSet34
+	dw NoiseSampleSet30
+	dw NoiseSampleSet17
+	dw NoiseSampleSet17
+	dw NoiseSampleSet17
+	dw NoiseSampleSet17
+	dw NoiseSampleSet17
 ; e8efa
 
 NoiseSampleSet00: ; e8efa

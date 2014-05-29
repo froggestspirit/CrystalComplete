@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 170
+NUMSONGS EQU 241
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -16,6 +16,7 @@ NotePals:
     RGB 7, 31, 7
     RGB 7, 7, 31
     RGB 31, 7, 7
+NotePalsEnd
 
 placestring_: MACRO
     hlcoord \1, \2
@@ -51,54 +52,57 @@ textbox: MACRO
     ENDM
 
 MPLoadPalette:
+	ld a, [rSVBK]
 	push af
-	ld a, $80
-	ld hl, $FF6A
-	ld de, NotePals
-	ld c, 8
-	ldi [hl], a
-.loop
-	ld a, [de]
-	inc de
-	ld [hl], a
-	dec c
-	jr nz, .loop
+
+	ld a, 5
+	ld [rSVBK], a
+	
+	ld hl, NotePals
+	ld de, OBPals
+	ld bc, NotePalsEnd-NotePals
+	call CopyBytes
+
 	pop af
+	ld [rSVBK], a
+
+; Request palette update
+	ld a, 1
+	ld [hCGBPalUpdate], a
 	ret
 
 MusicPlayer::
 	;ld de, 01
 	;call PlayMusic
 	;call WhiteBGMap
-	;call ClearTileMap
-	di
-	ld hl, $ff41
-	ld a, 1
-.wait
-	ld a, [hl]
-	and 3
-	cp a,1
-	jr nz, .wait
-	dec hl
-	res 7, [hl]
+	call ClearTileMap
+	hlcoord 6, 5
+	ld de, LoadingText
+	call PlaceString
+	xor a
+	ld [hBGMapThird], a
+	call DelayFrame
+	
 	ld b, BANK(MusicTestGFX) ;load the gfx
 	ld c, 10
 	ld de, MusicTestGFX
 	ld hl, $8c60
-	call Copy2bpp	
+	call Request2bpp	
+	
 	ld de, PianoGFX
 	ld b, BANK(PianoGFX)
 	ld c, $50
 	ld hl, $9000
-	call Copy2bpp
+	call Request2bpp
 	
 	ld de, NotesGFX
 	ld b, BANK(NotesGFX)
 	ld c, $80
 	ld hl, $8000
-	call Copy2bpp
+	call Request2bpp
 
-	call MPLoadPalette ; XXX why won't this work sometimes?	
+    call DelayFrame
+	call MPLoadPalette
 	ld hl, rLCDC
 	set 7, [hl]
 	ei
@@ -112,6 +116,10 @@ MusicPlayer::
 	ld [wChLastNotes], a
 	ld [wChLastNotes+1], a
 	ld [wChLastNotes+2], a
+	ld [wChannelSelectorSwitches], a
+	ld [wChannelSelectorSwitches+1], a
+	ld [wChannelSelectorSwitches+2], a
+	ld [wChannelSelectorSwitches+3], a
 
 MPlayerTilemap:
 
@@ -120,6 +128,7 @@ MPlayerTilemap:
 	decoord 0, 0
 	call CopyBytes
 	
+	call DelayFrame
 	ld a, [wSongSelection]
 	and a ;let's see if a song is currently selected
 	jr z, .getsong
@@ -130,6 +139,10 @@ MPlayerTilemap:
 .loop
 	call UpdateVisualIntensity
 	call DelayFrame
+	
+	call DrawChData
+	call DrawNotes
+	
 	call GetJoypad
 	jbutton B_BUTTON, .exit
 	jbutton D_LEFT, .left
@@ -139,8 +152,9 @@ MPlayerTilemap:
 	jbutton A_BUTTON, .a
 	jbutton SELECT, .select
 	jbutton START, .start
-	call DrawChData
-	call DrawNotes
+	
+	ld a, 2
+	ld [hBGMapThird], a ; prioritize refreshing the note display
     jr .loop
 .left
     ld a, [wSongSelection]
@@ -175,8 +189,15 @@ MPlayerTilemap:
 .start
     call SongSelector
     jp MPlayerTilemap
-.redraw
+.redraw	
     ld [wSongSelection], a
+    
+    ; if this takes too long, don't let the user see
+    ; blank fields blink in
+	; disable copying the map during vblank
+	ld a, 2 ; VBlank2
+	ld [$ff9e], a
+    
 	ld a, " "
 	hlcoord 5, 2
 	ld bc, 95
@@ -196,6 +217,15 @@ MPlayerTilemap:
 	jr nz, .nitemusic
 .drawtimestring
 	call PlaceString
+	
+	
+	xor a ; VBlank0
+	ld [$ff9e], a
+	
+	; refresh top two portions
+	xor a
+	ld [hBGMapThird], a
+	call DelayFrame
 	jp .loop
 .nitemusic
 	ld de, .nitestring
@@ -209,8 +239,87 @@ MPlayerTilemap:
 	ld e, a
 	ld d, 0
 	callba PlayMusic2
+	ld hl, wChLastNotes
+	xor a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	inc a
+	ld hl, wNoteEnded
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
 	jp .loop
+
 .select
+	xor a
+	ld [wChannelSelector], a
+	hlcoord 0, 12
+	ld a, $ee
+	ld [hl], a
+	jp .songEditorLoop
+	
+.songEditorLoop
+	call UpdateVisualIntensity
+	call DelayFrame
+	
+	call DrawChData
+	call DrawNotes
+	
+	call GetJoypad
+	jbutton D_LEFT, .songEditorleft
+	jbutton D_RIGHT, .songEditorright
+	jbutton A_BUTTON, .songEditora
+	jbutton B_BUTTON, .songEditorb
+	jbutton SELECT, .songEditorselect
+	
+	ld a, 2
+	ld [hBGMapThird], a ; prioritize refreshing the note display
+	jr .songEditorLoop
+
+.songEditorleft
+	call .channelSelectorloadhl
+	ld a, $7f
+	ld [hl], a
+	ld a, [wChannelSelector]
+	dec a
+	cp -1
+	jr nz, .noOverflow
+	ld a, 4
+.noOverflow
+	ld [wChannelSelector], a
+	call .channelSelectorloadhl
+	ld [hl], a
+	jp .songEditorLoop
+
+.songEditorright
+	call .channelSelectorloadhl
+	ld a, $7f
+	ld [hl], a
+	ld a, [wChannelSelector]
+	inc a
+	cp 5
+	jr nz, .noOverflow2
+	xor a
+.noOverflow2
+	ld [wChannelSelector], a
+	call .channelSelectorloadhl
+	ld [hl], a
+	jp .songEditorLoop
+
+.songEditora
+	ld a, [wChannelSelector]
+	cp 4
+	jr z, .niteToggle
+	ld c, a
+	ld b, 0
+	ld hl, wChannelSelectorSwitches
+	add hl, bc
+	ld a, [hl]
+	xor 1
+	ld [hl], a
+	jp .songEditorLoop
+.niteToggle
 	ld a, [GBPrinter]
 	xor 4
 	ld [GBPrinter], a
@@ -218,8 +327,44 @@ MPlayerTilemap:
 	ld e, a
 	ld d, 0
 	callba PlayMusic2
-	ld a, [wSongSelection]
-	jp .redraw
+	hlcoord 16, 1
+	ld de, .daystring
+	ld a, [GBPrinter]
+	bit 2, a
+	jr z, .songEditordrawtimestring
+	ld de, .nitestring
+.songEditordrawtimestring
+	call PlaceString
+	xor a
+	ld [hBGMapThird], a
+	call DelayFrame
+	jp .songEditorLoop
+
+.songEditorselect
+.songEditorb
+	call .channelSelectorloadhl
+	ld a, $7f
+	ld [hl], a
+	jp .loop
+
+.channelSelectorloadhl
+	ld a, [wChannelSelector]
+	cp 4
+	jr z, .channelSelectorloadhlnite
+	ld c, 5
+	call SimpleMultiply
+	hlcoord 0, 12
+	add l
+	ld l, a
+	ld a, $ee
+	ret nc
+	inc h
+	ret
+.channelSelectorloadhlnite
+	hlcoord 15, 1
+	ld a, $ed
+	ret
+
 .exit
     call ClearSprites
     ld hl, rLCDC
@@ -240,6 +385,10 @@ DrawChData:
 	jr c, .ch
 
 	; Ch4 handling goes here.
+	hlcoord $13, $e
+	ld a, [MusicNoiseSampleSet]
+	add $f6
+	ld [hl], a
 	hlcoord 16, 16
 	ld a, [wC4Vol]
 	and $f
@@ -264,10 +413,15 @@ DrawChData:
 .Draw
 	push af
 	push hl
+	call CheckChannelOn
+	ld a, 0
+	ld hl, NoteNames
+	jr c, .isNotPlaying
 	call GetPitchAddr
 	ld a, [hl]
 	ld hl, NoteNames
 	call GetNthString
+.isNotPlaying
 	ld e, l
 	ld d, h
 	pop hl
@@ -296,9 +450,24 @@ DrawChData:
 	ld [hld], a
 
 	push hl
+	call CheckChannelOn
+	pop hl
+	ld a, 0
+	jr c, .isNotPlaying2
+
+	push hl
+	call GetPitchAddr
+	ld a, [hl]
+	and a
+	pop hl
+	ld a, 0
+	jr z, .isNotPlaying2
+
+	push hl
 	call GetIntensityAddr
 	ld a, [hl]
 	pop hl
+.isNotPlaying2
 	and $f
 	cp 8
 	jr c, .ok
@@ -326,12 +495,15 @@ DrawNotes:
     ld a, 0
     ld [wTmpCh], a
     call DrawNote
+    call CheckForVolumeBarReset
     ld a, 1
     ld [wTmpCh], a
     call DrawNote
+    call CheckForVolumeBarReset
     ld a, 2
     ld [wTmpCh], a
     call DrawNote
+    call CheckForVolumeBarReset
     call MoveNotes
     ret
 
@@ -342,46 +514,52 @@ CheckEndedNote:
 	call GetIntensityAddr
 	ld a, [hl]
 	and a
-	jr z, .ended
+	jr z, NoteEnded
 
+CheckNoteDuration:
 	ld a, [wTmpCh]
-	ld e, a
 	ld bc, Channel2 - Channel1
 
 ; Note duration
-;	ld a, e
 	ld hl, Channel1NoteDuration
 	call AddNTimes
 	ld a, [hl]
 	cp 2
-	jr c, .ended
+	jr c, NoteEnded
 
+CheckChannelOn:
 ; Channel on/off flag
-	ld a, e
+	ld a, [wTmpCh]
+	ld bc, Channel2 - Channel1
 	ld hl, Channel1Flags
 	call AddNTimes
 	bit 0, [hl]
-	jr z, .ended
+	jr z, NoteEnded
 
 ; Rest flag
 ; Note flags are wiped after each
 ; note is read, so this is pointless.
-	ld a, e
+	ld a, [wTmpCh]
 	ld hl, Channel1NoteFlags
 	call AddNTimes
 	bit 5, [hl]
-	jr nz, .ended
+	jr nz, NoteEnded
 
 .still_going
 	and a
 	ret
 
-.ended
+NoteEnded:
 	scf
 	ret
 
 DrawNote:
+    call CheckChannelOn
+    ret c
     call GetPitchAddr
+    ld a, [hl]
+    and a
+    ret z ; rest
     inc hl
     ld a, [hld] ; octave
     ld c, 14
@@ -398,7 +576,7 @@ DrawNote:
     jp z, DrawLongerNote
     jp DrawChangedNote
     
-DrawChangedNote:
+DrawChangedNote:    
     ld [hl], b
     ld a, [wTmpCh]
     ld bc, 4
@@ -456,9 +634,22 @@ DrawNewNote:
     ret
 
 DrawLongerNote:
-	call CheckEndedNote
-	ret c
+    ld a,[wTmpCh]
+    ld hl, Channel1Intensity
+    ld bc, Channel2 - Channel1
+    call AddNTimes
+    ld a, [hl]
+    and $0f
+    cp $9
+    jr nc, .fadingUp
+    call CheckEndedNote
+    ret c
+    jr .notFadingUp
 
+.fadingUp
+    call CheckNoteDuration
+    ret c
+.notFadingUp
     ld a, [wTmpCh]
     ld bc, 4
     ld hl, Sprites
@@ -481,6 +672,35 @@ DrawLongerNote:
     dec hl
     call AddNoteToOld
     call DrawNewNote
+    ret
+
+CheckForVolumeBarReset:
+    call CheckNoteDuration
+    jr c, .noteEnded ; not a new note, but this note just ended!
+    ld hl, wNoteEnded
+    ld a, [wTmpCh]
+    ld e, a
+    ld d, 0
+    add hl, de
+    ld a, [hl]
+    and a
+    ret z ; also not a new note
+    xor a ; new note!
+    ld [hl], a
+    ret
+
+.noteEnded
+    ld hl, wNoteEnded
+    ld a, [wTmpCh]
+    ld e, a
+    ld d, 0
+    add hl, de
+    ld a, 1
+    ld [hl], a
+    ld hl, wChLastNotes
+    add hl, de
+    xor a
+    ld [hl], a
     ret
 
 SetVisualIntensity:
@@ -665,7 +885,7 @@ MoveNotes:
     ret
 
 Pitchels:
-    db 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25
+    db 1, 3, 5, 7, 9, 13, 15, 17, 19, 21, 23, 25, 27
 
 GetPitchAddr:
     ld a, [wTmpCh]
@@ -697,8 +917,8 @@ GetIntensityAddr:
 	ld bc, 2
 	call AddNTimes
 	ret
-	
-DrawSongInfo:
+
+GetSongInfo:
     ld a, [wSongSelection]
     ld b, a
 	ld c, 0
@@ -717,6 +937,22 @@ DrawSongInfo:
 	jr z, .nextline
     jr .loop2
 .found
+    xor a
+    ret
+.nextline
+	inc hl
+	inc hl
+	inc hl
+	jr .loop
+.noname
+    scf
+    ret
+
+DrawSongInfo:
+    ld a, [wSongSelection]
+    call GetSongInfo
+    ret c ; no data
+    
     push hl
     pop de
     hlcoord 0, 4
@@ -739,13 +975,6 @@ DrawSongInfo:
     hlcoord 0, 11
     call PlaceString
 	pop de
-    ret
-.nextline
-	inc hl
-	inc hl
-	inc hl
-	jr .loop
-.noname
     ret
 
 GetSongOrigin:
@@ -802,6 +1031,8 @@ GetSongArtist2:
 	ld de, BlankName
     ret
     
+PER_PAGE EQU 15
+
 SongSelector:
 	ld bc, MPKeymapEnd-MPKeymap
 	ld hl, MPKeymap
@@ -811,16 +1042,58 @@ SongSelector:
 	hlcoord 0, 0
 	ld bc, 340
 	call ByteFill
-
+    call ClearSprites
+    textbox 0, 1, $12, $10
+    ld a, 1
+    ld [wSelectorTop], a
+    call UpdateSelectorNames
 .loop
     call DelayFrame
-	call DrawNotes
 	call GetJoypad
 	jbutton B_BUTTON, .exit
 	jbutton START, .exit
+	jbutton D_DOWN, .down
+	jbutton D_UP, .up
     jr .loop
+.down
+    ld a, [wSelectorCur]
+    inc a
+    cp PER_PAGE
+    jr nz, .nextpage
+    ld [wSelectorCur], a
+    ret ; i'm too lazy
+.nextpage
+.up
 .exit
     ret
+
+UpdateSelectorNames:
+    ld a, [wSelectorTop]
+    call GetSongInfo
+    ld b, 0
+    push hl
+    pop de
+.loop
+    hlcoord 2, 2
+    push bc
+    ld a, b
+    ld bc, $0014
+    call AddNTimes
+    call PlaceString
+    inc de
+    inc de
+    inc de
+    inc de
+    pop bc
+    inc b
+    ld a, b
+    cp PER_PAGE
+    jr nz, .loop
+    ret
+    
+
+LoadingText:
+    db "LOADING…@"
 
 MusicPlayerText:
     db "--- MUSIC PLAYER ---@"
@@ -834,7 +1107,7 @@ NoteNames:
 	db "C", 198, "@"
 	db "D @"
 	db "D", 198, "@"
-	db "E @
+	db "E @"
 	db "F @"
 	db "F", 198, "@"
 	db "G @"
@@ -860,10 +1133,10 @@ db "                    "
 db "                    "
 db "                    "
 db "Ch1──Ch2──Wave─Noise"
+db "    │    │    │Set  "
 db "    │    │    │     "
 db "    │    │    │     "
-db "    │    │    │     "
-db "────────────────────"
+db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
 
 MPTilemapEnd
 
@@ -878,7 +1151,7 @@ Additional:
 BlankName:
 	db " @"
 SongInfo:
-    db "Title Screen@", 3, 1, 0
+    db "Title Screen@", 4, 1, 0
     db "Route 1@", 3, 1, 0
     db "Route 3@", 3, 1, 0
     db "Route 11@", 3, 1, 0
@@ -899,7 +1172,7 @@ SongInfo:
     db "Bicycle@", 3, 1, 0
     db "Hall of Fame@", 3, 1, 0
     db "Viridian City@", 3, 1, 0
-    db "Celedon City@", 3, 1, 0
+    db "Celadon City@", 3, 1, 0
     db "Victory! Trainer@", 3, 1, 0
     db "Victory! Wild@", 3, 1, 0
     db "Victory! Champion@", 3, 1, 0
@@ -1006,7 +1279,7 @@ SongInfo:
     db "Route 11@",  1, 1, 0
     db "Lavender Town@",  1, 1, 0
     db "Pokémon Tower@",  1, 1, 0
-    db "Celedon City@",  1, 1, 0
+    db "Celadon City@",  1, 1, 0
     db "Game Corner@",  1, 1, 0
     db "Rocket Hideout@",  1, 1, 0
     db "Bicycle@",  1, 1, 0
@@ -1047,6 +1320,77 @@ SongInfo:
     db "Vs. Naljo Wild@", 11, 3, 2
     db "Vs. Naljo Gym Leader@", 11, 4, 2
     db "Vs. Pallet Patrol@", 11, 5, 2
+	db "Title Screen@", 12, 6, 7
+	db "Duel Theme 1@", 12, 6, 7
+	db "Duel Theme 2@", 12, 6, 7
+	db "Duel Theme 3@", 12, 6, 7
+	db "Pause Menu@", 12, 6, 7
+	db "PC/Main Menu@", 12, 6, 7
+	db "Deck Machine@", 12, 6, 7
+	db "Card Pop@", 12, 6, 7
+	db "Overworld@", 12, 6, 7
+	db "Pokemon Dome@", 12, 6, 7
+	db "Challenge Hall@", 12, 6, 7
+	db "Club 1@", 12, 6, 7
+	db "Club 2@", 12, 6, 7
+	db "Club 3@", 12, 6, 7
+	db "Ronald@", 12, 6, 7
+	db "Imakuni@", 12, 6, 7
+	db "Hall Of Honor@", 12, 6, 7
+	db "Credits@", 12, 6, 7
+	db "Match Start 1@", 12, 6, 7
+	db "Match Start 2@", 12, 6, 7
+	db "Match Start 3@", 12, 6, 7
+	db "Match Victory@", 12, 6, 7
+	db "Match Loss@", 12, 6, 7
+	db "Dark Diddly@", 12, 6, 7
+	db "Booster Pack@", 12, 6, 7
+	db "Medal@", 12, 6, 7
+	db "Titlescreen@", 13, 6, 7
+	db "Here Comes GR@", 13, 6, 7
+	db "GR Overworld@", 13, 6, 7
+	db "Fort 1@", 13, 6, 7
+	db "Fort 2@", 13, 6, 7
+	db "Fort 3@", 13, 6, 7
+	db "Fort 4@", 13, 6, 7
+	db "GR Castle@", 13, 6, 7
+	db "GR Challenge Cup@", 13, 6, 7
+	db "Game Corner@", 13, 6, 7
+	db "GR Blimp@", 13, 6, 7
+	db "GR Duel Theme 1@", 13, 6, 7
+	db "GR Duel Theme 2@", 13, 6, 7
+	db "GR Duel Theme 3@", 13, 6, 7
+	db "Ishihara@", 13, 6, 7
+	db "Imakuni 2@", 13, 6, 7
+	db "Credits@", 13, 6, 7
+	db "Diddly 1@", 13, 6, 7
+	db "Diddly 2@", 13, 6, 7
+	db "Diddly 3@", 13, 6, 7
+	db "Diddly 4@", 13, 6, 7
+	db "Diddly 5@", 13, 6, 7
+	db "Diddly 6@", 13, 6, 7
+	db "Red Field Theme@"                         , 14, 8, 0
+	db "Catch 'Em & Evolution Mode in Red Field@" , 14, 8, 0
+	db "Hurry Up! Red Field@"                     , 14, 8, 0
+	db "Pokedex@"                                 , 14, 8, 0
+	db "Gengar Stage - Gastly in the Graveyard@"  , 14, 8, 0
+	db "Gengar Stage - Haunter in the Graveyard@" , 14, 8, 0
+	db "Gengar Stage - Gengar in the Graveyard@"  , 14, 8, 0
+	db "Blue Field Theme@"                        , 14, 8, 0
+	db "Catch 'Em & Evolution Mode in Blue Field@", 14, 8, 0
+	db "Hurry up! Blue Field@"                    , 14, 8, 0
+	db "Hi-Score Screen@"                         , 14, 8, 0
+	db "Game Over@"                               , 14, 8, 0
+	db "Diglett Stage - Whack the Digletts@"      , 14, 8, 0
+	db "Diglett Stage - Whack Dugtrio@"           , 14, 8, 0
+	db "Seel Stage@"                              , 14, 8, 0
+	db "Title Screen@"                            , 14, 8, 0
+	db "Mewtwo Stage@"                            , 14, 8, 0
+	db "Options@"                                 , 14, 8, 0
+	db "Field Select@"                            , 14, 8, 0
+	db "Meowth Stage@"                            , 14, 8, 0
+	db "End Credits@"                             , 14, 8, 0
+	db "Name Entry@"                              , 14, 8, 0
     db -1
 	
 Origin:
@@ -1061,6 +1405,9 @@ Origin:
 	db 09, "Pokémon Black 2@"
 	db 10, "Pokémon X and Y@"
 	db 11, "Pokémon Prism@"
+	db 12, "Pokémon TCG@"
+	db 13, "Pokémon TCG 2@"
+	db 14, "Pokémon Pinball@"
 	db -1
 	
 Artist:
@@ -1069,4 +1416,7 @@ Artist:
 	db 03, "LevusBevus@"
 	db 04, "GRonnoc@"
 	db 05, "Cat333Pokémon@"
+	db 06, "Ichiro Shimakura@"
+	db 07, "Danny-E 33@"
+	db 08, "Go Ichinose (?)@"
 	db -1

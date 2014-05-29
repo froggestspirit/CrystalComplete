@@ -237,6 +237,89 @@ INCLUDE "audio/music/DPPt/sinnohwild.asm"
 INCLUDE "audio/music/DPPt/route206.asm"
 INCLUDE "audio/music/DPPt/jubilifecity.asm"
 
+SECTION "TCG Songs 1", ROMX, BANK[TCG_SONGS_1]
+INCLUDE "audio/music/TCG/titlescreen.asm"
+INCLUDE "audio/music/TCG/dueltheme1.asm"
+INCLUDE "audio/music/TCG/dueltheme2.asm"
+INCLUDE "audio/music/TCG/dueltheme3.asm"
+INCLUDE "audio/music/TCG/pausemenu.asm"
+INCLUDE "audio/music/TCG/pcmainmenu.asm"
+INCLUDE "audio/music/TCG/deckmachine.asm"
+INCLUDE "audio/music/TCG/cardpop.asm"
+INCLUDE "audio/music/TCG/overworld.asm"
+INCLUDE "audio/music/TCG/pokemondome.asm"
+INCLUDE "audio/music/TCG/challengehall.asm"
+INCLUDE "audio/music/TCG/club1.asm"
+INCLUDE "audio/music/TCG/club2.asm"
+INCLUDE "audio/music/TCG/club3.asm"
+
+SECTION "TCG Songs 2", ROMX, BANK[TCG_SONGS_2]
+INCLUDE "audio/music/TCG/ronald.asm"
+INCLUDE "audio/music/TCG/imakuni.asm"
+INCLUDE "audio/music/TCG/hallofhonor.asm"
+INCLUDE "audio/music/TCG/credits.asm"
+INCLUDE "audio/music/TCG/matchstart1.asm"
+INCLUDE "audio/music/TCG/matchstart2.asm"
+INCLUDE "audio/music/TCG/matchstart3.asm"
+INCLUDE "audio/music/TCG/matchvictory.asm"
+INCLUDE "audio/music/TCG/matchloss.asm"
+INCLUDE "audio/music/TCG/darkdiddly.asm"
+INCLUDE "audio/music/TCG/boosterpack.asm"
+INCLUDE "audio/music/TCG/medal.asm"
+
+SECTION "TCG2 Songs 1", ROMX, BANK[TCG2_SONGS_1]
+INCLUDE "audio/music/TCG2/titlescreen.asm"
+INCLUDE "audio/music/TCG2/herecomesgr.asm"
+INCLUDE "audio/music/TCG2/groverworld.asm"
+INCLUDE "audio/music/TCG2/fort1.asm"
+INCLUDE "audio/music/TCG2/fort2.asm"
+INCLUDE "audio/music/TCG2/fort3.asm"
+INCLUDE "audio/music/TCG2/fort4.asm"
+INCLUDE "audio/music/TCG2/grcastle.asm"
+INCLUDE "audio/music/TCG2/grchallengecup.asm"
+
+SECTION "TCG2 Songs 2", ROMX, BANK[TCG2_SONGS_2]
+INCLUDE "audio/music/TCG2/gamecorner.asm"
+INCLUDE "audio/music/TCG2/grblimp.asm"
+INCLUDE "audio/music/TCG2/grdueltheme1.asm"
+INCLUDE "audio/music/TCG2/grdueltheme2.asm"
+INCLUDE "audio/music/TCG2/grdueltheme3.asm"
+INCLUDE "audio/music/TCG2/ishihara.asm"
+
+SECTION "TCG2 Songs 3", ROMX, BANK[TCG2_SONGS_3]
+INCLUDE "audio/music/TCG2/imakuni2.asm"
+INCLUDE "audio/music/TCG2/credits.asm"
+INCLUDE "audio/music/TCG2/diddly1.asm"
+INCLUDE "audio/music/TCG2/diddly2.asm"
+INCLUDE "audio/music/TCG2/diddly3.asm"
+INCLUDE "audio/music/TCG2/diddly4.asm"
+INCLUDE "audio/music/TCG2/diddly5.asm"
+INCLUDE "audio/music/TCG2/diddly6.asm"
+
+SECTION "Pinball Songs", ROMX
+INCLUDE "audio/music/pinball/redfield.asm"
+INCLUDE "audio/music/pinball/catchem_red.asm"
+INCLUDE "audio/music/pinball/hurryup_red.asm"
+INCLUDE "audio/music/pinball/pokedex.asm"
+INCLUDE "audio/music/pinball/gengarstage_gastly.asm"
+INCLUDE "audio/music/pinball/gengarstage_hauntergengar.asm" ; the two songs are interleaved
+INCLUDE "audio/music/pinball/bluefield.asm"
+INCLUDE "audio/music/pinball/catchem_blue.asm"
+INCLUDE "audio/music/pinball/hurryup_blue.asm"
+INCLUDE "audio/music/pinball/hiscorescreen.asm"
+INCLUDE "audio/music/pinball/gameover.asm"
+INCLUDE "audio/music/pinball/diglettstage_digletts.asm"
+INCLUDE "audio/music/pinball/diglettstage_dugtrio.asm"
+
+SECTION "Pinball Songs 2", ROMX
+INCLUDE "audio/music/pinball/seelstage.asm"
+INCLUDE "audio/music/pinball/titlescreen.asm"
+INCLUDE "audio/music/pinball/mewtwostage.asm"
+INCLUDE "audio/music/pinball/options.asm"
+INCLUDE "audio/music/pinball/fieldselect.asm"
+INCLUDE "audio/music/pinball/meowthstage.asm"
+INCLUDE "audio/music/pinball/endcredits.asm"
+INCLUDE "audio/music/pinball/nameentry.asm"
 
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]
 

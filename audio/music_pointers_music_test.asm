@@ -190,3 +190,83 @@
 	dbw BANK(Music_NaljoWildBattle), Music_NaljoWildBattle
 	dbw BANK(Music_NaljoGymBattle), Music_NaljoGymBattle
 	dbw BANK(Music_PalletBattle), Music_PalletBattle
+
+; TCG songs:
+
+	dbw BANK(Music_TCGTitleScreen), Music_TCGTitleScreen
+	dbw BANK(Music_TCGDuelTheme1), Music_TCGDuelTheme1
+	dbw BANK(Music_TCGDuelTheme2), Music_TCGDuelTheme2
+	dbw BANK(Music_TCGDuelTheme3), Music_TCGDuelTheme3
+	dbw BANK(Music_TCGPauseMenu), Music_TCGPauseMenu
+	dbw BANK(Music_TCGPCMainMenu), Music_TCGPCMainMenu
+	dbw BANK(Music_TCGDeckMachine), Music_TCGDeckMachine
+	dbw BANK(Music_TCGCardPop), Music_TCGCardPop
+	dbw BANK(Music_TCGOverworld), Music_TCGOverworld
+	dbw BANK(Music_TCGPokemonDome), Music_TCGPokemonDome
+	dbw BANK(Music_TCGChallengeHall), Music_TCGChallengeHall
+	dbw BANK(Music_TCGClub1), Music_TCGClub1
+	dbw BANK(Music_TCGClub2), Music_TCGClub2
+	dbw BANK(Music_TCGClub3), Music_TCGClub3
+	dbw BANK(Music_TCGRonald), Music_TCGRonald
+	dbw BANK(Music_TCGImakuni), Music_TCGImakuni
+	dbw BANK(Music_TCGHallOfHonor), Music_TCGHallOfHonor
+	dbw BANK(Music_TCGCredits), Music_TCGCredits
+	dbw BANK(Music_TCGMatchStart1), Music_TCGMatchStart1
+	dbw BANK(Music_TCGMatchStart2), Music_TCGMatchStart2
+	dbw BANK(Music_TCGMatchStart3), Music_TCGMatchStart3
+	dbw BANK(Music_TCGMatchVictory), Music_TCGMatchVictory
+	dbw BANK(Music_TCGMatchLoss), Music_TCGMatchLoss
+	dbw BANK(Music_TCGDarkDiddly), Music_TCGDarkDiddly
+	dbw BANK(Music_TCGBoosterPack), Music_TCGBoosterPack
+	dbw BANK(Music_TCGMedal), Music_TCGMedal
+
+; TCG2 songs:
+
+	dbw BANK(Music_TCG2TitleScreen), Music_TCG2TitleScreen
+	dbw BANK(Music_TCG2HereComesGR), Music_TCG2HereComesGR
+	dbw BANK(Music_TCG2GROverworld), Music_TCG2GROverworld
+	dbw BANK(Music_TCG2Fort1), Music_TCG2Fort1
+	dbw BANK(Music_TCG2Fort2), Music_TCG2Fort2
+	dbw BANK(Music_TCG2Fort3), Music_TCG2Fort3
+	dbw BANK(Music_TCG2Fort4), Music_TCG2Fort4
+	dbw BANK(Music_TCG2GRCastle), Music_TCG2GRCastle
+	dbw BANK(Music_TCG2GRChallengeCup), Music_TCG2GRChallengeCup
+	dbw BANK(Music_TCG2GameCorner), Music_TCG2GameCorner
+	dbw BANK(Music_TCG2GRBlimp), Music_TCG2GRBlimp
+	dbw BANK(Music_TCG2GRDuelTheme1), Music_TCG2GRDuelTheme1
+	dbw BANK(Music_TCG2GRDuelTheme2), Music_TCG2GRDuelTheme2
+	dbw BANK(Music_TCG2GRDuelTheme3), Music_TCG2GRDuelTheme3
+	dbw BANK(Music_TCG2Ishihara), Music_TCG2Ishihara
+	dbw BANK(Music_TCG2Imakuni2), Music_TCG2Imakuni2
+	dbw BANK(Music_TCG2Credits), Music_TCG2Credits
+	dbw BANK(Music_TCG2Diddly1), Music_TCG2Diddly1
+	dbw BANK(Music_TCG2Diddly2), Music_TCG2Diddly2
+	dbw BANK(Music_TCG2Diddly3), Music_TCG2Diddly3
+	dbw BANK(Music_TCG2Diddly4), Music_TCG2Diddly4
+	dbw BANK(Music_TCG2Diddly5), Music_TCG2Diddly5
+	dbw BANK(Music_TCG2Diddly6), Music_TCG2Diddly6
+
+; Pinball songs:
+
+	dbw BANK(Music_Pinballredfield), Music_Pinballredfield
+	dbw BANK(Music_Pinballcatchem_red), Music_Pinballcatchem_red
+	dbw BANK(Music_Pinballhurryup_red), Music_Pinballhurryup_red
+	dbw BANK(Music_Pinballpokedex), Music_Pinballpokedex
+	dbw BANK(Music_Pinballgengarstage_gastly), Music_Pinballgengarstage_gastly
+	dbw BANK(Music_Pinballgengarstage_haunter), Music_Pinballgengarstage_haunter
+	dbw BANK(Music_Pinballgengarstage_gengar), Music_Pinballgengarstage_gengar
+	dbw BANK(Music_Pinballbluefield), Music_Pinballbluefield
+	dbw BANK(Music_Pinballcatchem_blue), Music_Pinballcatchem_blue
+	dbw BANK(Music_Pinballhurryup_blue), Music_Pinballhurryup_blue
+	dbw BANK(Music_Pinballhiscorescreen), Music_Pinballhiscorescreen
+	dbw BANK(Music_Pinballgameover), Music_Pinballgameover
+	dbw BANK(Music_Pinballdiglettstage_digletts), Music_Pinballdiglettstage_digletts
+	dbw BANK(Music_Pinballdiglettstage_dugtrio), Music_Pinballdiglettstage_dugtrio
+	dbw BANK(Music_Pinballseelstage), Music_Pinballseelstage
+	dbw BANK(Music_Pinballtitlescreen), Music_Pinballtitlescreen
+	dbw BANK(Music_Pinballmewtwostage), Music_Pinballmewtwostage
+	dbw BANK(Music_Pinballoptions), Music_Pinballoptions
+	dbw BANK(Music_Pinballfieldselect), Music_Pinballfieldselect
+	dbw BANK(Music_Pinballmeowthstage), Music_Pinballmeowthstage
+	dbw BANK(Music_Pinballendcredits), Music_Pinballendcredits
+	dbw BANK(Music_Pinballnameentry), Music_Pinballnameentry
