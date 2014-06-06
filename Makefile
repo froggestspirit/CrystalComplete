@@ -22,6 +22,7 @@ stats/pokedex/entries_crystal.o \
 misc/crystal_misc.o \
 misc/voltorb_flip.o \
 misc/musicplayer.o \
+misc/restoremusic.o \
 gfx/pics.o
 
 OBJS := $(CRYSTAL_OBJS)
