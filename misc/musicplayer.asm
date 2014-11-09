@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 241
+NUMSONGS EQU 246
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -1391,6 +1391,11 @@ SongInfo:
 	db "Meowth Stage@"                            , 14, 8, 0
 	db "End Credits@"                             , 14, 8, 0
 	db "Name Entry@"                              , 14, 8, 0
+	db "Title Screen (test)@"                     , 05, 9, 0
+	db "Littleroot Town (test)@"                  , 05, 9, 0
+	db "Heavy Rain (Test)@"                              , 05, 9, 0
+	db "Drought (Test)@"                              , 05, 9, 0
+	db "Wild Battle (Test)@"                              , 05, 9, 0
     db -1
 	
 Origin:
@@ -1419,4 +1424,5 @@ Artist:
 	db 06, "Ichiro Shimakura@"
 	db 07, "Danny-E 33@"
 	db 08, "Go Ichinose (?)@"
+	db 09, "@"
 	db -1

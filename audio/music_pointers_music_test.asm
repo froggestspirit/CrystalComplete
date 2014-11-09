@@ -270,3 +270,10 @@
 	dbw BANK(Music_Pinballmeowthstage), Music_Pinballmeowthstage
 	dbw BANK(Music_Pinballendcredits), Music_Pinballendcredits
 	dbw BANK(Music_Pinballnameentry), Music_Pinballnameentry
+	
+	
+	dbw BANK(Music_EmeraldTitleScreen), Music_EmeraldTitleScreen
+	dbw BANK(Music_EmeraldLittleroot), Music_EmeraldLittleroot
+	dbw BANK(Music_EmeraldHeavyRain), Music_EmeraldHeavyRain
+	dbw BANK(Music_EmeraldDrought), Music_EmeraldDrought
+	dbw BANK(Music_EmeraldWildBattle), Music_EmeraldWildBattle

@@ -321,6 +321,13 @@ INCLUDE "audio/music/pinball/meowthstage.asm"
 INCLUDE "audio/music/pinball/endcredits.asm"
 INCLUDE "audio/music/pinball/nameentry.asm"
 
+SECTION "Some More Custom Music", ROMX
+INCLUDE "audio/music/custom/emeraldtitlescreen.asm"
+INCLUDE "audio/music/custom/emeraldlittleroot.asm"
+INCLUDE "audio/music/custom/emeraldheavyrain.asm"
+INCLUDE "audio/music/custom/emeralddrought.asm"
+INCLUDE "audio/music/custom/emeraldwildbattle.asm"
+
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]
 
 INCLUDE "audio/sfx.asm"
