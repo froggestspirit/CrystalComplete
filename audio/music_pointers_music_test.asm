@@ -187,6 +187,7 @@
 	dbw BANK(Music_PokeathelonFinal), Music_PokeathelonFinal
 	dbw BANK(Music_JohtoGSC), Music_JohtoGSC 
 	dbw BANK(Music_KantoGymLeaderRemix), Music_KantoGymLeaderRemix 
+	dbw BANK(Music_FrontierBrain), Music_FrontierBrain 
 	dbw BANK(Music_NaljoWildBattle), Music_NaljoWildBattle
 	dbw BANK(Music_NaljoGymBattle), Music_NaljoGymBattle
 	dbw BANK(Music_PalletBattle), Music_PalletBattle
