@@ -320,6 +320,7 @@ INCLUDE "audio/music/pinball/fieldselect.asm"
 INCLUDE "audio/music/pinball/meowthstage.asm"
 INCLUDE "audio/music/pinball/endcredits.asm"
 INCLUDE "audio/music/pinball/nameentry.asm"
+INCLUDE "audio/music/RSE/frontierbrain.asm"
 
 SECTION "Some More Custom Music", ROMX
 INCLUDE "audio/music/custom/emeraldtitlescreen.asm"
