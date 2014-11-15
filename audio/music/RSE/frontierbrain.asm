@@ -8,6 +8,7 @@ Music_FrontierBrain_Ch1:
 	volume $77
 	notetype $4, 194
 	dutycycle 1
+	vibrato $6, $34
 	tone $0002
 	note __, 12
 	octave 3
@@ -877,6 +878,7 @@ Music_FrontierBrain_Loop1:
 Music_FrontierBrain_Ch2:
 	notetype $4, 228
 	dutycycle 3
+	vibrato $a, $25
 	tone $0001
 	octave 3
 	note B_, 4
@@ -1393,6 +1395,7 @@ Music_FrontierBrain_Loop2:
 	loopchannel 0, Music_FrontierBrain_Loop2
 Music_FrontierBrain_Ch3:
 	notetype $4, 20
+	vibrato $0, $20
 	note __, 12
 	octave 2
 	note F#, 4
