@@ -234,6 +234,7 @@ SECTION "DPPt Songs 1", ROMX, BANK[DPPT_SONGS_1]
 INCLUDE "audio/music/DPPt/pokeradar.asm"
 INCLUDE "audio/music/DPPt/sinnohtrainer.asm"
 INCLUDE "audio/music/DPPt/sinnohwild.asm"
+INCLUDE "audio/music/DPPt/route203.asm"
 INCLUDE "audio/music/DPPt/route206.asm"
 INCLUDE "audio/music/DPPt/jubilifecity.asm"
 
