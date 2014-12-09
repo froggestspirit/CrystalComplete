@@ -1609,9 +1609,8 @@ Music_Route203_Ch3_loop:
 	loopchannel 0, Music_Route203_Ch3_loop
 
 Music_Route203_Ch4:
-	togglenoise 3
 	notetype $8
-	octave 0
+	togglenoise 3
 	note __, 12
 	note C#, 6
 	note G_, 2
