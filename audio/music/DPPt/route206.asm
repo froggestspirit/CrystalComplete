@@ -814,7 +814,6 @@ Music_Route206_Ch3_loop:
 Music_Route206_Ch4:
 	notetype $4
 	togglenoise 0
-Music_Route206_Ch4_loop
 	note __, 16
 	note __, 16
 	note __, 16
@@ -843,6 +842,7 @@ Music_Route206_Ch4_loop
 	note D#, 4
 	note D#, 4
 	note G#, 16
+Music_Route206_Ch4_loop:
 	note __, 16
 	note __, 16
 	note __, 16
@@ -977,5 +977,4 @@ Music_Route206_Ch4_loop
 	note D#, 4
 	note C_, 12
 	note G#, 16
-	note __, 16
 	loopchannel 0, Music_Route206_Ch4_loop

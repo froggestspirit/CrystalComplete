@@ -1,5 +1,5 @@
 Music_SinnohWildBattle:
-	dbw $c0, Music_SinnohWildBattle_Ch1
+	dbw $80, Music_SinnohWildBattle_Ch1
 	dbw $01, Music_SinnohWildBattle_Ch2
 	dbw $02, Music_SinnohWildBattle_Ch3
 
@@ -70,6 +70,7 @@ Music_SinnohWildBattle_Ch1:
 	note F_, 1
 	note F#, 1
 Music_SinnohWildBattle_Ch1_loop:
+	intensity $B2
 	octave 3
 	note G_, 2
 	note G_, 4
