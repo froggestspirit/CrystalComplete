@@ -355,7 +355,7 @@ Music_EternaForest_Ch2_loop:
 	note __, 8
 	note G_, 2
 	note __, 4
-	octave 0
+	octave 1
 	note G_, 2
 	note __, 16
 	note __, 16
@@ -381,7 +381,7 @@ Music_EternaForest_Ch2_loop:
 	note __, 8
 	note G_, 2
 	note __, 4
-	octave 0
+	octave 1
 	note G_, 2
 	note __, 16
 	note __, 16
@@ -391,7 +391,7 @@ Music_EternaForest_Ch2_loop:
 	note __, 6
 	note D_, 2
 	note __, 6
-	octave 0
+	octave 1
 	note A_, 2
 	note __, 4
 	note A_, 2
@@ -425,7 +425,7 @@ Music_EternaForest_Ch2_loop:
 	note __, 1
 	note D_, 2
 	note __, 1
-	octave 0
+	octave 1
 	note A_, 2
 	note __, 6
 	note B_, 2
@@ -441,7 +441,7 @@ Music_EternaForest_Ch2_loop:
 	note C_, 16
 	note __, 16
 	note __, 2
-	octave 0
+	octave 1
 	note B_, 16
 	note __, 16
 	note __, 4
