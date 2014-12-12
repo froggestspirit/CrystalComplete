@@ -7,10 +7,11 @@ Music_Route206:
 Music_Route206_Ch1:
 	tempo $A0
 	volume $77
-	notetype $4, $A1
-	dutycycle 0
+	notetype $4, $71
+	dutycycle 2
 	tone $0001
 	vibrato $10, $15
+	octave 2
 	note __, 2
 	octave 4
 	note B_, 4
@@ -58,8 +59,8 @@ Music_Route206_Ch1:
 	note E_, 4
 	note G_, 4
 	note E_, 14
-	intensity $A1
-	dutycycle 0
+	intensity $81
+	dutycycle 2
 	octave 4
 	note B_, 4
 	note A_, 4
@@ -131,12 +132,12 @@ Music_Route206_Ch1_loop:
 	note A_, 4
 	octave 3
 	note C#, 4
-	note E_, 8
+	note E_, 4
 	octave 4
 	note A_, 8
 	note B_, 8
 	octave 5
-	note F#, 4
+	note F#, 8
 	intensity $A1
 	octave 2
 	note F#, 2
@@ -315,8 +316,8 @@ Music_Route206_Ch1_loop:
 	note __, 16
 	note __, 16
 	note __, 14
-	intensity $A1
-	dutycycle 0
+	intensity $81
+	dutycycle 2
 	octave 4
 	note B_, 4
 	note A_, 4
@@ -332,7 +333,7 @@ Music_Route206_Ch1_loop:
 	loopchannel 0, Music_Route206_Ch1_loop
 
 Music_Route206_Ch2:
-	notetype $4, $B1
+	notetype $4, $91
 	dutycycle 2
 	vibrato $12, $36
 	octave 4
@@ -407,7 +408,7 @@ Music_Route206_Ch2:
 	octave 4
 	note G_, 4
 	note G#, 12
-	intensity $B1
+	intensity $91
 	dutycycle 2
 	note B_, 4
 	note A_, 4
@@ -421,7 +422,7 @@ Music_Route206_Ch2:
 	octave 2
 	note B_, 4
 Music_Route206_Ch2_loop:
-	intensity $B8
+	intensity $A5
 	dutycycle 3
 	octave 3
 	note B_, 16
@@ -438,7 +439,7 @@ Music_Route206_Ch2_loop:
 	octave 3
 	note B_, 4
 	note G#, 16
-	note G#, 8
+	note __, 8
 	octave 4
 	note C#, 16
 	octave 3
@@ -453,7 +454,7 @@ Music_Route206_Ch2_loop:
 	note E_, 4
 	octave 3
 	note B_, 16
-	note B_, 8
+	note __, 8
 	octave 4
 	note D#, 8
 	note F#, 8
@@ -480,8 +481,11 @@ Music_Route206_Ch2_loop:
 	note B_, 8
 	octave 4
 	note F#, 8
+	intensity $B7
 	note B_, 16
+	intensity $4D
 	note B_, 16
+	intensity $B8
 	note B_, 16
 	dutycycle 2
 	octave 3
@@ -511,11 +515,11 @@ Music_Route206_Ch2_loop:
 	note B_, 16
 	note B_, 8
 	note B_, 12
+	intensity $B4
 	octave 4
 	note E_, 8
 	note E_, 16
-	note E_, 12
-	intensity $B4
+	note __, 12
 	note E_, 4
 	note A_, 4
 	note G#, 4
@@ -584,7 +588,7 @@ Music_Route206_Ch2_loop:
 	forceoctave 28
 	octave 4
 	note B_, 12
-	intensity $B1
+	intensity $91
 	note B_, 4
 	note A_, 4
 	note G#, 4
@@ -599,11 +603,11 @@ Music_Route206_Ch2_loop:
 	loopchannel 0, Music_Route206_Ch2_loop
 
 Music_Route206_Ch3:
-	notetype $4, $27
+	notetype $4, $12
+	octave 2
 	note __, 16
 	note __, 16
 	note __, 4
-	octave 2
 	note A_, 8
 	note E_, 4
 	note A_, 4
@@ -812,9 +816,8 @@ Music_Route206_Ch3_loop:
 	loopchannel 0, Music_Route206_Ch3_loop
 
 Music_Route206_Ch4:
-	notetype $4
 	togglenoise 0
-Music_Route206_Ch4_loop
+	notetype $4
 	note __, 16
 	note __, 16
 	note __, 16
@@ -843,6 +846,7 @@ Music_Route206_Ch4_loop
 	note D#, 4
 	note D#, 4
 	note G#, 16
+Music_Route206_Ch4_loop:
 	note __, 16
 	note __, 16
 	note __, 16
@@ -977,5 +981,4 @@ Music_Route206_Ch4_loop
 	note D#, 4
 	note C_, 12
 	note G#, 16
-	note __, 16
 	loopchannel 0, Music_Route206_Ch4_loop

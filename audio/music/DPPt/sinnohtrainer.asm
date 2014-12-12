@@ -4,7 +4,6 @@ Music_SinnohTrainerBattle:
 	dbw $02, Music_SinnohTrainerBattle_Ch3
 
 Music_SinnohTrainerBattle_Ch1:
-Music_SinnohTrainerBattle_Ch1_loop:
 	tempo $68
 	volume $77
 	notetype $C, $B2
@@ -80,6 +79,7 @@ Music_SinnohTrainerBattle_Ch1_loop:
 	note G_, 2
 	intensity $B7
 	note G#, 6
+Music_SinnohTrainerBattle_Ch1_loop:
 	intensity $B4
 	octave 2
 	note G_, 6
@@ -459,7 +459,6 @@ Music_SinnohTrainerBattle_Ch1_loop:
 	loopchannel 0, Music_SinnohTrainerBattle_Ch1_loop
 
 Music_SinnohTrainerBattle_Ch2:
-Music_SinnohTrainerBattle_Ch2_loop:
 	notetype $C, $C2
 	dutycycle 3
 	tone $0001
@@ -526,6 +525,7 @@ Music_SinnohTrainerBattle_Ch2_loop:
 	note G#, 2
 	note A#, 2
 	note B_, 2
+Music_SinnohTrainerBattle_Ch2_loop:
 	intensity $C7
 	octave 3
 	note C_, 6
@@ -847,7 +847,6 @@ Music_SinnohTrainerBattle_Ch2_loop:
 	loopchannel 0, Music_SinnohTrainerBattle_Ch2_loop
 
 Music_SinnohTrainerBattle_Ch3:
-Music_SinnohTrainerBattle_Ch3_loop:
 	notetype $C, $19
 	note __, 16
 	octave 3
@@ -958,6 +957,7 @@ Music_SinnohTrainerBattle_Ch3_loop:
 	note C#, 2
 	octave 2
 	note A#, 2
+Music_SinnohTrainerBattle_Ch3_loop:
 	octave 3
 	note C_, 2
 	note G_, 2
