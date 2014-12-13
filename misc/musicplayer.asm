@@ -545,16 +545,22 @@ CheckChannelOn:
 	bit 5, [hl]
 	jr nz, NoteEnded
 	
-; Do an IO check too if the note's envelope is 0
-; Since the game handles rest notes by temporarily
-; write 0 to hi nibble of NRx2
+; Do an IO check too if the note's envelope is 0 and
+; not ramping up since the game handles rest notes by
+; temporarily write 0 to hi nibble of NRx2 and stop ramping
 	ld a, [wTmpCh]
 	ld bc, 5
 	ld hl, rNR12
 	call AddNTimes
 	ld a, [hl]
+	ld b, a
 	and $f0
-	jr z, NoteEnded
+	jr nz, .still_going
+	ld a, b
+	bit 3, a
+	jr z, NoteEnded ; ramping down
+	and $7
+	jr z, NoteEnded ; no ramping
 
 .still_going
 	and a
