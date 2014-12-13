@@ -544,6 +544,17 @@ CheckChannelOn:
 	call AddNTimes
 	bit 5, [hl]
 	jr nz, NoteEnded
+	
+; Do an IO check too if the note's envelope is 0
+; Since the game handles rest notes by temporarily
+; write 0 to hi nibble of NRx2
+	ld a, [wTmpCh]
+	ld bc, 5
+	ld hl, rNR12
+	call AddNTimes
+	ld a, [hl]
+	and $f0
+	jr z, NoteEnded
 
 .still_going
 	and a
