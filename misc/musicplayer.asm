@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 247
+NUMSONGS EQU 255
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -385,6 +385,18 @@ DrawChData:
 	jr c, .ch
 
 	; Ch4 handling goes here.
+	hlcoord $11, $0f
+	ld a, [wNoiseHit]
+	and a
+	jr nz, .hit
+	ld a, " "
+    jr .pickedhitchar
+.hit
+    ld a, $cf
+.pickedhitchar
+    ld [hl], a
+    xor a
+    ld [wNoiseHit], a
 	hlcoord $13, $e
 	ld a, [MusicNoiseSampleSet]
 	add $f6
@@ -1306,8 +1318,14 @@ SongInfo:
     db "Unused@", 2, 1, 0
     db "Vs. Wild@", 6, 1, 2
     db "Vs. Trainer@", 6, 1, 2
+    db "Defeated Wild@", 6, 1, 2
+    db "Defeated Trainer@", 6, 1, 2
     db "Jubilife City@", 6, 1, 2
+    db "Route 201@", 6, 1, 2
+    db "Route 203@", 6, 1, 2
+    db "Route 205@", 6, 1, 2
     db "Route 206@", 6, 1, 2
+    db "Eterna Forest@", 6, 1, 2
     db "PokéRadar@", 6, 1, 2
     db "Cerulean City@", 7, 1, 2
     db "Cinnabar Island@", 7, 1, 2
@@ -1397,6 +1415,7 @@ SongInfo:
 	db "Heavy Rain (Test)@"                              , 05, 9, 0
 	db "Drought (Test)@"                              , 05, 9, 0
 	db "Wild Battle (Test)@"                              , 05, 9, 0
+	db "Lilycove City (Test)@"                              , 05, 9, 0
     db -1
 	
 Origin:

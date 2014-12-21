@@ -8,6 +8,10 @@
 ; 	Songs IV
 ; 	Songs V
 
+tbp: MACRO
+    dbw BANK(\1), \1
+ENDM
+
 ; e906e
 	dbw BANK(Music_Nothing), Music_Nothing ; 0xe91a3
 	dbw BANK(Music_TitleScreen), Music_TitleScreen ; 0xeb808
@@ -173,8 +177,14 @@
 ;Diamond and Pearl
 	dbw BANK(Music_SinnohWildBattle), Music_SinnohWildBattle 
 	dbw BANK(Music_SinnohTrainerBattle), Music_SinnohTrainerBattle 
+	tbp Music_WinPokeSinnoh
+	tbp Music_WinTrainerSinnoh
 	dbw BANK(Music_JubilifeCity), Music_JubilifeCity 
+	tbp Music_Route201
+	tbp Music_Route203
+	tbp Music_Route205
 	dbw BANK(Music_Route206), Music_Route206 
+	tbp Music_EternaForest
 	dbw BANK(Music_PokeRadar), Music_PokeRadar
 
 ;Remixes and custom songs:
@@ -278,3 +288,4 @@
 	dbw BANK(Music_EmeraldHeavyRain), Music_EmeraldHeavyRain
 	dbw BANK(Music_EmeraldDrought), Music_EmeraldDrought
 	dbw BANK(Music_EmeraldWildBattle), Music_EmeraldWildBattle
+	dbw BANK(Music_LilycoveCity), Music_LilycoveCity

@@ -234,8 +234,13 @@ SECTION "DPPt Songs 1", ROMX, BANK[DPPT_SONGS_1]
 INCLUDE "audio/music/DPPt/pokeradar.asm"
 INCLUDE "audio/music/DPPt/sinnohtrainer.asm"
 INCLUDE "audio/music/DPPt/sinnohwild.asm"
+INCLUDE "audio/music/DPPt/WinPokeSinnoh.asm"
+INCLUDE "audio/music/DPPt/WinTrainerSinnoh.asm"
+INCLUDE "audio/music/DPPt/route201.asm"
 INCLUDE "audio/music/DPPt/route203.asm"
+INCLUDE "audio/music/DPPt/route205.asm"
 INCLUDE "audio/music/DPPt/route206.asm"
+INCLUDE "audio/music/DPPt/EternaForest.asm"
 INCLUDE "audio/music/DPPt/jubilifecity.asm"
 
 SECTION "TCG Songs 1", ROMX, BANK[TCG_SONGS_1]
@@ -329,6 +334,7 @@ INCLUDE "audio/music/custom/emeraldlittleroot.asm"
 INCLUDE "audio/music/custom/emeraldheavyrain.asm"
 INCLUDE "audio/music/custom/emeralddrought.asm"
 INCLUDE "audio/music/custom/emeraldwildbattle.asm"
+INCLUDE "audio/music/RSE/lilycovecity.asm"
 
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]
 
