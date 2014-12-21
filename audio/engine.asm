@@ -1122,6 +1122,12 @@ ParseMusic: ; e85e1
 	jr ParseMusic ; start over
 
 .readnote
+    ld a, [CurChannel]
+    cp $03
+    jr nz, .notnoise
+    ld a, 1
+    ld [wNoiseHit], a
+.notnoise
 ; CurMusicByte contains current note
 ; special notes
 	ld hl, Channel1Flags - Channel1
@@ -2297,6 +2303,33 @@ GetFrequency: ; e8a5d
 ; 	de: frequency
 
 ; get octave
+
+	ld a, [wTranspositionInterval]
+	bit 7, a
+	jr nz, .negative
+.positive
+	add e
+	ld e, a
+	cp 13
+	jr c, .added
+    sub 12
+    ld e, a
+    dec d
+    jr .added
+.negative
+    dec e
+    add e
+    jr c, .c
+    inc a
+    add 12
+    ld e, a
+    inc d
+    jr .added
+.c
+    inc a
+    ld e, a
+.added
+
 	; get starting octave
 	ld hl, Channel1StartingOctave - Channel1
 	add hl, bc

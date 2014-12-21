@@ -34,7 +34,9 @@ wNoteEnded:: ds 3
 wSelectorTop:: ds 1
 wSelectorCur:: ds 1
 wChannelSelector:: ds 1
-wChannelSelectorSwitches:: ds 4
+wChannelSelectorSwitches:: ds 8
+wNoiseHit:: ds 1
+wTranspositionInterval:: ds 1
 
 SECTION "stack",WRAM0[$c0ff]
 Stack:: ; c0ff
