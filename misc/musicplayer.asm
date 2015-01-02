@@ -1152,6 +1152,7 @@ db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
 
 MPTilemapEnd
 
+
 MPKeymap:
 db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
 
@@ -1167,17 +1168,17 @@ SongInfo:
     db "Route 1@", 3, 1, 0
     db "Route 3@", 3, 1, 0
     db "Route 11@", 3, 1, 0
-    db "Magnet Train@", 3, 1, 0
+    db "Magnet Train@", 3, 8, 0
     db "Vs. Kanto Gym Leader@", 3, 1, 0
     db "Vs. Kanto Trainer@", 3, 1, 2
     db "Vs. Kanto Wild@", 3, 1, 0
     db "Pokémon Center@", 3, 1, 0
     db "Spotted! Hiker@", 3, 1, 0
-    db "Spotted! Girl 1@", 3, 1, 0
-    db "Spotted! Boy 1@", 3, 1, 0
+    db "Spotted! Girl 1@", 3, 8, 0
+    db "Spotted! Boy 1@", 3, 8, 0
     db "Heal Pokémon@", 3, 1, 0
     db "Lavender Town@", 3, 1, 0
-    db "Viridian Forest@", 3, 1, 0
+    db "Viridian Forest@", 3, $18, 0
     db "Kanto Cave@", 3, 1, 0
     db "Follow Me!@", 3, 1, 0
     db "Game Corner@", 3, 1, 0
@@ -1197,17 +1198,17 @@ SongInfo:
     db "Rival Departure@", 3, 1, 0
     db "Surfing@", 3, 1, 0
     db "Evolution@", 3, 1, 0
-    db "National Park@", 3, 1, 0
+    db "National Park@", 3, 8, 0
     db "Credits@", 3, 1, 0
-    db "Azalea Town@", 3, 1, 0
+    db "Azalea Town@", 3, 8, 0
     db "Cherrygrove City@", 3, 1, 0
-    db "Spotted! Kimono Girl@", 3, 1, 0
+    db "Spotted! Kimono Girl@", 3, 8, 0
     db "Union Cave@", 3, 1, 0
     db "Vs. Johto Wild@", 3, 1, 0
     db "Vs. Johto Trainer@", 3, 1, 0
     db "Route 30@", 3, 1, 0
-    db "Ecruteak City@", 3, 1, 0
-    db "Violet City@", 3, 1, 0
+    db "Ecruteak City@", 3, 8, 0
+    db "Violet City@", 3, 8, 0
     db "Vs. Johto Gym Leader@", 3, 1, 0
     db "Vs. Champion@", 3, 1, 0
     db "Vs. Rival@", 3, 1, 0
@@ -1216,13 +1217,13 @@ SongInfo:
     db "Dark Cave@", 3, 1, 0
     db "Route 29@", 3, 1, 0
     db "Route 34@", 3, 1, 0
-    db "S.S. Aqua@", 3, 1, 0
+    db "S.S. Aqua@", 3, 8, 0
     db "Spotted! Boy 2@", 3, 1, 0
     db "Spotted! Girl 2@", 3, 1, 0
-    db "Spotted! Team Rocket@", 3, 1, 0
-    db "Spotted! Suspicious@", 3, 1, 0
-    db "Spotted! Sage@", 3, 1, 0
-    db "New Bark Town@", 3, 1, 0
+    db "Spotted! Team Rocket@", 3, 8, 0
+    db "Spotted! Suspicious@", 3, 8, 0
+    db "Spotted! Sage@", 3, 8, 0
+    db "New Bark Town@", 3, $18, 0
     db "Goldenrod City@", 3, 1, 0
     db "Vermilion City@", 3, 1, 0
     db "Pokémon Channel@", 3, 1, 0
@@ -1244,26 +1245,26 @@ SongInfo:
     db "Victory Road@", 3, 1, 0
     db "Pokémon Lullaby@", 3, 1, 0
     db "Pokémon March@", 3, 1, 0
-    db "Opening 1@", 3, 1, 0
+    db "Opening 1@", 3, $18, 0
     db "Opening 2@", 3, 1, 0
     db "Load Game@", 3, 1, 0
     db "Ruins of Alph Inside@", 3, 1, 0
-    db "Team Rocket@", 3, 1, 0
-    db "Dancing Hall@", 3, 1, 0
-    db "Bug Contest Ranking@", 3, 1, 0
+    db "Team Rocket@", 3, 8, 0
+    db "Dancing Hall@", 3, 8, 0
+    db "Bug Contest Ranking@", 3, 8, 0
     db "Bug Contest@", 3, 1, 0
     db "Rocket Radio@", 3, 1, 0
     db "GameBoy Printer@", 3, 1, 0
-    db "Post Credits@", 3, 1, 0
-    db "Clair@", 4, 1, 0
-    db "Mobile Adapter Menu@", 4, 1, 0
-    db "Mobile Adapter@", 4, 1, 0
-    db "Buena's Password@", 4, 1, 0
-    db "Eusine@", 4, 1, 0
+    db "Post Credits@", 3, 8, 0
+    db "Clair@", 4, 9, 0
+    db "Mobile Adapter Menu@", 4, 9, 0
+    db "Mobile Adapter@", 4, 9, 0
+    db "Buena's Password@", 4, 9, 0
+    db "Eusine@", 4, 9, 0
     db "Opening@", 4, 1, 0
-    db "Battle Tower@", 4, 1, 0
+    db "Battle Tower@", 4, 9, 0
     db "Vs. Suicune@", 4, 1, 0
-    db "Battle Tower Lobby@", 4, 1, 0
+    db "Battle Tower Lobby@", 4, 9, 0
     db "Mobile Center@", 4, 1, 0
     db "Opening@",  1, 1, 0
     db "Opening@", 2, 1, 0
@@ -1289,21 +1290,21 @@ SongInfo:
     db "Vermilion City@",  1, 1, 0
     db "S.S. Anne@",  1, 1, 0
     db "Route 11@",  1, 1, 0
-    db "Lavender Town@",  1, 1, 0
+    db "Lavender Town@",  1, $18, 0
     db "Pokémon Tower@",  1, 1, 0
     db "Celadon City@",  1, 1, 0
-    db "Game Corner@",  1, 1, 0
+    db "Game Corner@",  1, 8, 0
     db "Rocket Hideout@",  1, 1, 0
     db "Bicycle@",  1, 1, 0
     db "Evolution@",  1, 1, 0
     db "Surfing Pikachu@", 2, 1, 0
     db "Silph Co.@",  1, 1, 0
-    db "Surfing@",  1, 1, 0
+    db "Surfing@",  1, 8, 0
     db "Cinnabar Island@",  1, 1, 0
     db "Cinnabar Mansion@",  1, 1, 0
     db "Indigo Plateau@",  1, 1, 0
     db "Hall of Fame@",  1, 1, 0
-    db "Credits@",  1, 1, 0
+    db "Credits@",  1, 8, 0
     db "Spotted! Boy@",  1, 1, 0
     db "Spotted! Girl@",  1, 1, 0
     db "Spotted! Rocket@",  1, 1, 0
@@ -1331,11 +1332,11 @@ SongInfo:
     db "Cinnabar Island@", 7, 1, 2
     db "Cinnabar Island     GSC Remix@", 1, 1, 2
     db "Route 24@", 7, 1, 2
-    db "Shop@", 7, 1, 2
-    db "Pokéathelon Finals@", 7, 1, 2
+    db "Shop@", 7, 8, 2
+    db "Pokéathlon Finals@", 7, $0a, 2
     db "Vs. Johto Trainer   GS Kanto Style Remix@", 3, 1, 2
     db "Vs. Kanto Gym LeaderRemix@", 1, 1, 2
-    db "Vs. Frontier Brain@", 5, 1, 2
+    db "Vs. Frontier Brain@", 5, 8, 2
     db "Vs. Naljo Wild@", 11, 3, 2
     db "Vs. Naljo Gym Leader@", 11, 4, 2
     db "Vs. Pallet Patrol@", 11, 5, 2
@@ -1436,13 +1437,16 @@ Origin:
 	db -1
 	
 Artist:
-	db 01, "Junichi Masuda@"
-	db 02, "FroggestSpirit@"
-	db 03, "LevusBevus@"
-	db 04, "GRonnoc@"
-	db 05, "Cat333Pokémon@"
-	db 06, "Ichiro Shimakura@"
-	db 07, "Danny-E 33@"
-	db 08, "Go Ichinose (?)@"
-	db 09, "@"
+	db $01, "Junichi Masuda@"
+	db $02, "FroggestSpirit@"
+	db $03, "LevusBevus@"
+	db $04, "GRonnoc@"
+	db $05, "Cat333Pokémon@"
+	db $06, "Ichiro Shimakura@"
+	db $07, "Danny-E 33@"
+	db $08, "Go Ichinose@"
+	db $09, "Morikazu Aoki@"
+	db $0a, "Shota Kageyama"
+	db $18, "Junichi Masuda,     Go Ichinose@"
+	db $09, "@"
 	db -1
