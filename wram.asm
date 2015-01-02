@@ -37,6 +37,8 @@ wChannelSelector:: ds 1
 wChannelSelectorSwitches:: ds 8
 wNoiseHit:: ds 1
 wTranspositionInterval:: ds 1
+wChangingPitch:: ds 1
+wTmp:: ds 1
 
 SECTION "stack",WRAM0[$c0ff]
 Stack:: ; c0ff

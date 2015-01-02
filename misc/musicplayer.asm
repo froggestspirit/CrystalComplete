@@ -84,9 +84,9 @@ MusicPlayer::
 	call DelayFrame
 	
 	ld b, BANK(MusicTestGFX) ;load the gfx
-	ld c, 10
+	ld c, 12
 	ld de, MusicTestGFX
-	ld hl, $8c60
+	ld hl, $8c40
 	call Request2bpp	
 	
 	ld de, PianoGFX
@@ -200,7 +200,10 @@ MPlayerTilemap:
     
 	ld a, " "
 	hlcoord 5, 2
-	ld bc, 95
+	ld bc, 3
+	call ByteFill
+	hlcoord 0, 3
+	ld bc, 60
 	call ByteFill
 	hlcoord 0, 8
 	ld bc, 90
@@ -266,6 +269,9 @@ MPlayerTilemap:
 	call DrawChData
 	call DrawNotes
 	
+	ld a, [wChangingPitch]
+	and a
+	jr nz, .changingPitch
 	call GetJoypad
 	jbutton D_LEFT, .songEditorleft
 	jbutton D_RIGHT, .songEditorright
@@ -276,6 +282,16 @@ MPlayerTilemap:
 	ld a, 2
 	ld [hBGMapThird], a ; prioritize refreshing the note display
 	jr .songEditorLoop
+.changingPitch
+	call GetJoypad
+	jbutton D_LEFT, .ChangingPitchleft
+	jbutton D_RIGHT, .ChangingPitchright
+	jbutton A_BUTTON, .ChangingPitchb
+	jbutton B_BUTTON, .ChangingPitchb
+	ld a, 2
+	ld [hBGMapThird], a ; prioritize refreshing the note display
+	jr .songEditorLoop
+	
 
 .songEditorleft
 	call .channelSelectorloadhl
@@ -285,7 +301,7 @@ MPlayerTilemap:
 	dec a
 	cp -1
 	jr nz, .noOverflow
-	ld a, 4
+	ld a, 5
 .noOverflow
 	ld [wChannelSelector], a
 	call .channelSelectorloadhl
@@ -298,7 +314,7 @@ MPlayerTilemap:
 	ld [hl], a
 	ld a, [wChannelSelector]
 	inc a
-	cp 5
+	cp 6
 	jr nz, .noOverflow2
 	xor a
 .noOverflow2
@@ -311,6 +327,8 @@ MPlayerTilemap:
 	ld a, [wChannelSelector]
 	cp 4
 	jr z, .niteToggle
+	cp 5
+	jr z, .changePitch
 	ld c, a
 	ld b, 0
 	ld hl, wChannelSelectorSwitches
@@ -339,6 +357,18 @@ MPlayerTilemap:
 	ld [hBGMapThird], a
 	call DelayFrame
 	jp .songEditorLoop
+.changePitch
+    ld a, 1
+    ld [wChangingPitch], a
+	hlcoord 16, 2
+	ld a, $ec
+	ld [hl], a
+	xor a
+	ld [hBGMapThird], a
+	call DelayFrame
+	jp .songEditorLoop
+	
+	
 
 .songEditorselect
 .songEditorb
@@ -351,6 +381,8 @@ MPlayerTilemap:
 	ld a, [wChannelSelector]
 	cp 4
 	jr z, .channelSelectorloadhlnite
+	cp 5
+	jr z, .channelSelectorloadhlpitch
 	ld c, 5
 	call SimpleMultiply
 	hlcoord 0, 12
@@ -364,12 +396,77 @@ MPlayerTilemap:
 	hlcoord 15, 1
 	ld a, $ed
 	ret
+.channelSelectorloadhlpitch
+	hlcoord 16, 2
+	ld a, $ed
+	ret
 
 .exit
     call ClearSprites
     ld hl, rLCDC
     res 2, [hl] ; 8x8 sprites
     ret
+
+.ChangingPitchleft
+    ld a, [wTranspositionInterval]
+    dec a
+    jr .ChangingPitchChangePitch
+.ChangingPitchright
+    ld a, [wTranspositionInterval]
+    inc a
+.ChangingPitchChangePitch
+    ld [wTranspositionInterval], a
+    ld de, EmptyPitch
+	hlcoord 17, 2
+	call PlaceString
+	ld a, [wTranspositionInterval]
+    and a
+    jr nz, .nonzero
+	xor a
+	ld [hBGMapThird], a
+	call DelayFrame
+	jp .songEditorLoop
+    
+.nonzero
+    bit 7, a
+    jr nz, .negative
+	hlcoord 17, 2
+	ld a, $c5
+	ld [hl], a
+	ld bc, $0103
+    ld de, wTranspositionInterval
+	call PrintNum
+	xor a
+	ld [hBGMapThird], a
+	call DelayFrame
+	jp .songEditorLoop
+.negative
+    xor $ff
+    inc a
+    ld de, wTmp
+    ld [de], a
+	hlcoord 17, 2
+	ld a, "-"
+	ld [hl], a
+	ld bc, $0103
+	call PrintNum
+	xor a
+	ld [hBGMapThird], a
+	call DelayFrame
+	jp .songEditorLoop
+	
+.ChangingPitchb
+    xor a
+    ld [wChangingPitch], a
+	hlcoord 16, 2
+	ld a, $ed
+	ld [hl], a
+	xor a
+	ld [hBGMapThird], a
+	call DelayFrame
+	jp .songEditorLoop
+    
+EmptyPitch: db "   @"
 
 DrawChData:
 
