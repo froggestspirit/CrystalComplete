@@ -1048,6 +1048,5 @@ Music_Route209_Ch4_loop:
 	note C#, 3
 	note C#, 1
 	note C#, 1
-	notetype $9
 	note C#, 1
 	loopchannel 0, Music_Route209_Ch4_loop
