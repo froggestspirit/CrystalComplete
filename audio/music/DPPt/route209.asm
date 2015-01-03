@@ -574,7 +574,6 @@ Music_Route209_Ch2_loop:
 	octave 4
 	note B_, 1
 	note A_, 1
-	notetype $D, $A1
 	note E_, 1
 	loopchannel 0, Music_Route209_Ch2_loop
 
