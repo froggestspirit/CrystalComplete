@@ -174,8 +174,13 @@
 	dbw BANK(Music_SinnohWildBattle), Music_SinnohWildBattle 
 	dbw BANK(Music_SinnohTrainerBattle), Music_SinnohTrainerBattle 
 	dbw BANK(Music_JubilifeCity), Music_JubilifeCity 
+	dbw BANK(Music_Route201), Music_Route201 
+	dbw BANK(Music_Route203), Music_Route203 
+	dbw BANK(Music_Route205), Music_Route205 
 	dbw BANK(Music_Route206), Music_Route206 
+	dbw BANK(Music_Route209), Music_Route209 
 	dbw BANK(Music_PokeRadar), Music_PokeRadar
+	dbw BANK(Music_Poffins), Music_Poffins
 
 ;Remixes and custom songs:
 

@@ -232,10 +232,14 @@ INCLUDE "audio/music/custom/kantogymleaderremix.asm"
 SECTION "DPPt Songs 1", ROMX, BANK[DPPT_SONGS_1]
 
 INCLUDE "audio/music/DPPt/pokeradar.asm"
+INCLUDE "audio/music/DPPt/poffins.asm"
 INCLUDE "audio/music/DPPt/sinnohtrainer.asm"
 INCLUDE "audio/music/DPPt/sinnohwild.asm"
+INCLUDE "audio/music/DPPt/route201.asm"
 INCLUDE "audio/music/DPPt/route203.asm"
+INCLUDE "audio/music/DPPt/route205.asm"
 INCLUDE "audio/music/DPPt/route206.asm"
+INCLUDE "audio/music/DPPt/route209.asm"
 INCLUDE "audio/music/DPPt/jubilifecity.asm"
 
 SECTION "TCG Songs 1", ROMX, BANK[TCG_SONGS_1]

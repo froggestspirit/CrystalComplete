@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 242
+NUMSONGS EQU 247
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -1307,8 +1307,13 @@ SongInfo:
     db "Vs. Wild@", 6, 1, 2
     db "Vs. Trainer@", 6, 1, 2
     db "Jubilife City@", 6, 1, 2
+    db "Route 201@", 6, 1, 2
+    db "Route 203@", 6, 1, 2
+    db "Route 205@", 6, 1, 2
     db "Route 206@", 6, 1, 2
+    db "Route 209@", 6, 1, 2
     db "PokéRadar@", 6, 1, 2
+    db "Poffins@", 6, 1, 2
     db "Cerulean City@", 7, 1, 2
     db "Cinnabar Island@", 7, 1, 2
     db "Cinnabar Island     GSC Remix@", 1, 1, 2
