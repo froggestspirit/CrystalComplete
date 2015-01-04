@@ -611,7 +611,7 @@ DrawChData:
     jr nz, .notch3
     ; pick the waveform
     hlcoord $c, $f
-    ld a, [$c293]
+    ld a, [Channel3+$0f]
     and $0f
     add $40
     ld [hli], a
