@@ -141,6 +141,19 @@ MPlayerTilemap:
 	decoord 0, 0
 	call CopyBytes
 	
+	ld hl, wChannelSelectorSwitches
+	ld a, 3
+.chlabelloop
+	ld [wChannelSelector], a
+	ld a, [hli]
+	push hl
+	call DrawChannelLabel
+	pop hl
+	ld a, [wChannelSelector]
+	dec a
+	cp $ff
+	jr nz, .chlabelloop
+	
 	call DelayFrame
 	ld a, [wSongSelection]
 	and a ;let's see if a song is currently selected
@@ -349,6 +362,8 @@ MPlayerTilemap:
 	ld a, [hl]
 	xor 1
 	ld [hl], a
+	call DrawChannelLabel
+    
 	jp .songEditorLoop
 .niteToggle
 	ld a, [GBPrinter]
@@ -481,6 +496,40 @@ MPlayerTilemap:
     
 EmptyPitch: db "   @"
 
+DrawChannelLabel:
+	and a
+	jr nz, .off
+	ld de, ChannelsOnTilemaps
+	jr .draw
+.off
+    ld de, ChannelsOffTilemaps
+.draw
+	ld a, [wChannelSelector]
+	ld l, a
+	ld h, 0
+	add hl
+	add l
+	ld l, a
+	add hl, de
+	push hl
+	
+	hlcoord $0, $d
+	ld a, [wChannelSelector]
+	ld c, 5
+	call SimpleMultiply
+	ld e, a
+	ld d, 0
+	add hl, de
+	push hl
+	pop de
+	pop hl
+rept 3
+    ld a, [hli]
+    ld [de], a
+    inc de
+endr
+    ret
+    
 DrawChData:
 	ld a, 0
 	hlcoord 0, 14
@@ -1506,7 +1555,7 @@ db "                    "
 db "                    "
 db "                    "
 db "                    "
-db "Ch1──Ch2──Wave─Noise"
+db $08, $09, $0a,"─",$1f,$08,$09,$0b,"─",$1f,$0c,$0d,$0e,"─",$1f,$0f,$10,$11,"──"
 db "    │    │    │Set  "
 db "    │    │    │     "
 db "    │    │    │     "
@@ -1514,6 +1563,16 @@ db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
 
 MPTilemapEnd
 
+ChannelsOnTilemaps:
+    db $08, $09, $0a
+    db $08, $09, $0b
+    db $0c, $0d, $0e
+    db $0f, $10, $11
+ChannelsOffTilemaps:
+    db $12, $13, $14
+    db $12, $13, $15
+    db $16, $17, $18
+    db $19, $1a, $1b
 
 MPKeymap:
 db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
