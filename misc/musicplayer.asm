@@ -1541,8 +1541,10 @@ SongInfo:
     db "Route 203@", 6, 1, 2
     db "Route 205@", 6, 1, 2
     db "Route 206@", 6, 1, 2
+    db "Route 209@", 6, 1, 2
     db "Eterna Forest@", 6, 1, 2
     db "PokéRadar@", 6, 1, 2
+    db "Poffins@", 6, 1, 2
     db "Cerulean City@", 7, 1, 2
     db "Cinnabar Island@", 7, 1, 2
     db "Cinnabar Island     GSC Remix@", 1, 1, 2

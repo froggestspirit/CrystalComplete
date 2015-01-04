@@ -183,9 +183,11 @@ ENDM
 	tbp Music_Route201
 	tbp Music_Route203
 	tbp Music_Route205
-	dbw BANK(Music_Route206), Music_Route206 
+	tbp Music_Route206
+	tbp Music_Route209
 	tbp Music_EternaForest
 	dbw BANK(Music_PokeRadar), Music_PokeRadar
+	dbw BANK(Music_Poffins), Music_Poffins
 
 ;Remixes and custom songs:
 

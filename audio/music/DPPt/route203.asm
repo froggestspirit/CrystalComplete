@@ -143,6 +143,7 @@ Music_Route203_Ch1_loop:
 	notetype $C, $B7
 	octave 3
 	note C#, 1
+	intensity $B3
 	note E_, 8
 	notetype $8, $B7
 	note C#, 4
@@ -1609,8 +1610,8 @@ Music_Route203_Ch3_loop:
 	loopchannel 0, Music_Route203_Ch3_loop
 
 Music_Route203_Ch4:
-	notetype $8
 	togglenoise 3
+	notetype $8
 	note __, 12
 	note C#, 6
 	note G_, 2
