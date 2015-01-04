@@ -1318,6 +1318,8 @@ SongSelector:
 	jbutton B_BUTTON, .exit
 	jbutton D_DOWN, .down
 	jbutton D_UP, .up
+	jbutton D_LEFT, .left
+	jbutton D_RIGHT, .right
     jr .loop
 .a
     ld a, [wSongSelection]
@@ -1353,10 +1355,30 @@ SongSelector:
     ld [wSongSelection], a
     call UpdateSelectorNames
     jr .loop
+.left
+    ld a, [wSongSelection]
+    sub 10
+    jr nc, .noOverflowL
+    ld a, NUMSONGS - 1
+.noOverflowL
+    ld [wSongSelection], a
+    call UpdateSelectorNames
+    jp .loop
+.right
+    ld a, [wSongSelection]
+    add 10
+    cp NUMSONGS
+    jr c, .noOverflowR
+    ld a, 1
+.noOverflowR
+    ld [wSongSelection], a
+    call UpdateSelectorNames
+    jp .loop
 .exit
     ld a, [wSelectorTop]
     ld [wSongSelection], a
     ret
+    
 
 UpdateSelectorNames:
     call GetSongInfo
