@@ -771,6 +771,30 @@ CheckChannelOn:
 	call AddNTimes
 	bit 5, [hl]
 	jr nz, NoteEnded
+	
+; Do an IO check too if the note's envelope is 0
+; and not ramping up since the game handles rest
+; notes by temporarily write 0 to hi nibble of NRx2
+	ld a, [wTmpCh]
+	cp 2
+	jr nz, .notch3 ; NR32 does something different
+	ld a, [rNR32]
+	and $60
+	jr z, NoteEnded ; 0% volume
+	jr .still_going
+.notch3
+	ld bc, 5
+	ld hl, rNR12
+	call AddNTimes
+	ld a, [hl]
+	ld b, a
+	and $f0
+	jr nz, .still_going
+	ld a, b
+	bit 3, a
+	jr z, NoteEnded ; ramping down
+	and $7
+	jr z, NoteEnded ; no ramping
 
 .still_going
 	and a
@@ -1270,54 +1294,155 @@ SongSelector:
 	ld bc, 340
 	call ByteFill
     call ClearSprites
+    hlcoord 0, 0
+    ld de, MusicListText
+    call PlaceString
     textbox 0, 1, $12, $10
-    ld a, 1
-    ld [wSelectorTop], a
+    hlcoord 0, 9
+    ld [hl], $eb
+    ld a, [wSongSelection]
+    ld [wSelectorTop], a ; backup, in case of B button
+    cp 8
+    jr nc, .noOverflow
+    ld b, a
+    ld a, NUMSONGS - 1
+    add b
+.noOverflow
+    sub 7
+    ld [wSongSelection], a
     call UpdateSelectorNames
 .loop
     call DelayFrame
 	call GetJoypad
+	jbutton A_BUTTON, .a
 	jbutton B_BUTTON, .exit
-	jbutton START, .exit
 	jbutton D_DOWN, .down
 	jbutton D_UP, .up
     jr .loop
+.a
+    ld a, [wSongSelection]
+    cp NUMSONGS - 7
+    jr c, .noOverflow2
+    sub NUMSONGS - 8
+    jr .finish
+.noOverflow2
+    add 7
+.finish
+    ld [wSongSelection], a
+    ld e, a
+    ld d, 0
+    callba PlayMusic2
+    ret
 .down
-    ld a, [wSelectorCur]
+    ld a, [wSongSelection]
     inc a
-    cp PER_PAGE
-    jr nz, .nextpage
-    ld [wSelectorCur], a
-    ret ; i'm too lazy
-.nextpage
+    cp NUMSONGS
+    jr c, .noOverflowD
+    ld a, 1
+.noOverflowD
+    ld [wSongSelection], a
+    call UpdateSelectorNames
+    jr .loop
 .up
+    ld a, [wSongSelection]
+    dec a
+    cp 0
+    jr nz, .noOverflowU
+    ld a, NUMSONGS - 1
+.noOverflowU
+    ld [wSongSelection], a
+    call UpdateSelectorNames
+    jr .loop
 .exit
+    ld a, [wSelectorTop]
+    ld [wSongSelection], a
     ret
 
 UpdateSelectorNames:
-    ld a, [wSelectorTop]
     call GetSongInfo
+    ld a, [wSongSelection]
+    ld c, a
     ld b, 0
     push hl
     pop de
 .loop
-    hlcoord 2, 2
+    hlcoord 1, 2
+    ld a, c
+    ld [wSelectorCur], a
     push bc
     ld a, b
     ld bc, $0014
     call AddNTimes
-    call PlaceString
+    call MPLPlaceString
     inc de
     inc de
     inc de
     inc de
     pop bc
     inc b
+    inc c
+    ld a, c
+    cp NUMSONGS
+    jr c, .noOverflow
+    ld c, 1
+    ld de, SongInfo
+.noOverflow
     ld a, b
     cp PER_PAGE
     jr nz, .loop
     ret
     
+MPLPlaceString:
+    push hl
+    ld a, " "
+    ld hl, StringBuffer2
+    ld bc, 3
+    call ByteFill
+    ld hl, StringBuffer2
+    push de
+    ld de, wSelectorCur
+    ld bc, $103
+    call PrintNum
+    pop de
+    ld [hl], "│"
+    inc hl
+    ld b, 0
+.loop
+    ld a, [de]
+    ld [hl], a
+    cp "@"
+    jr nz, .next
+    ld [hl], " "
+    dec de
+.next
+    inc hl
+    inc de
+    inc b
+    ld a, b
+    cp 14
+    jr c, .loop
+    ld a, [de]
+    cp "@"
+    jr nz, .notend
+    ld [hl], a
+    jr .last
+.notend
+    dec hl
+    ld [hl], "…"
+    inc hl
+    ld [hl], "@"
+.loop2
+    inc de
+    ld a, [de]
+    cp "@"
+    jr nz, .loop2
+.last
+    pop hl
+    push de
+    ld de, StringBuffer2
+    call PlaceString
+    pop de
+    ret
 
 LoadingText:
     db "LOADING…@"
@@ -1375,6 +1500,9 @@ MPKeymapEnd
 
 Additional:
 	db "Additional Credits:@"
+
+MusicListText:
+	db "───┘ MUSIC LIST └───@"
 
 BlankName:
 	db " @"
