@@ -40,6 +40,9 @@ wTranspositionInterval:: ds 1
 wChangingPitch:: ds 1
 wTmp:: ds 1
 
+wRenderedWaveform:: ds 1
+wWaveformTmp:: ds 16
+
 SECTION "stack",WRAM0[$c0ff]
 Stack:: ; c0ff
 	ds -$100

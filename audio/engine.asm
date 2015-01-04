@@ -2998,7 +2998,7 @@ FrequencyTable: ; e8d80
 	dw $fded
 ; e8db2
 
-WaveSamples: ; e8db2
+WaveSamples:: ; e8db2
 	; these are streams of 32 4-bit values used as wavepatterns
 	; nothing interesting here!
 	db $02, $46, $8a, $ce, $ff, $fe, $ed, $dc, $cb, $a9, $87, $65, $44, $33, $22, $11

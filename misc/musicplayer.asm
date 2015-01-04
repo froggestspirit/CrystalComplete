@@ -91,7 +91,7 @@ MusicPlayer::
 	
 	ld de, PianoGFX
 	ld b, BANK(PianoGFX)
-	ld c, $50
+	ld c, $20
 	ld hl, $9000
 	call Request2bpp
 	
@@ -100,6 +100,17 @@ MusicPlayer::
 	ld c, $80
 	ld hl, $8000
 	call Request2bpp
+
+    ; Prerender all waveforms
+    ld a, 0
+.waveform_loop
+    push af
+    call RenderWaveform
+    pop af
+    inc a
+    cp $10
+    jr nz, .waveform_loop
+    
 
     call DelayFrame
 	call MPLoadPalette
@@ -120,6 +131,8 @@ MusicPlayer::
 	ld [wChannelSelectorSwitches+1], a
 	ld [wChannelSelectorSwitches+2], a
 	ld [wChannelSelectorSwitches+3], a
+	ld a, $ff
+	ld [wRenderedWaveform], a
 
 MPlayerTilemap:
 
@@ -469,7 +482,6 @@ MPlayerTilemap:
 EmptyPitch: db "   @"
 
 DrawChData:
-
 	ld a, 0
 	hlcoord 0, 14
 .ch
@@ -594,11 +606,117 @@ DrawChData:
 	add $c7
 	ld [hli], a
 	ld [hld], a
-
+    ld a, [wTmpCh]
+    cp 2
+    jr nz, .notch3
+    ; pick the waveform
+    hlcoord $c, $f
+    ld a, [$c293]
+    and $0f
+    add $40
+    ld [hli], a
+    inc a
+    ld [hl], a
+.notch3
 	pop hl
 	pop af
 	ret
 
+RenderWaveform:
+;	ld a, [$c293]
+;	and a, $0f ; only 0-9 are valid
+;	ld b, a
+;	ld a, [wRenderedWaveform]
+;	cp b
+;	ret z
+;	ld a, b
+	ld [wRenderedWaveform], a
+	
+	ld hl, TempMon
+	ld bc, 32
+	xor a
+	call ByteFill
+	
+	ld a, [wRenderedWaveform]
+	ld l, a
+	ld h, $00
+	; hl << 4
+	; each wavepattern is $0f bytes long
+	; so seeking is done in $10s
+	add hl, hl
+	add hl, hl
+	add hl, hl
+	add hl, hl
+	ld de, WaveSamples
+	add hl, de
+	ld de, wWaveformTmp
+	ld bc, 16
+	ld a, BANK(WaveSamples)
+	call FarCopyBytes ; copy bc bytes from a:hl to de
+    
+    ld hl, TempMon
+    ld de, wWaveformTmp
+    ld b, 1
+
+.drawloop
+    ld a, [de]
+    push de
+    
+    swap a
+    and $0f
+    xor $0f
+    sra a
+    sla a
+    ld c, a
+    add l
+    ld l, a
+    jr nc, .nc
+    inc h
+.nc
+    ld a, b
+    and $7
+    ld d, a
+    ; c = row
+    ; b = (d) = column
+    ld a, $01
+.rotatea
+    rrc a
+    dec d
+    jr nz, .rotatea
+    or [hl]
+    ld [hli], a
+    ld [hl], a
+    
+    pop de
+    inc de
+    inc b
+    ld a, b
+    cp $11
+    jr z, .done
+    cp $9
+    jr nc, .secondtile
+    ld hl, TempMon
+    jr .drawloop
+.secondtile
+    ld hl, TempMon+16
+    jr .drawloop
+.done
+	ld hl, $9400
+	ld a, [wRenderedWaveform]
+	sla a
+	sla a
+	sla a
+	sla a
+	sla a
+	ld l, a
+	jr nc, .nch
+    inc h
+.nch
+	ld b, 0
+	ld c, 2
+	ld de, TempMon
+	call Request2bpp	
+	ret
 
 DrawNotes:
     ld a, 0
