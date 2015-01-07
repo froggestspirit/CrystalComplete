@@ -1,4 +1,4 @@
-Music_Route103:
+Music_Route103:;this song doesn't loop properly most likely (drums)
 	dbw $C0, Music_Route103_Ch1
 	dbw $01, Music_Route103_Ch2
 	dbw $02, Music_Route103_Ch3
