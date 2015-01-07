@@ -335,6 +335,7 @@ Music_Route206_Ch1_loop:
 Music_Route206_Ch2:
 	notetype $4, $91
 	dutycycle 2
+	tone $0002
 	vibrato $12, $36
 	octave 4
 	note B_, 4

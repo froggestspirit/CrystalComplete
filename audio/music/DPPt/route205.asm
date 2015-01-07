@@ -10,6 +10,7 @@ Music_Route205_Ch1_loop:
 	volume $77
 	notetype $C, $B2
 	dutycycle 1
+	tone $0001
 	octave 3
 	note G_, 2
 	note G_, 3
@@ -284,6 +285,7 @@ Music_Route205_Ch2:
 Music_Route205_Ch2_loop:
 	notetype $C, $C2
 	dutycycle 1
+	tone $0002
 	octave 4
 	note G_, 2
 	note G_, 3
@@ -363,8 +365,9 @@ Music_Route205_Ch2_loop:
 	note D_, 6
 	intensity $C4
 	note D_, 3
+	intensity $C2
 	note G_, 3
-	notetype $C, $C4
+	notetype $C, $C2
 	note F#, 1
 	note G_, 1
 	note F#, 2
@@ -431,8 +434,10 @@ Music_Route205_Ch2_loop:
 	note E_, 2
 	note D_, 2
 	note E_, 1
+	intensity $C2
 	octave 3
 	note G_, 2
+	intensity $C5
 	note G_, 5
 	note G_, 1
 	note E_, 1

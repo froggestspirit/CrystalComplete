@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 247
+NUMSONGS EQU 248
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -1304,6 +1304,8 @@ SongInfo:
     db "Victory! Champion@",  1, 1, 0
     db "Unused@",  1, 1, 0
     db "Unused@", 2, 1, 0
+    db "Route 103@", 5, 1, 2
+    db "Vs. Frontier Brain@", 5, 1, 2
     db "Vs. Wild@", 6, 1, 2
     db "Vs. Trainer@", 6, 1, 2
     db "Jubilife City@", 6, 1, 2
@@ -1322,7 +1324,6 @@ SongInfo:
     db "Pokéathelon Finals@", 7, 1, 2
     db "Vs. Johto Trainer   GS Kanto Style Remix@", 3, 1, 2
     db "Vs. Kanto Gym LeaderRemix@", 1, 1, 2
-    db "Vs. Frontier Brain@", 5, 1, 2
     db "Vs. Naljo Wild@", 11, 3, 2
     db "Vs. Naljo Gym Leader@", 11, 4, 2
     db "Vs. Pallet Patrol@", 11, 5, 2

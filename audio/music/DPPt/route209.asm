@@ -7,8 +7,9 @@ Music_Route209:
 Music_Route209_Ch1:
 	tempo $E0
 	volume $77
-	notetype $C, $A2
+	notetype $C, $92
 	dutycycle 1
+	tone $0001
 	octave 4
 	note __, 2
 	octave 2
@@ -22,7 +23,8 @@ Music_Route209_Ch1:
 	octave 4
 	note C#, 2
 Music_Route209_Ch1_loop:
-	intensity $94
+	intensity $91
+	dutycycle 0
 	note A_, 2
 	note E_, 2
 	note A_, 2
@@ -157,6 +159,7 @@ Music_Route209_Ch1_loop:
 	note A_, 1
 	octave 5
 	note D_, 5
+	intensity $95
 	octave 3
 	note G#, 8
 	note B_, 8
@@ -168,20 +171,29 @@ Music_Route209_Ch1_loop:
 	note B_, 8
 	octave 4
 	note C#, 8
+	intensity $93
 	note C#, 4
+	intensity $91
 	note C#, 2
+	intensity $93
 	note C#, 6
+	intensity $91
 	note C#, 2
+	intensity $93
 	note C#, 6
+	intensity $91
 	note C#, 2
+	intensity $93
 	note C#, 4
+	intensity $95
 	note C#, 10
+	intensity $91
 	note D_, 2
-	notetype $8, $94
+	notetype $8, $91
 	note D_, 1
 	note D_, 1
 	note D_, 1
-	notetype $C, $94
+	notetype $C, $91
 	octave 3
 	note A_, 1
 	octave 4
@@ -190,11 +202,11 @@ Music_Route209_Ch1_loop:
 	note A_, 1
 	octave 4
 	note E_, 2
-	notetype $8, $94
+	notetype $8, $91
 	note E_, 1
 	note E_, 1
 	note E_, 1
-	notetype $C, $94
+	notetype $C, $91
 	octave 3
 	note B_, 1
 	octave 4
@@ -203,29 +215,36 @@ Music_Route209_Ch1_loop:
 	note B_, 1
 	octave 4
 	note F_, 2
-	notetype $8, $94
+	notetype $8, $91
 	note F_, 1
 	note F_, 1
 	note F_, 1
-	notetype $C, $94
+	notetype $C, $91
 	note C_, 1
 	note F_, 2
 	note C_, 1
 	note G_, 2
-	notetype $8, $94
+	notetype $8, $91
 	note G_, 1
 	note G_, 1
 	note G_, 1
-	notetype $C, $94
+	notetype $C, $91
 	note D_, 1
 	note G_, 2
 	note G#, 1
-	note A_, 16
+	intensity $78
+	note A_, 10
+	intensity $77
+	note A_, 6
+	intensity $91
 	note __, 2
 	octave 3
 	note E_, 3
+	intensity $93
 	note E_, 5
+	intensity $91
 	note F#, 3
+	intensity $93
 	note F#, 7
 	intensity $91
 	dutycycle 2
@@ -266,14 +285,19 @@ Music_Route209_Ch1_loop:
 	note B_, 1
 	octave 5
 	note C#, 3
-	intensity $94
 	octave 3
 	note E_, 3
+	intensity $93
 	note E_, 5
+	intensity $91
 	note G#, 3
+	intensity $93
 	note G#, 5
+	intensity $91
 	note A_, 3
+	intensity $93
 	note A_, 5
+	intensity $91
 	note B_, 2
 	note B_, 1
 	note B_, 2
@@ -295,10 +319,12 @@ Music_Route209_Ch1_loop:
 	note B_, 1
 	note B_, 2
 	note A_, 1
-	intensity $B7
+	intensity $A2
 	dutycycle 1
+	vibrato $08, $25
 	octave 4
 	note B_, 1
+	intensity $A7
 	note A_, 16
 	note __, 15
 	loopchannel 0, Music_Route209_Ch1_loop
@@ -325,9 +351,10 @@ Music_Route209_Ch2:
 	note A_, 1
 	note E_, 1
 Music_Route209_Ch2_loop:
-	notetype $3, $B7
+	notetype $3, $A7
 	dutycycle 3
-	vibrato $08, $15
+	tone $0002
+	vibrato $08, $25
 	octave 2
 	note G#, 1
 	note A_, 15
@@ -336,11 +363,11 @@ Music_Route209_Ch2_loop:
 	note C#, 8
 	note D_, 8
 	note E_, 8
-	notetype $2, $B7
+	notetype $2, $A7
 	note G#, 1
-	notetype $E, $B7
+	notetype $E, $A7
 	note A_, 5
-	notetype $C, $B7
+	notetype $C, $A7
 	note E_, 4
 	note C#, 2
 	note D_, 2
@@ -359,11 +386,14 @@ Music_Route209_Ch2_loop:
 	note C_, 2
 	octave 3
 	note B_, 2
-	intensity $B0
+	intensity $A0
 	note A_, 16
-	intensity $B7
-	note A_, 16
+	note A_, 8
+	intensity $A7
+	note A_, 8
+	intensity $A1
 	note __, 2
+	intensity $A3
 	dutycycle 2
 	octave 5
 	note C#, 2
@@ -430,17 +460,22 @@ Music_Route209_Ch2_loop:
 	note A_, 2
 	note G#, 2
 	note A_, 4
+	intensity $A1
 	note G#, 1
 	note F#, 1
+	intensity $A3
 	note G#, 2
 	note A_, 4
+	intensity $A1
 	note G#, 1
 	note F#, 1
+	intensity $A3
 	note G#, 2
 	note A_, 2
 	octave 4
 	note E_, 2
 	note A_, 4
+	intensity $A4
 	dutycycle 2
 	octave 3
 	note E_, 2
@@ -461,25 +496,32 @@ Music_Route209_Ch2_loop:
 	note D_, 4
 	note C_, 2
 	note D_, 2
-	intensity $6E
+	intensity $5E
 	note E_, 4
-	intensity $B0
+	intensity $A0
 	note E_, 6
-	intensity $B7
+	intensity $A7
 	note E_, 6
+	intensity $A1
 	note __, 2
 	note A_, 2
 	note E_, 2
 	note A_, 2
+	intensity $A3
 	octave 5
 	note C_, 4
+	intensity $A1
 	octave 4
 	note B_, 2
 	note A_, 2
+	intensity $A3
 	note B_, 4
+	intensity $A1
 	note B_, 2
+	intensity $A7
 	note A_, 16
 	note __, 12
+	intensity $A2
 	dutycycle 1
 	note A_, 1
 	note E_, 2
@@ -539,6 +581,7 @@ Music_Route209_Ch2_loop:
 	note A_, 1
 	intensity $A1
 	dutycycle 2
+	tone $0000
 	octave 5
 	note B_, 1
 	note A_, 1
@@ -578,15 +621,14 @@ Music_Route209_Ch2_loop:
 	loopchannel 0, Music_Route209_Ch2_loop
 
 Music_Route209_Ch3:
-	notetype $C, $10
+	notetype $C, $12
 	octave 2
 	note __, 16
 Music_Route209_Ch3_loop:
-	notetype $E, $10
+	notetype $E, $12
 	note A_, 3
-	notetype $6, $00
+	notetype $6, $12
 	note __, 1
-	intensity $11
 	note A_, 7
 	note __, 1
 	note G#, 7
@@ -617,7 +659,7 @@ Music_Route209_Ch3_loop:
 	note __, 1
 	note G_, 7
 	note __, 1
-	notetype $C, $11
+	notetype $C, $12
 	octave 1
 	note A_, 12
 	note __, 4
@@ -749,7 +791,7 @@ Music_Route209_Ch3_loop:
 	note E_, 1
 	note __, 1
 	note E_, 1
-	notetype $6, $11
+	notetype $6, $12
 	octave 1
 	note A_, 1
 	note __, 1
@@ -833,8 +875,7 @@ Music_Route209_Ch3_loop:
 	octave 2
 	note B_, 4
 	note A_, 4
-	notetype $5, $11
-	note E_, 5
+	note E_, 4
 	loopchannel 0, Music_Route209_Ch3_loop
 
 Music_Route209_Ch4:

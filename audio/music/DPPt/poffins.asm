@@ -8,6 +8,7 @@ Music_Poffins_Ch1:
 	tempo $D8
 	volume $77
 	notetype $C, $B5
+	tone $0001
 	dutycycle 1
 	octave 3
 	note __, 16
@@ -173,6 +174,7 @@ Music_Poffins_Ch1_loop:
 Music_Poffins_Ch2:
 	notetype $C, $A5
 	dutycycle 2
+	tone $0002
 	octave 5
 	note __, 16
 Music_Poffins_Ch2_loop:

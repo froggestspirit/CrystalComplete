@@ -7,6 +7,7 @@ Music_NuggetBridge:
 Music_NuggetBridge_Ch1:
 	tempo $A8
 	volume $77
+	tone $0001
 	dutycycle 1
 	notetype $C, $B5
 ;Channel1_Bar1:
@@ -176,6 +177,7 @@ Music_NuggetBridge_Loop1:
 Music_NuggetBridge_Ch2:
 	dutycycle 1
 	notetype $C, $C5
+	tone $0002
 ;Channel2_Bar1:
 	octave 3
 	note E_, 6

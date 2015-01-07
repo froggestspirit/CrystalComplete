@@ -326,6 +326,7 @@ INCLUDE "audio/music/pinball/meowthstage.asm"
 INCLUDE "audio/music/pinball/endcredits.asm"
 INCLUDE "audio/music/pinball/nameentry.asm"
 INCLUDE "audio/music/RSE/frontierbrain.asm"
+INCLUDE "audio/music/RSE/route103.asm"
 
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]
 
