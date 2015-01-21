@@ -1446,11 +1446,17 @@ MusicF3: ; e8780
 ;custom waveform
 	ld e, 16
 	ld hl, $ff30
+	ld de, wWaveformTmp
 .read
 	call GetMusicByte
 	ldi [hl], a
-	dec e
+	ld [de], a
+	inc de
+	ld a, l
+	cp $40
 	jr nz, .read
+	ld a, 1
+	ld [wSpecialWaveform], a
 	ret
 
 MusicF4: ; e8780

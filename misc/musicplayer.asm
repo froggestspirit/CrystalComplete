@@ -108,7 +108,7 @@ MusicPlayer::
     call RenderWaveform
     pop af
     inc a
-    cp $10
+    cp $f ; Fth waveform isn't real!
     jr nz, .waveform_loop
     
 
@@ -131,6 +131,7 @@ MusicPlayer::
 	ld [wChannelSelectorSwitches+1], a
 	ld [wChannelSelectorSwitches+2], a
 	ld [wChannelSelectorSwitches+3], a
+	ld [wSpecialWaveform], a
 	ld a, $ff
 	ld [wRenderedWaveform], a
 
@@ -570,6 +571,14 @@ endr
     ret
     
 DrawChData:
+    ld a, [wSpecialWaveform]
+    and a
+    jr z, .notspecial
+    call RenderSpecialWaveform
+    xor a
+    ld [wSpecialWaveform], a
+.notspecial
+    
 	ld a, 0
 	hlcoord 0, 14
 .ch
@@ -697,14 +706,16 @@ DrawChData:
     ld a, [wTmpCh]
     cp 2
     jr nz, .notch3
-    ; pick the waveform
     hlcoord $c, $f
+    ; pick the waveform
     ld a, [Channel3+$0f]
     and $0f
+    sla a
     add $40
     ld [hli], a
     inc a
     ld [hl], a
+.donewaveform
 .notch3
 	pop hl
 	pop af
@@ -720,10 +731,6 @@ RenderWaveform:
 ;	ld a, b
 	ld [wRenderedWaveform], a
 	
-	ld hl, TempMon
-	ld bc, 32
-	xor a
-	call ByteFill
 	
 	ld a, [wRenderedWaveform]
 	ld l, a
@@ -741,7 +748,13 @@ RenderWaveform:
 	ld bc, 16
 	ld a, BANK(WaveSamples)
 	call FarCopyBytes ; copy bc bytes from a:hl to de
-    
+RenderSpecialWaveform:
+
+	ld hl, TempMon
+	ld bc, 32
+	xor a
+	call ByteFill
+
     ld hl, TempMon
     ld de, wWaveformTmp
     ld b, 1
@@ -797,13 +810,13 @@ RenderWaveform:
 	sla a
 	sla a
 	ld l, a
-	jr nc, .nch
+	jr nc, .gothl
     inc h
-.nch
+.gothl
 	ld b, 0
 	ld c, 2
 	ld de, TempMon
-	call Request2bpp	
+	call Request2bpp
 	ret
 
 DrawNotes:
@@ -1640,11 +1653,11 @@ SongInfo:
     db "Spotted! Girl 1@", 3, 8, 0
     db "Spotted! Boy 1@", 3, 8, 0
     db "Heal Pokémon@", 3, 1, 0
-    db "Lavender Town@", 3, 1, 0
+    db "Lavender Town@", 3, $18, 0
     db "Viridian Forest@", 3, $18, 0
     db "Kanto Cave@", 3, 1, 0
     db "Follow Me!@", 3, 1, 0
-    db "Game Corner@", 3, 1, 0
+    db "Game Corner@", 3, 8, 0
     db "Bicycle@", 3, 1, 0
     db "Hall of Fame@", 3, 1, 0
     db "Viridian City@", 3, 1, 0
@@ -1659,10 +1672,10 @@ SongInfo:
     db "Professor Oak@", 3, 1, 0
     db "Rival Appears@", 3, 1, 0
     db "Rival Departure@", 3, 1, 0
-    db "Surfing@", 3, 1, 0
+    db "Surfing@", 3, 8, 0
     db "Evolution@", 3, 1, 0
     db "National Park@", 3, 8, 0
-    db "Credits@", 3, 1, 0
+    db "Credits@", 3, 8, 0
     db "Azalea Town@", 3, 8, 0
     db "Cherrygrove City@", 3, 1, 0
     db "Spotted! Kimono Girl@", 3, 8, 0
@@ -1753,21 +1766,21 @@ SongInfo:
     db "Vermilion City@",  1, 1, 0
     db "S.S. Anne@",  1, 1, 0
     db "Route 11@",  1, 1, 0
-    db "Lavender Town@",  1, $18, 0
+    db "Lavender Town@",  1, 1, 0
     db "Pokémon Tower@",  1, 1, 0
     db "Celadon City@",  1, 1, 0
-    db "Game Corner@",  1, 8, 0
+    db "Game Corner@",  1, 1, 0
     db "Rocket Hideout@",  1, 1, 0
     db "Bicycle@",  1, 1, 0
     db "Evolution@",  1, 1, 0
     db "Surfing Pikachu@", 2, 1, 0
     db "Silph Co.@",  1, 1, 0
-    db "Surfing@",  1, 8, 0
+    db "Surfing@",  1, 1, 0
     db "Cinnabar Island@",  1, 1, 0
     db "Cinnabar Mansion@",  1, 1, 0
     db "Indigo Plateau@",  1, 1, 0
     db "Hall of Fame@",  1, 1, 0
-    db "Credits@",  1, 8, 0
+    db "Credits@",  1, 1, 0
     db "Spotted! Boy@",  1, 1, 0
     db "Spotted! Girl@",  1, 1, 0
     db "Spotted! Rocket@",  1, 1, 0

@@ -41,6 +41,7 @@ wChangingPitch:: ds 1
 wTmp:: ds 1
 
 wRenderedWaveform:: ds 1
+wSpecialWaveform:: ds 1
 wWaveformTmp:: ds 16
 
 SECTION "stack",WRAM0[$c0ff]
