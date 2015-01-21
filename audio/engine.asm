@@ -2970,6 +2970,58 @@ LoadMusicByte:: ; e8d76
 	ret
 ; e8d80
 
+ReloadWaveform::
+    ; called from the music player
+	ld a, [$c293]
+	and a, $0f ; only 0-9 are valid
+	ld l, a
+	ld h, $00
+	; hl << 4
+	; each wavepattern is $0f bytes long
+	; so seeking is done in $10s
+	add hl, hl
+	add hl, hl
+	add hl, hl
+	add hl, hl
+	ld de, WaveSamples
+	add hl, de
+	cp $f
+	ret z
+	; load wavepattern into $ff30-$ff3f
+	ld a, [hli]
+	ld [$ff30], a
+	ld a, [hli]
+	ld [$ff31], a
+	ld a, [hli]
+	ld [$ff32], a
+	ld a, [hli]
+	ld [$ff33], a
+	ld a, [hli]
+	ld [$ff34], a
+	ld a, [hli]
+	ld [$ff35], a
+	ld a, [hli]
+	ld [$ff36], a
+	ld a, [hli]
+	ld [$ff37], a
+	ld a, [hli]
+	ld [$ff38], a
+	ld a, [hli]
+	ld [$ff39], a
+	ld a, [hli]
+	ld [$ff3a], a
+	ld a, [hli]
+	ld [$ff3b], a
+	ld a, [hli]
+	ld [$ff3c], a
+	ld a, [hli]
+	ld [$ff3d], a
+	ld a, [hli]
+	ld [$ff3e], a
+	ld a, [hli]
+	ld [$ff3f], a
+	ret
+
 FrequencyTable: ; e8d80
 	dw $0000 ; filler
 	dw $f82c

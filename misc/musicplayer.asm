@@ -303,6 +303,8 @@ MPlayerTilemap:
 	jbutton D_RIGHT, .songEditorright
 	jbutton A_BUTTON, .songEditora
 	jbutton B_BUTTON, .songEditorb
+	jbutton D_UP, .songEditorup
+	jbutton D_DOWN, .songEditordown
 	jbutton SELECT, .songEditorselect
 	
 	ld a, 2
@@ -396,7 +398,44 @@ MPlayerTilemap:
 	call DelayFrame
 	jp .songEditorLoop
 	
-	
+.songEditorup
+    ld a, [wChannelSelector]
+    cp 2
+    jp nz, .songEditorLoop
+    ld a, [Channel3+$0f]
+    dec a
+    ld b, a
+    and $0f
+    cp $0f
+    jr z, .waveunderflow
+    ld a, b
+    jr .changed
+.songEditordown
+    ld a, [wChannelSelector]
+    cp 2
+    jp nz, .songEditorLoop
+    ld a, [Channel3+$0f]
+    inc a
+    ld b, a
+    and $0f
+    jr z, .waveoverflow
+    ld a, b
+    jr .changed
+.waveunderflow
+    ld a, [Channel3+$0f]
+    and $f0
+    add $e
+    jr .changed
+.waveoverflow
+    ld a, [Channel3+$0f]
+    and $f0
+.changed
+    ld [Channel3+$0f], a
+    ld [$c293], a
+    callab ReloadWaveform
+	jp .songEditorLoop
+    
+    
 
 .songEditorselect
 .songEditorb
