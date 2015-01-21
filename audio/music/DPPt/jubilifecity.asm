@@ -8,6 +8,7 @@ Music_JubilifeCity_Ch1:
 	tempo 140
 	stereopanning $f
 	volume $77
+	tone $0001
 Music_JubilifeCity_Loop1:
 	notetype $4, 179
 	dutycycle 2
@@ -141,9 +142,11 @@ Music_JubilifeCity_Loop1:
 	note __, 8
 	note G_, 12
 	loopchannel 0, Music_JubilifeCity_Loop1
+
 Music_JubilifeCity_Ch2:
 	stereopanning $f0
 	vibrato $12, $23
+	tone $0002
 Music_JubilifeCity_Loop2:
 	notetype $4, 194
 	dutycycle 1

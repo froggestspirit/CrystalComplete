@@ -7,6 +7,7 @@ Music_Route203:
 Music_Route203_Ch1:
 	tempo $90
 	volume $77
+	tone $0001
 	notetype $4, $B1
 	dutycycle 1
 	octave 3
@@ -598,6 +599,7 @@ Music_Route203_Ch1_loop:
 
 Music_Route203_Ch2:
 	notetype $4, $C1
+	tone $0002
 	dutycycle 1
 	octave 4
 	note D#, 1

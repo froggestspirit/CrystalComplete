@@ -8,6 +8,7 @@ Music_CeruleanGSC_Ch1:
 	tempo $94
 	volume $77
 	notetype $C, $B2
+	tone $0001
 	dutycycle 2
 	octave 4
 	note E_, 2
@@ -203,6 +204,7 @@ Music_CeruleanGSC_Ch2:
 	vibrato 12,$34
 	dutycycle 2
 	notetype 2, $C2
+	tone $0002
 	note __, 2
 	notetype 12, $C2
 	octave 5

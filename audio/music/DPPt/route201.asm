@@ -6,6 +6,7 @@ Music_Route201:
 Music_Route201_Ch1:
 	tempo $A4
 	volume $77
+	tone $0001
 	notetype $C, $A2
 	dutycycle 1
 	octave 2
@@ -143,6 +144,7 @@ Music_Route201_Ch1_loop:
 
 Music_Route201_Ch2:
 	notetype $C, $B1
+	tone $0002
 	octave 4
 	note __, 16
 Music_Route201_Ch2_loop:

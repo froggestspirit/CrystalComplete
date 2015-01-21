@@ -174,6 +174,10 @@ ENDM
 	dbw BANK(Music_UnusedSong), Music_UnusedSong 
 	dbw BANK(Music_YellowUnusedSong), Music_YellowUnusedSong 
 
+;Ruby Sapphire Emerald
+	dbw BANK(Music_Route103), Music_Route103 
+	dbw BANK(Music_FrontierBrain), Music_FrontierBrain 
+
 ;Diamond and Pearl
 	dbw BANK(Music_SinnohWildBattle), Music_SinnohWildBattle 
 	dbw BANK(Music_SinnohTrainerBattle), Music_SinnohTrainerBattle 
@@ -199,7 +203,6 @@ ENDM
 	dbw BANK(Music_PokeathelonFinal), Music_PokeathelonFinal
 	dbw BANK(Music_JohtoGSC), Music_JohtoGSC 
 	dbw BANK(Music_KantoGymLeaderRemix), Music_KantoGymLeaderRemix 
-	dbw BANK(Music_FrontierBrain), Music_FrontierBrain 
 	dbw BANK(Music_NaljoWildBattle), Music_NaljoWildBattle
 	dbw BANK(Music_NaljoGymBattle), Music_NaljoGymBattle
 	dbw BANK(Music_PalletBattle), Music_PalletBattle
