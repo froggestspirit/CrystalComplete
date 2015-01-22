@@ -4,7 +4,7 @@ Music_SinnohTrainerBattle:
 	dbw $02, Music_SinnohTrainerBattle_Ch3
 
 Music_SinnohTrainerBattle_Ch1:
-	tempo $68
+	ftempo $68
 	volume $77
 	notetype $C, $B2
 	dutycycle 3

@@ -4,7 +4,7 @@ Music_WinTrainerSinnoh:
 	dbw $02, Music_WinTrainerSinnoh_Ch3
 
 Music_WinTrainerSinnoh_Ch1:
-	tempo $7C
+	ftempo $7C
 	volume $77
 	notetype $C, $A2
 	dutycycle 2
