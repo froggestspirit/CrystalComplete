@@ -32,8 +32,8 @@
 	dbw BANK(Music_HallOfFame), Music_HallOfFame ; unchanged
 	dbw BANK(Music_Cities1), Music_Cities1 ; 0xf4000
 	dbw BANK(Music_Celadon), Music_Celadon ; 0xf435b
-	dbw BANK(Music_TrainerVictory), Music_TrainerVictory ; unchanged
-	dbw BANK(Music_WildPokemonVictory), Music_WildPokemonVictory ; unchanged
+	dbw BANK(Music_WinTrainerSinnoh), Music_WinTrainerSinnoh ; unchanged
+	dbw BANK(Music_WinPokeSinnoh), Music_WinPokeSinnoh ; unchanged
 	dbw BANK(Music_GymLeaderVictory), Music_GymLeaderVictory ; unchanged
 	dbw BANK(Music_MtMoonSquare), Music_MtMoonSquare ; unchanged
 	dbw BANK(Music_RBYGym), Music_RBYGym ; 0xf48ae
@@ -52,7 +52,7 @@
 	dbw BANK(Music_UnionCave), Music_UnionCave ; 0xf5c60
 	dbw BANK(Music_SinnohWildBattle), Music_SinnohWildBattle ; 0xf5dc5
 	dbw BANK(Music_SinnohTrainerBattle), Music_SinnohTrainerBattle ; 0xf6096
-	dbw BANK(Music_Route206), Music_Route206 ; 0xefc01
+	dbw BANK(Music_Route203), Music_Route203 ; 0xefc01
 	dbw BANK(Music_EcruteakCity), Music_EcruteakCity ; 0xef2d0
 	dbw BANK(Music_VioletCity), Music_VioletCity ; 0xf0000
 	dbw BANK(Music_JohtoGymBattle), Music_JohtoGymBattle ; 0xea50d
@@ -61,8 +61,8 @@
 	dbw BANK(Music_RocketBattle), Music_RocketBattle ; 0xe9b6f
 	dbw BANK(Music_ElmsLab), Music_ElmsLab ; 0xea040
 	dbw BANK(Music_DarkCave), Music_DarkCave ; 0xea2be
-	dbw BANK(Music_Route29), Music_Route29 ; 0xf0386
-	dbw BANK(Music_Route36), Music_Route36 ; 0xe94e9
+	dbw BANK(Music_Route201), Music_Route201 ; 0xf0386
+	dbw BANK(Music_Route205), Music_Route205 ; 0xe94e9
 	dbw BANK(Music_SSAqua), Music_SSAqua ; 0xead99
 	dbw BANK(Music_LookYoungster), Music_LookYoungster ; 0xf66c3
 	dbw BANK(Music_LookBeauty), Music_LookBeauty ; 0xeee3e
@@ -78,15 +78,15 @@
 	dbw BANK(Music_SproutTower), Music_SproutTower ; 0xf6974
 	dbw BANK(Music_BurnedTower), Music_BurnedTower ; 0xf6a99
 	dbw BANK(Music_Lighthouse), Music_Lighthouse ; 0xee569
-	dbw BANK(Music_LakeOfRage), Music_LakeOfRage ; 0xee6c5
+	dbw BANK(Music_Route209), Music_Route209 ; 0xee6c5
 	dbw BANK(Music_IndigoPlateau), Music_IndigoPlateau ; unchanged
-	dbw BANK(Music_Route37), Music_Route37 ; 0xee94b
+	dbw BANK(Music_Route206), Music_Route206 ; 0xee94b
 	dbw BANK(Music_RocketHideout), Music_RocketHideout ; 0xeeb75
 	dbw BANK(Music_DragonsDen), Music_DragonsDen ; 0xeece8
 	dbw BANK(Music_SinnohWildBattle), Music_SinnohWildBattle ; 0xf605c
 	dbw BANK(Music_RuinsOfAlphRadio), Music_RuinsOfAlphRadio ; 0xeedcb
 	dbw BANK(Music_SuccessfulCapture), Music_SuccessfulCapture ; 0xf4602
-	dbw BANK(Music_Route26), Music_Route26 ; 0xeefb2
+	dbw BANK(Music_Route210), Music_Route210 ; 0xeefb2
 	dbw BANK(Music_Mom), Music_Mom ; 0xf6bf2
 	dbw BANK(Music_VictoryRoad), Music_VictoryRoad ; 0xf6c72
 	dbw BANK(Music_PokemonLullaby), Music_PokemonLullaby ; 0xf6d79

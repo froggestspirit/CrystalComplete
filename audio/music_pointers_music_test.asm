@@ -183,6 +183,7 @@
 	dbw BANK(Music_Route205), Music_Route205 
 	dbw BANK(Music_Route206), Music_Route206 
 	dbw BANK(Music_Route209), Music_Route209 
+	dbw BANK(Music_Route210), Music_Route210 
 	dbw BANK(Music_PokeRadar), Music_PokeRadar
 	dbw BANK(Music_Poffins), Music_Poffins
 

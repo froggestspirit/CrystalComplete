@@ -240,6 +240,7 @@ INCLUDE "audio/music/DPPt/route203.asm"
 INCLUDE "audio/music/DPPt/route205.asm"
 INCLUDE "audio/music/DPPt/route206.asm"
 INCLUDE "audio/music/DPPt/route209.asm"
+INCLUDE "audio/music/DPPt/route210.asm"
 INCLUDE "audio/music/DPPt/jubilifecity.asm"
 
 SECTION "TCG Songs 1", ROMX, BANK[TCG_SONGS_1]
@@ -327,6 +328,8 @@ INCLUDE "audio/music/pinball/endcredits.asm"
 INCLUDE "audio/music/pinball/nameentry.asm"
 INCLUDE "audio/music/RSE/frontierbrain.asm"
 INCLUDE "audio/music/RSE/route103.asm"
+INCLUDE "audio/music/DPPt/WinPokeSinnoh.asm"
+INCLUDE "audio/music/DPPt/WinTrainerSinnoh.asm"
 
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]
 

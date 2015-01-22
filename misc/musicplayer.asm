@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 248
+NUMSONGS EQU 249
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -1314,6 +1314,7 @@ SongInfo:
     db "Route 205@", 6, 1, 2
     db "Route 206@", 6, 1, 2
     db "Route 209@", 6, 1, 2
+    db "Route 210@", 6, 1, 2
     db "PokéRadar@", 6, 1, 2
     db "Poffins@", 6, 1, 2
     db "Cerulean City@", 7, 1, 2
