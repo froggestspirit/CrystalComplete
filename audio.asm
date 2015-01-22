@@ -242,6 +242,7 @@ INCLUDE "audio/music/DPPt/route203.asm"
 INCLUDE "audio/music/DPPt/route205.asm"
 INCLUDE "audio/music/DPPt/route206.asm"
 INCLUDE "audio/music/DPPt/route209.asm"
+INCLUDE "audio/music/DPPt/route210.asm"
 INCLUDE "audio/music/DPPt/EternaForest.asm"
 INCLUDE "audio/music/DPPt/jubilifecity.asm"
 
@@ -330,14 +331,6 @@ INCLUDE "audio/music/pinball/endcredits.asm"
 INCLUDE "audio/music/pinball/nameentry.asm"
 INCLUDE "audio/music/RSE/frontierbrain.asm"
 INCLUDE "audio/music/RSE/route103.asm"
-
-SECTION "Some More Custom Music", ROMX
-INCLUDE "audio/music/custom/emeraldtitlescreen.asm"
-INCLUDE "audio/music/custom/emeraldlittleroot.asm"
-INCLUDE "audio/music/custom/emeraldheavyrain.asm"
-INCLUDE "audio/music/custom/emeralddrought.asm"
-INCLUDE "audio/music/custom/emeraldwildbattle.asm"
-INCLUDE "audio/music/RSE/lilycovecity.asm"
 
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]
 

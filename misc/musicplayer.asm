@@ -1805,6 +1805,7 @@ SongInfo:
     db "Route 205@", 6, 1, 2
     db "Route 206@", 6, 1, 2
     db "Route 209@", 6, 1, 2
+    db "Route 210@", 6, 1, 2
     db "Eterna Forest@", 6, 1, 2
     db "PokéRadar@", 6, 1, 2
     db "Poffins@", 6, 1, 2
@@ -1890,12 +1891,6 @@ SongInfo:
 	db "Meowth Stage@"                            , 14, 8, 0
 	db "End Credits@"                             , 14, 8, 0
 	db "Name Entry@"                              , 14, 8, 0
-	db "Title Screen (test)@"                     , 05, 9, 0
-	db "Littleroot Town (test)@"                  , 05, 9, 0
-	db "Heavy Rain (Test)@"                              , 05, 9, 0
-	db "Drought (Test)@"                              , 05, 9, 0
-	db "Wild Battle (Test)@"                              , 05, 9, 0
-	db "Lilycove City (Test)@"                              , 05, 9, 0
     db -1
 	
 Origin:

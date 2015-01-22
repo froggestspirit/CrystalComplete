@@ -189,6 +189,7 @@ ENDM
 	tbp Music_Route205
 	tbp Music_Route206
 	tbp Music_Route209
+	tbp Music_Route210
 	tbp Music_EternaForest
 	dbw BANK(Music_PokeRadar), Music_PokeRadar
 	dbw BANK(Music_Poffins), Music_Poffins
@@ -286,11 +287,3 @@ ENDM
 	dbw BANK(Music_Pinballmeowthstage), Music_Pinballmeowthstage
 	dbw BANK(Music_Pinballendcredits), Music_Pinballendcredits
 	dbw BANK(Music_Pinballnameentry), Music_Pinballnameentry
-	
-	
-	dbw BANK(Music_EmeraldTitleScreen), Music_EmeraldTitleScreen
-	dbw BANK(Music_EmeraldLittleroot), Music_EmeraldLittleroot
-	dbw BANK(Music_EmeraldHeavyRain), Music_EmeraldHeavyRain
-	dbw BANK(Music_EmeraldDrought), Music_EmeraldDrought
-	dbw BANK(Music_EmeraldWildBattle), Music_EmeraldWildBattle
-	dbw BANK(Music_LilycoveCity), Music_LilycoveCity
