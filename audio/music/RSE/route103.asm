@@ -13,8 +13,8 @@ Music_Route103_Ch1:
 	note __, 16
 	note __, 16
 Music_Route103_Ch1_loop:
+	notetype $C, $93
 	tempo $90
-	intensity $93
 	dutycycle 3
 	tone $0001
 	octave 2
@@ -667,6 +667,8 @@ Music_Route103_Ch3_loop:
 	note F_, 12
 	note __, 16
 	note D#, 4
+	notetype $8, $14
+	note __, 1
 	loopchannel 0, Music_Route103_Ch3_loop
 
 Music_Route103_Ch4:
