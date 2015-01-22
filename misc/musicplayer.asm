@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 255
+NUMSONGS EQU 250
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"

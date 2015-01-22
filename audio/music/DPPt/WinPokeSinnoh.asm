@@ -4,7 +4,7 @@ Music_WinPokeSinnoh:
 	dbw $02, Music_WinPokeSinnoh_Ch3
 
 Music_WinPokeSinnoh_Ch1:
-	tempo $68
+	ftempo $68
 	volume $77
 	notetype $C, $A2
 	dutycycle 2

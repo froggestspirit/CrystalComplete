@@ -6,8 +6,6 @@ Music_PalletBattle: ; 1ec454
 	dbw $02, Music_PalletBattle_Ch3
 ; 1ec45d
 
-INCBIN "baserom.gbc", $1ec45d, $1edb00 - $1ec45d
-
 Music_PalletBattle_Ch1: ; 1edb00
 	ftempo 96
 	volume $77

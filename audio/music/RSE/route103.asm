@@ -15,7 +15,6 @@ Music_Route103_Ch1:
 Music_Route103_Ch1_loop:
 	notetype $C, $93
 	tempo $90
-	intensity $93
 	dutycycle 3
 	tone $0001
 	octave 2
@@ -94,6 +93,7 @@ Music_Route103_Ch1_loop:
 	octave 4
 	note D#, 6
 	intensity $95
+	dutycycle 1
 	octave 1
 	note G#, 16
 	intensity $91
@@ -171,7 +171,6 @@ Music_Route103_Ch1_loop:
 	octave 3
 	note C_, 12
 	intensity $91
-	dutycycle 2
 	octave 2
 	note G#, 1
 	octave 3
@@ -383,15 +382,13 @@ Music_Route103_Ch2_loop:
 	note D#, 6
 	octave 5
 	note D#, 6
-	intensity $A1
+	intensity $A7
 	dutycycle 2
-	vibrato $00, $26
+	vibrato $00, $34
 	note C_, 4
 	note C#, 2
 	note D#, 4
-	intensity $A3
 	note C#, 6
-	intensity $A1
 	note C_, 2
 	octave 4
 	note A#, 2
@@ -401,32 +398,26 @@ Music_Route103_Ch2_loop:
 	note G#, 2
 	notetype $C, $A7
 	note A#, 16
-	notetype $8, $A1
+	notetype $8, $A7
 	note G_, 4
 	note G#, 2
 	note A#, 4
-	intensity $A3
 	octave 5
 	note D#, 6
-	intensity $A1
 	note C#, 2
 	note C_, 2
 	note C#, 2
 	octave 4
 	note G_, 2
-	intensity $A3
 	note A#, 4
-	intensity $A1
 	octave 5
 	note C_, 1
 	octave 4
 	note A#, 1
-	intensity $A3
 	note A_, 6
 	note A#, 6
 	octave 5
 	note C_, 6
-	intensity $A5
 	octave 4
 	note G#, 12
 	note F_, 4

@@ -5,7 +5,7 @@ Music_PokeathelonFinal:
 	dbw $03, Music_PokeathelonFinal_Ch4
 
 Music_PokeathelonFinal_Ch1:
-	tempo $84
+	ftempo $84
 	volume $77
 	tone $0002
 	notetype $2, $C3

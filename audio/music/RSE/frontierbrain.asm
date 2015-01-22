@@ -4,7 +4,7 @@ Music_FrontierBrain:
 	dbw $02, Music_FrontierBrain_Ch3
 
 Music_FrontierBrain_Ch1:
-	tempo $60
+	ftempo $60
 	volume $77
 	notetype $C, $C2
 	dutycycle 1
