@@ -363,9 +363,8 @@ Music_Route205_Ch2_loop:
 	note D_, 6
 	intensity $C7
 	note D_, 6
-	intensity $C4
-	note D_, 3
 	intensity $C2
+	note D_, 3
 	note G_, 3
 	notetype $C, $C2
 	note F#, 1
