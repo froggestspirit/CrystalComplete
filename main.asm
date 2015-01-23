@@ -37051,6 +37051,7 @@ PlayBattleMusic: ; 2ee6c
 	push de
 	push bc
 
+	callab SaveMusic
 	xor a
 	ld [MusicFade], a
 	ld de, MUSIC_NONE

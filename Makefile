@@ -22,11 +22,12 @@ stats/pokedex/entries_crystal.o \
 misc/crystal_misc.o \
 misc/voltorb_flip.o \
 misc/musicplayer.o \
+misc/restoremusic.o \
 gfx/pics.o
 
 OBJS := $(CRYSTAL_OBJS)
 
-ROMS := pokecrystal.gbc
+ROMS := CrystalComplete.gbc
 
 
 # generate a list of dependencies for each object file
@@ -37,7 +38,7 @@ $(shell $(foreach obj, $(OBJS), \
 
 all: $(ROMS)
 
-crystal: pokecrystal.gbc
+crystal: CrystalComplete.gbc
 
 clean:
 	rm -f $(ROMS)
@@ -58,7 +59,7 @@ $(OBJS): $$*.tx $$(patsubst %.asm, %.tx, $$($$*_DEPENDENCIES))
 	$(eval TEXTQUEUE :=)
 	rgbasm -o $@ $*.tx
 
-pokecrystal.gbc: $(CRYSTAL_OBJS)
+CrystalComplete.gbc: $(CRYSTAL_OBJS)
 	rgblink -n $*.sym -m $*.map -o $@ $^
 	rgbfix -Cjv -i BYTE -k 01 -l 0x33 -m 0x1b -p 0 -r 3 -t PM_CRYSTAL $@
 	cmp baserom.gbc $@

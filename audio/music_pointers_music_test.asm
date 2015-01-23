@@ -8,6 +8,10 @@
 ; 	Songs IV
 ; 	Songs V
 
+tbp: MACRO
+    dbw BANK(\1), \1
+ENDM
+
 ; e906e
 	dbw BANK(Music_Nothing), Music_Nothing ; 0xe91a3
 	dbw BANK(Music_TitleScreen), Music_TitleScreen ; 0xeb808
@@ -177,13 +181,16 @@
 ;Diamond and Pearl
 	dbw BANK(Music_SinnohWildBattle), Music_SinnohWildBattle 
 	dbw BANK(Music_SinnohTrainerBattle), Music_SinnohTrainerBattle 
+	tbp Music_WinPokeSinnoh
+	tbp Music_WinTrainerSinnoh
 	dbw BANK(Music_JubilifeCity), Music_JubilifeCity 
-	dbw BANK(Music_Route201), Music_Route201 
-	dbw BANK(Music_Route203), Music_Route203 
-	dbw BANK(Music_Route205), Music_Route205 
-	dbw BANK(Music_Route206), Music_Route206 
-	dbw BANK(Music_Route209), Music_Route209 
-	dbw BANK(Music_Route210), Music_Route210 
+	tbp Music_Route201
+	tbp Music_Route203
+	tbp Music_Route205
+	tbp Music_Route206
+	tbp Music_Route209
+	tbp Music_Route210
+	tbp Music_EternaForest
 	dbw BANK(Music_PokeRadar), Music_PokeRadar
 	dbw BANK(Music_Poffins), Music_Poffins
 

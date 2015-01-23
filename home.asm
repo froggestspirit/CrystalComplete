@@ -2934,7 +2934,7 @@ Function3d03:: ; 3d03
 Function3d2f:: ; 3d2f
 	ld a, [$c2c1]
 	and a
-	jr z, Function3d47
+	jr z, .restore
 	xor a
 	ld [CurMusic], a
 	ld de, MUSIC_NONE
@@ -2942,6 +2942,9 @@ Function3d2f:: ; 3d2f
 	call DelayFrame
 	xor a
 	ld [$c2c1], a
+	ret
+.restore
+	callab RestoreMusic
 	ret
 ; 3d47
 
