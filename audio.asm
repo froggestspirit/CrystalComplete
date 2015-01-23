@@ -331,8 +331,6 @@ INCLUDE "audio/music/pinball/endcredits.asm"
 INCLUDE "audio/music/pinball/nameentry.asm"
 INCLUDE "audio/music/RSE/frontierbrain.asm"
 INCLUDE "audio/music/RSE/route103.asm"
-INCLUDE "audio/music/DPPt/WinPokeSinnoh.asm"
-INCLUDE "audio/music/DPPt/WinTrainerSinnoh.asm"
 
 SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]
 
