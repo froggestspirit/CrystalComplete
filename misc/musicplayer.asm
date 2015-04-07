@@ -75,6 +75,13 @@ MusicPlayer::
 	;ld de, 01
 	;call PlayMusic
 	;call WhiteBGMap
+	di
+	call DoubleSpeed
+	xor a
+	ld [rIF], a
+	ld a, $f
+	ld [rIE], a
+	ei
 	call ClearTileMap
 	hlcoord 6, 5
 	ld de, LoadingText
@@ -473,6 +480,13 @@ MPlayerTilemap:
     call ClearSprites
     ld hl, rLCDC
     res 2, [hl] ; 8x8 sprites
+    di
+    call NormalSpeed
+    xor a
+    ld [rIF], a
+    ld a, $f
+    ld [rIE], a
+    ei
     ret
 
 .ChangingPitchleft
