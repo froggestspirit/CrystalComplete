@@ -2385,3 +2385,7 @@ BoxMon20Nickname:: ; b153
 	ds 11
 BoxMonNicknamesEnd::
 
+SECTION "hack2", WRAMX[$d800], BANK[$4] ; seems like this bank is unused
+
+wMPNotes:: ds 4*256
+
