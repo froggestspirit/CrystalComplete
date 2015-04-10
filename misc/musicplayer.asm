@@ -282,7 +282,7 @@ MPlayerTilemap:
 	call PlaceString
 	
 	
-	xor a ; VBlank0
+	ld a, 5 ; VBlank5
 	ld [$ff9e], a
 	
 	; refresh top two portions
@@ -505,6 +505,7 @@ MPlayerTilemap:
 .exit
     xor a
     ld [hMPState], a
+    ld [$ff9e], a ; VBlank0
     ld a, [hBuffer2]
     ld [rSVBK], a
     call ClearSprites
