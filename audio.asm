@@ -230,6 +230,7 @@ INCLUDE "audio/music/custom/naljogymbattle.asm"
 INCLUDE "audio/music/custom/palletbattle.asm"
 INCLUDE "audio/music/custom/cinnabarremix.asm"
 INCLUDE "audio/music/custom/kantogymleaderremix.asm"
+INCLUDE "audio/music/DPPt/route216.asm"
 
 SECTION "DPPt Songs 1", ROMX, BANK[DPPT_SONGS_1]
 
