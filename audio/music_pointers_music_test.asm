@@ -191,6 +191,7 @@ ENDM
 	dbw BANK(Music_Route209), Music_Route209
 	dbw BANK(Music_Route210), Music_Route210
 	dbw BANK(Music_EternaForest), Music_EternaForest
+	dbw BANK(Music_SinnohGameCorner), Music_SinnohGameCorner
 	dbw BANK(Music_PokeRadar), Music_PokeRadar
 	dbw BANK(Music_Poffins), Music_Poffins
 
