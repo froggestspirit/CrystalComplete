@@ -184,6 +184,7 @@ ENDM
 	dbw BANK(Music_WinTrainerSinnoh), Music_WinTrainerSinnoh 
 	dbw BANK(Music_WinPokeSinnoh), Music_WinPokeSinnoh 
 	dbw BANK(Music_JubilifeCity), Music_JubilifeCity 
+	dbw BANK(Music_Oreburgh), Music_Oreburgh 
 	dbw BANK(Music_Route201), Music_Route201
 	dbw BANK(Music_Route203), Music_Route203
 	dbw BANK(Music_Route205), Music_Route205

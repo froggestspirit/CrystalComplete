@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 251
+NUMSONGS EQU 252
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -1800,6 +1800,7 @@ SongInfo:
     db "Defeated Wild@", 6, 1, 2
     db "Defeated Trainer@", 6, 1, 2
     db "Jubilife City@", 6, 1, 2
+    db "Oreburgh City@", 6, 1, 2
     db "Route 201@", 6, 1, 2
     db "Route 203@", 6, 1, 2
     db "Route 205@", 6, 1, 2

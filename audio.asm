@@ -221,6 +221,7 @@ INCLUDE "audio/music/custom/nuggetbridge.asm"
 INCLUDE "audio/music/custom/shop.asm"
 INCLUDE "audio/music/custom/pokeathelonfinal.asm"
 INCLUDE "audio/music/DPPt/gamecorner.asm"
+INCLUDE "audio/music/DPPt/oreburgh.asm"
 
 SECTION "Custom Songs 2", ROMX, BANK[CUSTOM_SONGS_2]
 

@@ -9,6 +9,7 @@ Music_SinnohGameCorner_Ch1:
 	volume $77
 	notetype $C, $A2
 	dutycycle 2
+	tone $0001
 	octave 4
 	note __, 16
 	note __, 16
@@ -601,6 +602,7 @@ Music_SinnohGameCorner_Ch1_loop:
 Music_SinnohGameCorner_Ch2:
 	notetype $C, $C7
 	dutycycle 0
+	tone $0002
 	octave 1
 	note A_, 2
 	octave 2
