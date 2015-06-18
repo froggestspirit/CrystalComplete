@@ -28,7 +28,7 @@
 	dbw BANK(Music_Dungeon3), Music_Dungeon3 ; 0xedb29
 	dbw BANK(Music_MuseumGuy), Music_MuseumGuy ; 0xedbd8
 	dbw BANK(Music_SinnohGameCorner), Music_SinnohGameCorner ; 0xedd6d
-	dbw BANK(Music_BikeRiding), Music_BikeRiding ; 0xee119
+	dbw BANK(Music_SinnohBike), Music_SinnohBike ; 0xee119
 	dbw BANK(Music_HallOfFame), Music_HallOfFame ; unchanged
 	dbw BANK(Music_Cities1), Music_Cities1 ; 0xf4000
 	dbw BANK(Music_Celadon), Music_Celadon ; 0xf435b
@@ -42,7 +42,7 @@
 	dbw BANK(Music_MeetProfOak), Music_MeetProfOak ; 0xf4dea
 	dbw BANK(Music_LookRival), Music_LookRival ; unchanged
 	dbw BANK(Music_AfterTheRivalFight), Music_AfterTheRivalFight ; unchanged
-	dbw BANK(Music_Surf), Music_Surf ; unchanged
+	dbw BANK(Music_SinnohSurfing), Music_SinnohSurfing ; unchanged
 	dbw BANK(Music_Evolution), Music_Evolution ; unchanged
 	dbw BANK(Music_NationalPark), Music_NationalPark ; 0xf54e8
 	dbw BANK(Music_Credits), Music_Credits ; 0x1f31c

@@ -228,9 +228,9 @@ SECTION "Custom Songs 2", ROMX, BANK[CUSTOM_SONGS_2]
 INCLUDE "audio/music/custom/naljowildbattle.asm"
 INCLUDE "audio/music/custom/naljogymbattle.asm"
 INCLUDE "audio/music/custom/palletbattle.asm"
-INCLUDE "audio/music/custom/cinnabarremix.asm"
 INCLUDE "audio/music/custom/kantogymleaderremix.asm"
 INCLUDE "audio/music/DPPt/route216.asm"
+INCLUDE "audio/music/DPPt/bike.asm"
 
 SECTION "DPPt Songs 1", ROMX, BANK[DPPT_SONGS_1]
 
@@ -246,7 +246,7 @@ INCLUDE "audio/music/DPPt/route205.asm"
 INCLUDE "audio/music/DPPt/route206.asm"
 INCLUDE "audio/music/DPPt/route209.asm"
 INCLUDE "audio/music/DPPt/route210.asm"
-INCLUDE "audio/music/DPPt/EternaForest.asm"
+INCLUDE "audio/music/DPPt/surfing.asm"
 INCLUDE "audio/music/DPPt/jubilifecity.asm"
 
 SECTION "TCG Songs 1", ROMX, BANK[TCG_SONGS_1]

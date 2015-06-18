@@ -192,7 +192,8 @@ ENDM
 	dbw BANK(Music_Route209), Music_Route209
 	dbw BANK(Music_Route210), Music_Route210
 	dbw BANK(Music_Route216), Music_Route216
-	dbw BANK(Music_EternaForest), Music_EternaForest
+	dbw BANK(Music_SinnohBike), Music_SinnohBike
+	dbw BANK(Music_SinnohSurfing), Music_SinnohSurfing
 	dbw BANK(Music_SinnohGameCorner), Music_SinnohGameCorner
 	dbw BANK(Music_PokeRadar), Music_PokeRadar
 	dbw BANK(Music_Poffins), Music_Poffins
@@ -201,7 +202,6 @@ ENDM
 
 	dbw BANK(Music_CeruleanGSC), Music_CeruleanGSC
 	dbw BANK(Music_CinnabarGSC), Music_CinnabarGSC
-	dbw BANK(Music_CinnabarRemix), Music_CinnabarRemix
 	dbw BANK(Music_NuggetBridge), Music_NuggetBridge
 	dbw BANK(Music_Shop), Music_Shop
 	dbw BANK(Music_PokeathelonFinal), Music_PokeathelonFinal

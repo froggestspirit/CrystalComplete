@@ -69,3 +69,5 @@ hCGB               EQU $ffe6
 hSGB               EQU $ffe7
 hDMATransfer       EQU $ffe8
 
+hMPState           EQU $ffed
+hBuffer2           EQU $ffee

@@ -3,7 +3,7 @@ INCLUDE "includes.asm"
 
 SECTION "Music_Player", ROMX, BANK[MUSIC_PLAYER]
 
-NUMSONGS EQU 253
+NUMSONGS EQU 255
 
 MusicTestGFX:
 INCBIN "gfx/misc/music_test.2bpp"
@@ -75,6 +75,13 @@ MusicPlayer::
 	;ld de, 01
 	;call PlayMusic
 	;call WhiteBGMap
+	di
+	call DoubleSpeed
+	xor a
+	ld [rIF], a
+	ld a, $f
+	ld [rIE], a
+	ei
 	call ClearTileMap
 	hlcoord 6, 5
 	ld de, LoadingText
@@ -118,8 +125,6 @@ MusicPlayer::
 	set 7, [hl]
 	ei
 
-	set 2, [hl] ; 8x16 sprites
-
 	call ClearSprites
 
 	xor a
@@ -132,8 +137,20 @@ MusicPlayer::
 	ld [wChannelSelectorSwitches+2], a
 	ld [wChannelSelectorSwitches+3], a
 	ld [wSpecialWaveform], a
+	ld [hMPState], a
 	ld a, $ff
 	ld [wRenderedWaveform], a
+	
+	ld a, [rSVBK]
+	push af
+	ld a, 4
+	ld [rSVBK], a
+	xor a
+	ld hl, wMPNotes
+	ld bc, 4*256
+	call ByteFill
+	pop af
+	ld [rSVBK], a
 
 MPlayerTilemap:
 
@@ -141,6 +158,14 @@ MPlayerTilemap:
 	ld hl, MPTilemap
 	decoord 0, 0
 	call CopyBytes
+	
+	ld bc, NoteOAMEnd-NoteOAM
+	ld hl, NoteOAM
+	ld de, Sprites
+	call CopyBytes
+	call DelayFrame
+	xor a
+	ld [hOAMUpdate], a ; we will manually do it in LCD interrupt
 	
 	ld hl, wChannelSelectorSwitches
 	ld a, 3
@@ -163,7 +188,11 @@ MPlayerTilemap:
 .getsong ;get the current song
 	ld a, [CurMusic]
 	jp .redraw
+        ld a, [rSVBK]
+        ld [hBuffer2], a
 .loop
+        ld a, 4
+        ld [rSVBK], a
 	call UpdateVisualIntensity
 	call DelayFrame
 	
@@ -214,6 +243,10 @@ MPlayerTilemap:
     ld a, 1
     jr .redraw
 .start
+    xor a
+    ld [hMPState], a
+    ld a, [hBuffer2]
+    ld [rSVBK], a
     call SongSelector
     jp MPlayerTilemap
 .redraw	
@@ -249,7 +282,7 @@ MPlayerTilemap:
 	call PlaceString
 	
 	
-	xor a ; VBlank0
+	ld a, 5 ; VBlank5
 	ld [$ff9e], a
 	
 	; refresh top two portions
@@ -470,9 +503,21 @@ MPlayerTilemap:
 	ret
 
 .exit
+    xor a
+    ld [hMPState], a
+    ld [$ff9e], a ; VBlank0
+    ld a, [hBuffer2]
+    ld [rSVBK], a
     call ClearSprites
     ld hl, rLCDC
     res 2, [hl] ; 8x8 sprites
+    di
+    call NormalSpeed
+    xor a
+    ld [rIF], a
+    ld a, $f
+    ld [rIE], a
+    ei
     ret
 
 .ChangingPitchleft
@@ -832,8 +877,36 @@ DrawNotes:
     ld [wTmpCh], a
     call DrawNote
     call CheckForVolumeBarReset
-    call MoveNotes
+    
+    ld a, [rSVBK]
+    push af
+    ld a, 4
+    ld [rSVBK], a
+    ld a, [hMPState]
+    inc a
+    cp 145
+    jr nz, .skip
+    ld a, 1
+.skip
+    ld [hMPState], a
+    dec a
+    push af
+    call .copynotes
+    pop af
+    add $90
+    call nc, .copynotes
+    pop af
+    ld [rSVBK], a
     ret
+    
+.copynotes
+    ld bc, 4
+    ld hl, wMPNotes
+    call AddNTimes
+    ld d, h
+    ld e, l
+    ld hl, wWaveformTmp
+    jp CopyBytes
 
 CheckEndedNote:
 ; Check that the current channel is actually playing a note.
@@ -907,11 +980,11 @@ NoteEnded:
 
 DrawNote:
     call CheckChannelOn
-    ret c
+    jp c, WriteBlankNote
     call GetPitchAddr
     ld a, [hl]
     and a
-    ret z ; rest
+    jp z, WriteBlankNote ; rest
     inc hl
     ld a, [hld] ; octave
     ld c, 14
@@ -930,11 +1003,6 @@ DrawNote:
     
 DrawChangedNote:    
     ld [hl], b
-    ld a, [wTmpCh]
-    ld bc, 4
-    ld hl, Sprites
-    call AddNTimes
-    call AddNoteToOld
     call SetVisualIntensity
     ; spillover
 
@@ -959,31 +1027,7 @@ DrawNewNote:
     ld a, [hl]
     add b
     ld c, a
-    
-    push bc
-    ld a, [wTmpCh]
-    ld bc, 4
-    ld hl, Sprites
-    call AddNTimes
-    pop bc
-    ld a, $13*8
-    ld [hli], a 
-    ld a, c
-    ld [hli], a
-    
-    push hl
-    ld hl, $0020
-    ld bc, $20
-    ld a, [wTmpCh]
-    call AddNTimes
-    ld a, l
-    pop hl
-    ;add 1;8
-    ld [hli], a
-    ld a, $80
-    ld [hli], a
-    
-    ret
+    jp WriteNotePitch
 
 DrawLongerNote:
     ld a,[wTmpCh]
@@ -995,35 +1039,27 @@ DrawLongerNote:
     cp $9
     jr nc, .fadingUp
     call CheckEndedNote
-    ret c
+    jp c, WriteBlankNote
     jr .notFadingUp
 
 .fadingUp
     call CheckNoteDuration
-    ret c
+    jp c, WriteBlankNote
 .notFadingUp
-    ld a, [wTmpCh]
-    ld bc, 4
-    ld hl, Sprites
-    call AddNTimes
-    inc hl
-    inc hl
-    ld a, [hl]
-    inc a
-    inc a
-    ld b, a
-    and a, %00011111
-    ;srl a
+    jp DrawNewNote
     
-    jr z, .newnote
-    ld a, b
+WriteBlankNote:
+    xor a
+    ld c, a
+
+WriteNotePitch:
+    ld hl, wWaveformTmp ; recycle
+    ld a, [wTmpCh]
+    ld e, a
+    ld d, 0
+    add hl, de
+    ld a, c
     ld [hl], a
-    ret
-.newnote
-    dec hl
-    dec hl
-    call AddNoteToOld
-    call DrawNewNote
     ret
 
 CheckForVolumeBarReset:
@@ -1213,27 +1249,6 @@ AddNoteToOld:
 .startover
     xor a
     ld [wNumNoteLines], a
-    ret
-
-MoveNotes:
-    ld b, $28
-    ld de, 4
-    ld hl, Sprites
-.loop
-    dec [hl]
-    jr z, .remove
-.removed
-    add hl, de
-    dec b
-    jr nz, .loop
-    ret
-.remove
-    inc hl
-    inc hl
-    xor a
-    ld [hld], a
-    dec hl
-    jr .removed
     ret
 
 Pitchels:
@@ -1630,6 +1645,12 @@ MPKeymap:
 db  0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5
 
 MPKeymapEnd
+    
+NoteOAM:
+    db 0,0,$20,$80
+    db 0,0,$40,$80
+    db 0,0,$60,$80
+NoteOAMEnd
 
 Additional:
 	db "Additional Credits:@"
@@ -1808,13 +1829,13 @@ SongInfo:
     db "Route 209@", 6, 1, 2
     db "Route 210@", 6, 1, 2
     db "Route 216@", 6, 1, 2
-    db "Eterna Forest@", 6, 1, 2
-    db "Sinnoh Game Corner@", 6, 1, 2
+    db "Bicycle@", 6, 1, 2
+    db "Surfing@", 6, 1, 2
+    db "Game Corner@", 6, 1, 2
     db "PokéRadar@", 6, 1, 2
     db "Poffins@", 6, 1, 2
     db "Cerulean City@", 7, 1, 2
     db "Cinnabar Island@", 7, 1, 2
-    db "Cinnabar Island     GSC Remix@", 1, 1, 2
     db "Route 24@", 7, 1, 2
     db "Shop@", 7, 8, 2
     db "Pokéathlon Finals@", 7, $0a, 2
