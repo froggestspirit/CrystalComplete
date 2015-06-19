@@ -1073,7 +1073,7 @@ Music_SinnohBike_Ch1_loop:
 Music_SinnohBike_Ch2:
 Music_SinnohBike_Ch2_loop:
 	notetype $C, $C3
-	dutycycle 2
+	dutycycle 1
 	tone $0002
 	vibrato $12, $12
 	octave 3
@@ -1157,7 +1157,7 @@ Music_SinnohBike_Ch2_loop:
 	notetype $C, $C7
 	note D_, 12
 	intensity $C1
-	dutycycle 1
+	dutycycle 2
 	note D#, 1
 	note E_, 1
 	note D#, 1
@@ -1243,6 +1243,7 @@ Music_SinnohBike_Ch2_loop:
 	notetype $E, $C7
 	note D_, 12
 	notetype $C, $B7
+	dutycycle 1
 	vibrato $12, $34
 	note E_, 1
 	note F#, 1
