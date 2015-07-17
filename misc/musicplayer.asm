@@ -884,21 +884,22 @@ DrawNotes:
     ld [rSVBK], a
     ld a, [hMPState]
     inc a
-    cp 145
-    jr nz, .skip
-    ld a, 1
-.skip
     ld [hMPState], a
+    cp 145 + 1
+    jr c, .skip
+    ld a, 1
+    ld [hMPState], a
+.skip
     dec a
     push af
     call .copynotes
     pop af
-    add $90
+    add 144
     call nc, .copynotes
     pop af
     ld [rSVBK], a
     ret
-    
+
 .copynotes
     ld bc, 4
     ld hl, wMPNotes

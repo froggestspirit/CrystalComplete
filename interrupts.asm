@@ -41,36 +41,54 @@ _LCD:
 .done
     pop af
     reti
-    
+
 .mp
-    push hl
-    push bc
     ld a, [rLY]
-    ld b, a
+    cp 144 - 8
+    jr nc, .donemp
+
+    push hl
+
+    ld l, a
     add $11
     ld [$fe00], a
     ld [$fe04], a
     ld [$fe08], a
+
     ld a, [hMPState]
-    add b
-    jr nc, .skipsub
-    sub $90
-.skipsub
+    dec a
+    add 2 + 8
+    add l
+    jr nc, .ok
+    sub 144
+.ok
+
     ld h, 0
     ld l, a
     add hl, hl
     add hl, hl
-    ld bc, wMPNotes
-    add hl, bc
+
+if 0 ; if wMPNotes % $100
+    ld a, l
+    add wMPNotes % $100
+    ld l, a
+    ld a, h
+    adc wMPNotes / $100
+    ld h, a
+else
+    ld a, h
+    add wMPNotes / $100
+    ld h, a
+endc
+
     ld a, [hli]
     ld [$fe01], a
     ld a, [hli]
     ld [$fe05], a
     ld a, [hli]
     ld [$fe09], a
-    pop bc
     pop hl
+
+.donemp
     pop af
     reti
-    
-    
