@@ -1,5 +1,7 @@
 # Pokémon Crystal
 
+I strongly advise not to use this repo, as the code is messy, and very outdated. Though the music player and voltorb flip may be the only worthwile things here.
+
 This is a disassembly of Pokémon Crystal.
 
 The source code in this project successfully converts back into a ROM image.
